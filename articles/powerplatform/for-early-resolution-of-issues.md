@@ -55,9 +55,11 @@ categories:
 >[!NOTE]
 >事象再現時の動画は、**Snipping Tool** を使用することで、簡単に取得できます。
 >
->1. Snipping Tool を起動し、動画ボタンをクリック、Windows + Shift + R を押します。<br>![launch snipping tool](for-early-resolution-of-issues/snipping_tool.png)
->2. 録画する画面の範囲を四角で囲んだ後、「スタート」をクリックして動画の録画を開始します。<br>![start recording](for-early-resolution-of-issues/start_recording.png)
->3. 事象の再現が完了したら、録画停止ボタンを押して終了です。
+>① Snipping Tool を起動し、動画ボタンをクリック、Windows + Shift + R を押します。<br>![ ](for-early-resolution-of-issues/snipping_tool.png)
+> 
+>② 録画する画面の範囲を四角で囲んだ後、「スタート」をクリックして動画の録画を開始します。<br>![ ](for-early-resolution-of-issues/start_recording.png)
+> 
+>③ 事象の再現が完了したら、録画停止ボタンを押して終了です。
 
 また、事象再現時のクライアントとサーバー間の通信を確認するために下記ログの採取をご依頼する場合がございます。事象再現時時の RequestID や正確な日時がわかるため、エラーだけでなく、サーバーからの応答遅延などの問題にも素早く正確な調査を開始できます。
 
