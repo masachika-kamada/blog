@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Power Apps キャンバス アプリ お問い合わせの際の情報取得手順 | Japan Dynamics CRM &amp; Power Platform Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは、Power Platform サポートの大友、竹内、原です。   本記事では、キャンバス アプリのトラブルシューティングを行うにあたって、必要となる情報の取得手順をご説明します。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Power Apps キャンバス アプリ お問い合わせの際の情報取得手順">
+<meta property="og:url" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/index.html">
+<meta property="og:site_name" content="Japan Dynamics CRM &amp; Power Platform Support Blog">
+<meta property="og:description" content="こんにちは、Power Platform サポートの大友、竹内、原です。   本記事では、キャンバス アプリのトラブルシューティングを行うにあたって、必要となる情報の取得手順をご説明します。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image03.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image04.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image05.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image06.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage00.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage04.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage03.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage01.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage02.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage03.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage05.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage06.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage07.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage08.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage09.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/uImage03.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image31.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image32.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image33.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image34.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image35.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image07.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image07-2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image36.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image37.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image38.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image39.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image40.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image41.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image42.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image43.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image44.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image08.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image09.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image14.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image10.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image11.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image12.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image13.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image14-2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image15.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image16.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image17.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image18.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image19.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image20.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image21.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image30.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image22.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image23.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image24.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image25.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image26.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image27.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image20.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image28.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image29.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image23.png">
+<meta property="article:published_time" content="2023-03-30T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-16T10:35:40.916Z">
+<meta property="article:author" content="Japan Dynamics CRM &amp; Power Platform Support Team">
+<meta property="article:tag" content="Canvas app">
+<meta property="article:tag" content="Power Apps">
+<meta property="article:tag" content="情報採取">
+<meta property="article:tag" content="お問い合わせ全般">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/image03.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Dynamics CRM &amp; Power Platform Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="../../favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpdynamicscrm.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Dynamics CRM &amp; Power Platform Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Dynamics CRM &amp; Power Platform テクニカル サポート チームより、情報をお届けします！</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-canvasapp/troubleshooting-general-canvasapp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Power Apps キャンバス アプリ お問い合わせの際の情報取得手順
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published: 
+        <a href="" class="article-date-single">
+  <time datetime="2023-03-30T15:00:00.000Z" itemprop="datePublished">2023-03-31</time>
+</a>
+        
+          / Last update: <a id="update-time" class="article-date-single"></a>
+/ Contributors: <ul style="display: inline-block; list-style:none" id="contributors" class="github-contributors"> </ul>
+
+<script type="text/javascript">
+  const sourceUrl = "https://github.com/jpdynamicscrm/blog/blob/master/articles/canvasapp/troubleshooting-general-canvasapp.md";
+  const urlParts = sourceUrl.split("/");
+  const user = urlParts[3];
+  const repo = urlParts[4];
+  const filePath = urlParts.slice(7).join("/");
+  const apiUrl = `https://api.github.com/repos/${user}/${repo}/commits?path=${filePath}`;
+  function formatDate(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + day;
+    }
+
+    return year + '-' + month + '-' + day;
+  }
+
+  $.getJSON(apiUrl, function (data) {
+    const commit = data[0];
+    const updateDate = new Date(commit.commit.author.date);
+    const localDate = formatDate(updateDate);
+    const contributors = new Map();
+
+    data.reverse().forEach(function (commit) {
+      if (commit.author == null) {
+        return;
+      } else {
+        const name = commit.author.login;
+        const url = commit.author.html_url;
+        const avatar = commit.author.avatar_url;
+        contributors.set(name, { name, url, avatar });
+      }
+    });
+
+    $("#update-time").text(localDate);
+    $("#update-time").href = commit.html_url;
+    Array.from(contributors, ([_, value]) => value).reverse().forEach(function (contributor) {
+      $("#contributors").append(`<li class="contributor-avatar"><a target="_blank" rel="noopener" href="https://github.com/${contributor.name}" title="${contributor.name}"><img src="${contributor.avatar}" alt="${contributor.name}"/></a></li>`);
+    });
+  });
+</script>
+        
+        
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Power-Apps/">Power Apps</a>►<a class="article-category-link" href="../../categories/Power-Apps/Canvas-app/">Canvas app</a>
+  </div>
+
+        
+        <a href="https://github.com/jpdynamicscrm/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+26bfc702-5e53-54d9-88f2-f1ec350b5e10%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BPower+Apps+%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9+%E3%82%A2%E3%83%97%E3%83%AA+%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AE%E9%9A%9B%E3%81%AE%E6%83%85%E5%A0%B1%E5%8F%96%E5%BE%97%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpdynamicscrm.github.io%2Fblog%2Fcanvasapp%2Ftroubleshooting-general-canvasapp%2F%29%0A*+Content+Source%3A+%5Barticles%2Fcanvasapp%2Ftroubleshooting-general-canvasapp.md%5D%28https%3A%2F%2Fgithub.com%2Fjpdynamicscrm%2Fblog%2Fblob%2Fmaster%2Farticles%2Fcanvasapp%2Ftroubleshooting-general-canvasapp.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpdynamicscrm.github.io/blog/canvasapp/troubleshooting-general-canvasapp/" data-id="cmj8g5rt800l70nmsehkl8h1q" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Power Platform サポートの大友、竹内、原です。  </p>
+<p>本記事では、キャンバス アプリのトラブルシューティングを行うにあたって、必要となる情報の取得手順をご説明します。</p>
+<span id="more"></span>
+<h1 id="目次"><a href="#目次" class="headerlink" title="目次"></a>目次</h1><ol>
+<li><a href="#anchor-intro">概要</a></li>
+<li><a href="#anchor-how-to-collect">情報取得手順詳細</a><ol>
+<li><a href="#anchor-about-situation">事象の発生状況</a></li>
+<li><a href="#anchor-about-screencapture">事象発生時のエラーメッセージや画面キャプチャ・動画</a><ul>
+<li><a href="#anchor-errormessage-image">エラーメッセージや画面キャプチャ</a></li>
+<li><a href="#anchor-video">動画</a></li>
+</ul>
+</li>
+<li><a href="#anchor-about-appchecker">アプリ チェッカーのエラーメッセージ　※編集中のみ</a></li>
+<li><a href="#anchor-about-versions">Power Apps バージョン</a><ul>
+<li><a href="#anchor-about-versions-edit">キャンバス アプリ 編集時</a></li>
+<li><a href="#anchor-about-versions-play">キャンバス アプリ 実行時</a></li>
+</ul>
+</li>
+<li><a href="#anchor-about-monitorlog">Power Apps モニターログ</a><ul>
+<li><a href="#anchor-about-monitorlog-edit">キャンバス アプリ 編集時</a></li>
+<li><a href="#anchor-about-monitorlog-web-play">キャンバス アプリ 実行時 (Webブラウザ) </a></li>
+<li><a href="#anchor-about-monitorlog-mobile-play">キャンバス アプリ 実行時 (Power Appsモバイル アプリ) </a></li>
+<li><a href="#anchor-about-powerapps-for-teams">キャンバス アプリ 実行時 (TeamsのPower Appsアプリ) </a>      </li>
+</ul>
+</li>
+<li><a href="#anchor-about-networkhar">ネットワーク トレース・コンソール ログ</a><ul>
+<li><a href="#anchor-networktrace">ネットワーク トレース</a></li>
+<li><a href="#anchor-consolelog">コンソール ログ</a></li>
+<li><a href="#anchor-teamslog">Teamsクライアントのネットワーク トレース、診断ログ</a></li>
+</ul>
+</li>
+<li><a href="#anchor-about-sessionid">セッションID</a><ul>
+<li><a href="#anchor-about-sessionid-web-edit">編集セッション</a></li>
+<li>Windows 端末での実行セッション<ul>
+<li><a href="#anchor-about-sessionid-web-play">Webブラウザ</a></li>
+<li><a href="#anchor-about-sessionid-web-sharepointcustomform">SharePoint カスタム フォーム</a></li>
+<li><a href="#anchor-about-sessionid-web-sharepointcustomform">Windows Teams アプリ上での実行</a></li>
+<li><a href="#anchor-about-sessionid-web-sharepointcustomform">サイト埋め込みのキャンバス アプリ</a></li>
+</ul>
+</li>
+<li>モバイル端末(iOS, Android)<ul>
+<li><a href="#anchor-about-sessionid-mobile-play">モバイル アプリ</a></li>
+<li><a href="#anchor-about-sessionid-teams-mobile">Webブラウザ</a></li>
+<li><a href="#anchor-about-sessionid-teams-mobile">モバイル版 Teams アプリ上での実行</a></li>
+<li><a href="#anchor-about-sessionid-teams-mobile">サイト埋め込みのキャンバス アプリ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#anchor-about-app-tenant-ids">アプリURL (アプリID、テナントID) </a></li>
+<li><a href="#anchor-about-enviromentid">環境ID</a></li>
+<li><a href="#anchor-about-canvasapp">アプリのエクスポートファイル</a><ul>
+<li><a href="#anchor-about-canvasapp-published">公開済みアプリ</a></li>
+<li><a href="#anchor-about-canvasapp-edit">編集中アプリ</a></li>
+<li><a href="#anchor-about-canvasapp-solutionapp">アプリを含むソリューションファイル</a></li>
+<li><a href="#anchor-about-canvasapp-spocustomform">SharePoint カスタムフォーム</a></li>
+<li><a href="#anchor-about-canvasapp-componentlibrary">コンポーネント単体</a></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p><a id='anchor-intro'></a></p>
+<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>弊社サポートでは、お問合せを頂いた際のトラブルシューティングにおいて、お問い合わせの内容をもとに調査方針を立てております。<br>発生している事象の把握のため、発生している事象の切り分けや情報提供をお願いすることがあります。<br>Power Apps キャンバスアプリに関するサポートサービスのお問合せの際の情報取得手順について、以下のとおりご案内いたします。</p>
+<div class="alert is-important"><p class="alert-title">重要</p><p>以下の情報は<strong>事象再現の事前</strong>に取得開始し、<strong>事象を再現させた後</strong>に採取を行う必要がございます。</p><p>・事象発生時の動画</p><p>・Power Apps モニターログ</p><p>・Webブラウザのネットワーク トレース・コンソール ログ</p></div>
+<p><a id='anchor-how-to-collect'></a></p>
+<h1 id="情報取得手順"><a href="#情報取得手順" class="headerlink" title="情報取得手順"></a>情報取得手順</h1><p><a id='anchor-about-situation'></a></p>
+<h2 id="1-事象の発生状況"><a href="#1-事象の発生状況" class="headerlink" title="1. 事象の発生状況"></a>1. 事象の発生状況</h2><p>エラーや意図しない状況がどのような状況下で発生するかお知らせください。<br>事象の発生条件を特定することで、問題の特定だけではなく弊社環境での再現調査においても有用な情報が得られます。<br>以下の情報をお知らせいただくことでより明確に事象を把握することができます。  </p>
+<ol>
+<li>事象が発生するタイミング<ul>
+<li>いつから発生しているか・現在も継続して発生しているか</li>
+<li>どれぐらいの頻度で発生しているか</li>
+<li>発生前後で何らかの変更を行ったか</li>
+<li>特定の操作で発生するか</li>
+</ul>
+</li>
+<li>事象の発生環境<ul>
+<li>機種</li>
+<li>OS およびバージョン</li>
+<li>Web ブラウザ or Power Apps アプリ</li>
+<li>ブラウザ種類 (Microsoft Edge、Google Chrome、Firefoxなど)</li>
+<li>プラグインや拡張機能の有無</li>
+</ul>
+</li>
+<li>特定の利用で発生する事象か<ul>
+<li>特定の端末か？</li>
+<li>事象が発生している端末と事象が発生していない端末の差異</li>
+<li>特定のユーザーか？</li>
+<li>事象が発生しているユーザーと事象が発生していないユーザーの差<br>および、両者のメールアドレスやユーザープリンシパル名</li>
+</ul>
+</li>
+<li>キャンバス アプリをご利用いただいている端末のネットワーク環境の差異<ul>
+<li>プロキシ経由かどうか</li>
+<li>Azure Express Route の利用有無</li>
+<li>セキュリティ製品の利用有無</li>
+</ul>
+</li>
+</ol>
+<p><a id='anchor-about-screencapture'></a></p>
+<h2 id="2-事象発生時のエラーメッセージや画面キャプチャ・動画"><a href="#2-事象発生時のエラーメッセージや画面キャプチャ・動画" class="headerlink" title="2. 事象発生時のエラーメッセージや画面キャプチャ・動画"></a>2. 事象発生時のエラーメッセージや画面キャプチャ・動画</h2><p>エラーの内容を具体的に表すメッセージや画面キャプチャなどの情報をお寄せください。<br>事象再現時の動画がありますと事象の発生状況をより正確に把握することができます。  </p>
+<p><a id='anchor-errormessage-image'></a></p>
+<h3 id="2-1-エラーメッセージや画面キャプチャ"><a href="#2-1-エラーメッセージや画面キャプチャ" class="headerlink" title="2-1. エラーメッセージや画面キャプチャ"></a>2-1. エラーメッセージや画面キャプチャ</h3><p>エラーの内容が分かるよう画面キャプチャをご取得ください。<br>エラーメッセージ内にタイムスタンプやエラーコードが記載されている場合はそれらの情報を <strong>テキスト形式</strong> でご取得ください。  </p>
+<p><a id='anchor-video'></a></p>
+<h3 id="2-2-動画"><a href="#2-2-動画" class="headerlink" title="2-2. 動画"></a>2-2. 動画</h3><p>以下のいずれかの方法で事象発生時の動画をご取得ください。  </p>
+<div class="alert is-important"><p class="alert-title">重要</p><p>事象発生の事前に取得開始し、事象発生後に採取を行う必要がございます。</p></div>
+<ul>
+<li>Windows ゲーム バーでの画面収録<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/windows/%E3%82%B2%E3%83%BC%E3%83%A0-%E3%83%90%E3%83%BC%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6-pc-%E3%81%AB%E3%82%B2%E3%83%BC%E3%83%A0-%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%82%92%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B-2f477001-54d4-1276-9144-b0416a307f3c">ゲーム バーを使用して PC にゲーム クリップを記録する</a></li>
+<li>Power Point での画面収録<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/office/powerpoint-%E3%81%A7%E7%94%BB%E9%9D%A2%E3%82%92%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B-0b4c3f65-534c-4cf1-9c59-402b6e9d79d0">PowerPoint で画面を記録する</a></li>
+<li>Microsoft Teams での画面収録<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/ja-jp/office/microsoft-teams-%E3%81%A7%E4%BC%9A%E8%AD%B0%E3%82%92%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B-34dfbe7f-b07d-4a27-b4c6-de62f1348c24#:~:text=Microsoft">Microsoft Teamsで会議を記録する</a></li>
+</ul>
+<p><a id='anchor-about-appchecker'></a></p>
+<h2 id="3-アプリ-チェッカーのエラーメッセージ-※編集中のみ"><a href="#3-アプリ-チェッカーのエラーメッセージ-※編集中のみ" class="headerlink" title="3. アプリ チェッカーのエラーメッセージ ※編集中のみ"></a>3. アプリ チェッカーのエラーメッセージ ※編集中のみ</h2><p>キャンバス アプリ編集中の場合、Power Apps Studio のアプリ チェッカーにエラーメッセージが記録されます。<br>エラーが発生している処理 (関数やコントロール等) と併せてアプリ チェッカーに記録されているエラーメッセージをご提供ください。</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>対象のアプリの編集画面を表示します</li>
+<li>事象を発生させます</li>
+<li>アプリ チェッカーに記録されるエラーメッセージを <strong>画面キャプチャ</strong> などで取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image03.png"></li>
+</ol>
+<p><a id='anchor-about-versions'></a></p>
+<h2 id="4-Power-Apps-バージョン"><a href="#4-Power-Apps-バージョン" class="headerlink" title="4. Power Apps バージョン"></a>4. Power Apps バージョン</h2><p>バージョン差異による問題かどうかお調べする際に使用します。</p>
+<p><a id='anchor-about-versions-edit'></a></p>
+<h3 id="4-1-キャンバス-アプリ-編集時"><a href="#4-1-キャンバス-アプリ-編集時" class="headerlink" title="4-1. キャンバス アプリ 編集時"></a>4-1. キャンバス アプリ 編集時</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>対象のアプリ編集画面を表示します</li>
+<li>メニュー「設定」&gt;「サポート」を選択します</li>
+<li>作成バージョンを <strong>テキスト形式</strong> で取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image04.png"></li>
+</ol>
+<p><a id='anchor-about-versions-play'></a></p>
+<h3 id="4-2-キャンバス-アプリ-実行時"><a href="#4-2-キャンバス-アプリ-実行時" class="headerlink" title="4-2. キャンバス アプリ 実行時"></a>4-2. キャンバス アプリ 実行時</h3><p>本手順にてキャンバス アプリのリリース バージョンをご取得いただき、さらに、事象が発生している端末においてライブ バージョンをご取得ください。<br>ライブ バージョンはセッション情報から取得します。<br>Web ブラウザで事象が発生している場合、<a href="#anchor-about-sessionid-web-play">セッションID (Webブラウザ)</a> をご参照ください。<br>モバイル アプリで事象が発生している場合、<a href="#anchor-about-sessionid-mobile-play">セッションID (モバイルアプリ)</a> をご参照ください。</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>対象のアプリの「…」メニュー&gt;「詳細」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image05.png"></li>
+<li>「バージョン」タブを押下し、Power Apps リリース バージョンを <strong>テキスト形式</strong> で取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image06.png"></li>
+</ol>
+<p><a id='anchor-about-monitorlog'></a></p>
+<h2 id="5-Power-Apps-モニターログ"><a href="#5-Power-Apps-モニターログ" class="headerlink" title="5. Power Apps モニターログ"></a>5. Power Apps モニターログ</h2><p>キャンバス アプリ編集中、あるいは実行中に発生するイベントを記録頂き、発生している事象を把握することができます。<br>ダウンロードしたファイル (PowerAppsTraceEvents.json) をご提供ください。  </p>
+<div class="alert is-important"><p class="alert-title">重要</p><p>事象発生の事前に取得開始し、事象発生後に採取を行う必要がございます。</p></div>
+<p>以下の設定を有効化することで編集時でなくとも数式の情報が記録されます。<br>実行時に発生するエラーの場合、可能でしたら以下設定を有効化しアプリ発行頂いたのちモニターログをご取得下さい。<br>ご取得後は再度設定を無効化いただきますようお願い致します。<br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage00.png"></p>
+<p><a id='anchor-about-monitorlog-edit'></a></p>
+<h3 id="5-1-キャンバス-アプリ-編集時"><a href="#5-1-キャンバス-アプリ-編集時" class="headerlink" title="5-1. キャンバス アプリ 編集時"></a>5-1. キャンバス アプリ 編集時</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にアクセスします</li>
+<li>アプリ一覧画面から対象のアプリの編集画面を表示します  </li>
+<li>画面左方にある　高度なツール &gt; 監視 &gt; モニターを開く を選択します<ul>
+<li>別タブで監視ウィンドウが表示されます<br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage04.png"></li>
+</ul>
+</li>
+<li>アプリ編集画面に戻り、事象を発生させます</li>
+<li>監視ウィンドウに移動し、記録されたモニター結果を「ダウンロード」します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage03.png"></li>
+</ol>
+<p><a id='anchor-about-monitorlog-web-play'></a></p>
+<h3 id="5-2-キャンバス-アプリ-実行時-Web-ブラウザ"><a href="#5-2-キャンバス-アプリ-実行時-Web-ブラウザ" class="headerlink" title="5-2. キャンバス アプリ 実行時 (Web ブラウザ)"></a>5-2. キャンバス アプリ 実行時 (Web ブラウザ)</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にアクセスします</li>
+<li>アプリ一覧画面から対象のアプリの「…」メニューを表示し、「監視」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage01.png"></li>
+<li>別タブで監視ウィンドウが表示されるので「公開したアプリの再生」を行います<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage02.png"></li>
+<li>別タブでアプリが再生されるので事象を発生させます  </li>
+<li>手順3で表示した監視ウィンドウに移動し、記録されたモニター結果を「ダウンロード」します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage03.png"></li>
+</ol>
+<p><a id='anchor-about-monitorlog-mobile-play'></a></p>
+<h3 id="5-3-キャンバス-アプリ-実行時-Power-Appsモバイル-アプリ"><a href="#5-3-キャンバス-アプリ-実行時-Power-Appsモバイル-アプリ" class="headerlink" title="5-3. キャンバス アプリ 実行時 (Power Appsモバイル アプリ)"></a>5-3. キャンバス アプリ 実行時 (Power Appsモバイル アプリ)</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にアクセスします</li>
+<li>アプリ一覧画面から対象のアプリの「…」メニューを表示し、「監視」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage05.png"></li>
+<li>ユーザー接続からセッションへのユーザー接続メニューを開きます<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage06.png"></li>
+<li>Power Apps モバイルで使用するユーザーを追加しリンクを入手します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage07.png"></li>
+<li>得られたリンクをメールやチャットなどでモバイル端末に送ります</li>
+<li>モバイル端末で URL へアクセスすると、 Power Apps モバイルが起動されますので事象を発生させます<br> 下図のとおり、デバックセッションに接続する旨メッセージが表示されます<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage08.png"></li>
+<li>モニターログに Power Apps モバイルの操作が記録されます<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage09.png"></li>
+<li>記録されたモニター結果を「ダウンロード」します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/uImage03.png"></li>
+</ol>
+<p><a id='anchor-about-powerapps-for-teams'></a></p>
+<h3 id="5-4-キャンバス-アプリ-実行時-TeamsのPower-Appsアプリ"><a href="#5-4-キャンバス-アプリ-実行時-TeamsのPower-Appsアプリ" class="headerlink" title="5-4. キャンバス アプリ 実行時 (TeamsのPower Appsアプリ)"></a>5-4. キャンバス アプリ 実行時 (TeamsのPower Appsアプリ)</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://admin.powerplatform.microsoft.com/">Power Platform管理センター</a>から、アプリが作成されているDataverse for Teams環境を選択します</li>
+<li>遷移後の画面内の「詳細」ペインに記載の環境 IDをメモ帳等に控えます（後で使用します）<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image31.png">　</li>
+<li>同画面内の「リソース」ペイン内のPower Appsを選択します</li>
+<li>遷移後の画面から対象のアプリを検索し、アプリの「…」メニューから「詳細」を選択します</li>
+<li>「詳細」タブ内に記載のアプリ IDをメモ帳等に控えます（後で使用します）<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image32.png">　</li>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にアクセスします</li>
+<li>アプリ一覧画面から、任意のアプリの「…」メニューを表示し、「詳細」内の「ライブ監視」を選択します<br/><br>※モニターログの画面を開くための手順ですので、どのアプリを選択しても問題ありません</li>
+<li>「ライブ監視のリンクをコピーする」に表示されるリンクをメモ帳等控えます（後で使用します）<br/><br>なお、7.で開いたモニターログの画面は、閉じないでください</li>
+<li>8.で控えたURL内の環境 ID、アプリ IDを置き換えます<br>URL内の環境 IDは<a target="_blank" rel="noopener" href="https://apps.powerapps.com/play/e/">https://apps.powerapps.com/play/e/</a> 以降の文字列（以下赤枠）、アプリ IDは、この環境 ID/a/ 以降の文字列（以下青枠）になります。<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image33.png">　</li>
+<li>9.で作成したURLを開き、事象を再現させます</li>
+<li>7.で開いたモニターログに操作が記録されます<br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/image34.png">　</li>
+<li>記録されたモニター結果を「ダウンロード」します<br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/image35.png">　</li>
+</ol>
+<div class="alert is-info"><p class="alert-title">Note</p><p>以下ブログ記事でもモニターログの取得方法をご説明しています。</p><p><a href="https://jpdynamicscrm.github.io/blog/canvasapp/Canvas-app-monitor/">キャンバス アプリのモニターログ取得手順</a></p></div>
+<p><a id='anchor-about-networkhar'></a></p>
+<h2 id="6-ネットワーク-トレース・コンソール-ログ"><a href="#6-ネットワーク-トレース・コンソール-ログ" class="headerlink" title="6. ネットワーク トレース・コンソール ログ"></a>6. ネットワーク トレース・コンソール ログ</h2><p>キャンバス アプリ編集中、あるいは実行中に Power Apps サービスへ送信する HTTP リクエストや Power Apps サービスから受信する HTTP レスポンスの内容を確認することで通信上の問題を特定します。  </p>
+<div class="alert is-important"><p class="alert-title">重要</p><p>事象発生の事前に取得開始し、事象発生後に採取を行う必要がございます。</p></div>
+<div class="alert is-info"><p class="alert-title">Note</p><p>事象の内容により、netsh trace コマンドやサードパーティ製のツール「Fiddler」によるネットワーク キャプチャの取得をお願いする場合があります。  </p></div>
+<p><a id='anchor-networktrace'></a></p>
+<h3 id="6-1-ブラウザネットワーク-トレース"><a href="#6-1-ブラウザネットワーク-トレース" class="headerlink" title="6-1. ブラウザネットワーク トレース"></a>6-1. ブラウザネットワーク トレース</h3><p>ご取得方法は以下公開情報をご参照ください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/azure/azure-web-pubsub/howto-troubleshoot-network-trace#collect-a-network-trace-in-the-browser-browser-based-apps-only">ブラウザーでネットワーク トレースを収集する (ブラウザーベースのアプリのみ)</a></p>
+<div class="alert is-important"><p class="alert-title">重要</p><p>ご取得の際は「ログの保持」「キャッシュを無効にする」にチェックを有効にしご取得ください。</p><p><img src="/blog/canvasapp/troubleshooting-general-canvasapp/image07.png"></p></div>
+<p><a id='anchor-consolelog'></a></p>
+<h3 id="6-2-コンソール-ログ"><a href="#6-2-コンソール-ログ" class="headerlink" title="6-2. コンソール ログ"></a>6-2. コンソール ログ</h3><p>Console タブをクリックし、ログ領域を右クリックし<strong>「名前を付けて保存」</strong>にて保存いたします。<br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/image07-2.png"></p>
+<p><a id='anchor-teamslog'></a></p>
+<h3 id="6-3-Teamsクライアントのネットワーク-トレース、診断ログ"><a href="#6-3-Teamsクライアントのネットワーク-トレース、診断ログ" class="headerlink" title="6-3. Teamsクライアントのネットワーク トレース、診断ログ"></a>6-3. Teamsクライアントのネットワーク トレース、診断ログ</h3><p>Teamsクライアントにおいてのみエラーが発生する場合、Teamsクライアントのネットワーク トレースやTeams 診断ログ　より、発生している事象を調査します。<br/></p>
+<ol>
+<li>Teams を起動し、「…」 &gt; 「設定」 &gt; 「プライバシー」 &gt; 「拡張診断データ」 でトグルをオンにします<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image36.png">　</li>
+<li>ノートパットやメモ帳を使用し、{“core/devMenuEnabled”: true} の記入後、”configuration.json” のファイル名にて保存します<br/><br>※ 拡張子が .json となっていることをご確認ください<br/><br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image37.png">　</li>
+<li><ol start="2">
+<li>で作成した 「configuration.json」 を以下パスのフィルダーに保存します<br/><br>パス : %localappdata%\Packages\MSTeams_8wekyb3d8bbwe\LocalCache\Microsoft\MSTeams<br/><br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/image38.png">　</li>
+</ol>
+</li>
+<li>Teams をサインアウトし、一度閉じます</li>
+<li>再度 Teams を起動し、以下の順で 「開発者ツール」 を起動します<br/><br>Windows のタスクバーにある 「隠れているインジケータを表示します」 &gt; 「Teams アイコン」 の右クリック &gt;「Engineering Tools」 &gt; 「Open DevTools (Main Window)」<br/><br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image39.png">　</li>
+<li>「Network」 タブを選択し、「Preserve log」 「Disable cache」 にチェックします<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image40.png">　</li>
+<li>Teams で事象が発生するように操作します<br/><br>※ 操作をすると以下のようにログが記録されます<br/><br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image41.png">　</li>
+<li>事象の再現が終わりましたら 「Export HAR」 にてファイルをダウンロードします<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image42.png">　</li>
+<li>Teams に戻り、「Ctrl+Alt+Shift + 1 (数字) キー」 を同時に押下し、Microsoft Teams 診断ログがダウンロードされることを確認します<br/><br>※ ダウンロードが開始されると、以下のようなメッセージが表示されます<br/><br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image43.png">　</li>
+<li>「ダウンロード」 フォルダーに 「PROD-WebLogs ….zip」「MSTeams Support Logs …フォルダー」 が生成されていることを確認します<br/><br><img src="/blog/canvasapp/troubleshooting-general-canvasapp/image44.png">　</li>
+<li><ol start="8">
+<li>で取得したHARファイルと、10. で取得した「PROD-WebLogs ….zip」 および 「MSTeams Support Logs … フォルダー」 を圧縮した .zip ファイル　のご提供をお願いします</li>
+</ol>
+</li>
+</ol>
+<p><a id='anchor-about-sessionid'></a></p>
+<h2 id="7-セッション-ID"><a href="#7-セッション-ID" class="headerlink" title="7. セッション ID"></a>7. セッション ID</h2><p>セッション情報から Power Apps サービス側の記録を確認し、発生している事象を調査します。</p>
+<p><a id='anchor-about-sessionid-web-edit'></a></p>
+<h3 id="7-1-キャンバス-アプリ編集時"><a href="#7-1-キャンバス-アプリ編集時" class="headerlink" title="7-1. キャンバス アプリ編集時"></a>7-1. キャンバス アプリ編集時</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>アプリ一覧画面から対象のアプリのアプリ編集画面を表示します</li>
+<li>メニュー「設定」を選択します</li>
+<li>ポップアップの左メニューから「サポート」を選択します</li>
+<li>「セッション詳細」を押下し、セッション ID を <strong>テキスト形式</strong> で取得します<br>   <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image08.png"></li>
+</ol>
+<p><a id='anchor-about-sessionid-web-play'></a></p>
+<h3 id="7-2-1-キャンバス-アプリ実行時"><a href="#7-2-1-キャンバス-アプリ実行時" class="headerlink" title="7-2-1. キャンバス アプリ実行時"></a>7-2-1. キャンバス アプリ実行時</h3><ol>
+<li>対象のアプリを実行します</li>
+<li>画面右上部の歯車アイコンを押下します</li>
+<li>「セッション詳細」を選択し、Power Apps ライブ バージョンを含む、表示されている情報をすべてを <strong>テキスト形式</strong> で取得します<br>   <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image09.png"></li>
+</ol>
+<p><a id='anchor-about-sessionid-web-sharepointcustomform'></a></p>
+<h3 id="7-2-2-SharePoint-カスタム-フォーム、Windows-Teams-アプリ、Web-版-Teams、埋め込みのキャンバス-アプリ"><a href="#7-2-2-SharePoint-カスタム-フォーム、Windows-Teams-アプリ、Web-版-Teams、埋め込みのキャンバス-アプリ" class="headerlink" title="7-2-2. SharePoint カスタム フォーム、Windows Teams アプリ、Web 版 Teams、埋め込みのキャンバス アプリ"></a>7-2-2. SharePoint カスタム フォーム、Windows Teams アプリ、Web 版 Teams、埋め込みのキャンバス アプリ</h3><ol>
+<li><code>Alt</code> キーを押下しながらフォームを右クリックします</li>
+<li>表示される「セッション詳細」を押下し、セッション ID を <strong>テキスト形式</strong> で取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image14.png"></li>
+</ol>
+<p><a id='anchor-about-sessionid-mobile-play'></a></p>
+<h3 id="7-3-1-モバイル-アプリ"><a href="#7-3-1-モバイル-アプリ" class="headerlink" title="7-3-1. モバイル アプリ"></a>7-3-1. モバイル アプリ</h3><ol>
+<li>Power Apps モバイル アプリを起動します</li>
+<li>画面左上部のユーザーアイコンを押下します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image10.png"></li>
+<li>「バージョン情報」を <strong>テキスト形式</strong> でお手元に控えます<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image11.png"></li>
+<li>「セッション詳細」を押下します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image12.png"></li>
+<li>クリップボードにコピーされた セッション ID を <strong>テキスト形式</strong> で取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image13.png"></li>
+</ol>
+<p><a id='anchor-about-sessionid-teams-mobile'></a></p>
+<h3 id="7-3-2-モバイル-iOS-Android-端末の-Web-ブラウザ、Teams-アプリ、Web-版-Teams、埋め込みのキャンバス-アプリ"><a href="#7-3-2-モバイル-iOS-Android-端末の-Web-ブラウザ、Teams-アプリ、Web-版-Teams、埋め込みのキャンバス-アプリ" class="headerlink" title="7-3-2. モバイル(iOS, Android)端末の Web ブラウザ、Teams アプリ、Web 版 Teams、埋め込みのキャンバス アプリ"></a>7-3-2. モバイル(iOS, Android)端末の Web ブラウザ、Teams アプリ、Web 版 Teams、埋め込みのキャンバス アプリ</h3><ol>
+<li>アプリ画面を二本指でロングタップ(長押し)します</li>
+<li>表示される「セッション詳細」を押下し、セッション ID を <strong>テキスト形式</strong> で取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image14-2.png"></li>
+</ol>
+<p><a id='anchor-about-app-tenant-ids'></a></p>
+<h2 id="8-アプリ-URL-アプリ-ID、テナント-ID"><a href="#8-アプリ-URL-アプリ-ID、テナント-ID" class="headerlink" title="8. アプリ URL (アプリ ID、テナント ID)"></a>8. アプリ URL (アプリ ID、テナント ID)</h2><p>アプリ ID、テナント ID の情報から Power Apps サービス側の記録を確認し、発生している事象を調査します。</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にアクセスします</li>
+<li>アプリ一覧画面から対象のアプリの「…」メニューを押下し、「詳細」を選択します</li>
+<li>Web リンク、アプリ ID を <strong>テキスト形式</strong> で取得します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image15.png"></li>
+</ol>
+<p><a id='anchor-about-enviromentid'></a></p>
+<h2 id="9-環境-ID"><a href="#9-環境-ID" class="headerlink" title="9. 環境 ID"></a>9. 環境 ID</h2><p>環境 ID の情報から Power Apps サービス側の記録を確認し、発生している事象を調査します。</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にアクセスします</li>
+<li>事象が発生している環境に切り替えます (❶)</li>
+<li>画面右上部の歯車アイコンを押下します (❷)</li>
+<li>「セッション詳細」を選択します (❸)</li>
+<li>ポップアップで表示された、環境 ID を含むセッションの詳細情報すべてを <strong>テキスト形式</strong> で取得します (❹)<br> ※環境 ID は赤枠で囲った部分です。本セッション情報を用いて事象が発生している環境の情報を確認します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image16.png"></li>
+</ol>
+<p><a id='anchor-about-canvasapp'></a></p>
+<h2 id="10-アプリ"><a href="#10-アプリ" class="headerlink" title="10. アプリ"></a>10. アプリ</h2><p>事象が発生しているアプリを調査し、問題の箇所を特定します。<br>アプリが接続するデータソースにより SharePoint リストのテンプレートや Dataverse テーブルのメタ情報をご提供いただく場合があります。</p>
+<p>「エクスポート」機能によりエクスポートされるアプリのファイルは公開済みのバージョンです。<br>アプリを編集中の場合は msapp ファイルとしてローカルに保存したアプリのファイルをご取得ください。</p>
+<p><a id='anchor-about-canvasapp-published'></a></p>
+<h3 id="10-1-公開済みアプリ"><a href="#10-1-公開済みアプリ" class="headerlink" title="10-1. 公開済みアプリ"></a>10-1. 公開済みアプリ</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>アプリ一覧画面から対象のアプリの「…」メニューを押下し、「エクスポート パッケージ」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image17.png"></li>
+<li>任意の名前を付けてエクスポートします</li>
+<li>ローカルに zip ファイルがダウンロードされます</li>
+</ol>
+<p><a id='anchor-about-canvasapp-edit'></a></p>
+<h3 id="10-2-編集中のアプリ"><a href="#10-2-編集中のアプリ" class="headerlink" title="10-2. 編集中のアプリ"></a>10-2. 編集中のアプリ</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>アプリ一覧画面から対象のアプリを編集します</li>
+<li>メニュー「∨」アイコン &gt; 「コピーのダウンロード」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image18.png"></li>
+<li>ローカルに msapp ファイルをダウンロードします<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image19.png"></li>
+</ol>
+<p><a id='anchor-about-canvasapp-solutionapp'></a></p>
+<h3 id="10-3-アプリを含むソリューションファイル"><a href="#10-3-アプリを含むソリューションファイル" class="headerlink" title="10-3. アプリを含むソリューションファイル"></a>10-3. アプリを含むソリューションファイル</h3><ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>ソリューション一覧画面を表示します</li>
+<li>「新しいソリューション」を押下します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image20.png"></li>
+<li>手順 3 で作成したソリューションに対象のアプリを追加します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image21.png"></li>
+<li>必須オブジェクトを追加し、アプリが使用するテーブルなどをソリューションに自動追加します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image30.png"></li>
+<li>カスタマイズを公開します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image22.png"></li>
+<li>ソリューションをエクスポートします<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image23.png"></li>
+<li>ローカルに zip ファイルがダウンロードされます</li>
+</ol>
+<p><a id='anchor-about-canvasapp-spocustomform'></a></p>
+<h3 id="10-4-SharePoint-カスタム-フォーム"><a href="#10-4-SharePoint-カスタム-フォーム" class="headerlink" title="10-4. SharePoint カスタム フォーム"></a>10-4. SharePoint カスタム フォーム</h3><ol>
+<li>カスタム フォームを設定している SharePoint リストを表示します</li>
+<li>画面右上部の歯車アイコンを選択し、「リストの設定」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image24.png"></li>
+<li>「フォームの設定」リンクを選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image25.png"></li>
+<li>「バージョンと使用方法を参照」リンクを選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image26.png"></li>
+<li>Power Apps のアプリ詳細画面に遷移しますので「エクスポート パッケージ」を選択します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image27.png"></li>
+<li>任意の名前を付けてエクスポートします</li>
+<li>ローカルに zip ファイルがダウンロードされます</li>
+</ol>
+<p><a id='anchor-about-canvasapp-componentlibrary'></a></p>
+<h3 id="10-5-コンポーネント単体"><a href="#10-5-コンポーネント単体" class="headerlink" title="10-5. コンポーネント単体"></a>10-5. コンポーネント単体</h3><p>※キャンバス アプリ内でコンポーネントを使用している場合、<a href="#anchor-about-canvasapp-published">公開済みアプリのエクスポート ファイル</a> (あるいは、<a href="#anchor-about-canvasapp-edit">編集中アプリのエクスポート ファイル</a>) でご紹介している方法でエクスポートすると、コンポーネントが含まれた状態でエクスポートできます。</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://make.powerapps.com/">Power Apps 作成者ポータル</a> にサインインします</li>
+<li>ソリューション一覧画面を表示します</li>
+<li>「新しいソリューション」を押下します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image20.png"></li>
+<li>手順 3 で作成したソリューションに対象のコンポーネントを追加します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image28.png"></li>
+<li>カスタマイズを公開します<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image29.png"></li>
+<li>ソリューションをエクスポートします<br> <img src="/blog/canvasapp/troubleshooting-general-canvasapp/image23.png"></li>
+<li>ローカルに zip ファイルがダウンロードされます</li>
+</ol>
+<hr>
+<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>本手順は執筆時点でのユーザー インターフェイスを基に紹介しています。バージョンアップによって若干の UI の遷移など異なる場合があります。その場合は画面の指示に従って進めてください。  </p>
+<hr>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Canvas-app/" rel="tag">Canvas app</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Power-Apps/" rel="tag">Power Apps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li></ul>
+
+        
+        <a href="https://github.com/jpdynamicscrm/blog/edit/master/articles/canvasapp/troubleshooting-general-canvasapp.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../powerplatform/export-audit-log/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Dataverse の監査ログをエクスポートする方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../powerplatform/About-Dataverse-Storage/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Dataverse のストレージ容量について</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../powerplatform/active-layer/">アクティブレイヤーの確認・削除方法</a>
+          </li>
+        
+          <li>
+            <a href="../../powerautomate/power-automate-desktop-helpful-information-for-sr/">Power Automate for desktop お問い合わせの際の情報取得手順</a>
+          </li>
+        
+          <li>
+            <a href="../../powerplatform/network-trace-har-collection-and-pii-submission-guide/">ネットワークトレースの取り方と機密情報を含む場合の対処</a>
+          </li>
+        
+          <li>
+            <a href="../../powerpages/power-pages-licensing-guide/">Power Pages ライセンスについて</a>
+          </li>
+        
+          <li>
+            <a href="../../powerapps/model-driven-app-delete-guide/">モデル駆動型アプリ削除ガイド</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AI-Builder/" rel="tag">AI Builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AI-builder/" rel="tag">AI builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/App-Access-Checker/" rel="tag">App Access Checker</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audit-Log/" rel="tag">Audit Log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Canvas-app/" rel="tag">Canvas app</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Cloud-flow/" rel="tag">Cloud flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Connector-and-Connection/" rel="tag">Connector and Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Copilot/" rel="tag">Copilot</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Copilot-Studio/" rel="tag">Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" rel="tag">DLP ポリシー</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataflow/" rel="tag">Dataflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse/" rel="tag">Dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse-for-Teams/" rel="tag">Dataverse for Teams</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" rel="tag">Dataverse ストレージ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Desktop-flow/" rel="tag">Desktop flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Developer-Environment/" rel="tag">Developer Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics/" rel="tag">Dynamics</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics-365/" rel="tag">Dynamics 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Environment/" rel="tag">Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Governance/" rel="tag">Governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Graph-API/" rel="tag">Graph API</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HAR/" rel="tag">HAR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/How-to/" rel="tag">How to</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Ideas/" rel="tag">Ideas</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Information/" rel="tag">Information</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Inventory-Report/" rel="tag">Inventory Report</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/License/" rel="tag">License</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Copilot-Studio/" rel="tag">Microsoft Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" rel="tag">Microsoft Teams 連携</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Model-driven-app/" rel="tag">Model-driven app</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Office-365-Management-API/" rel="tag">Office 365 Management API</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Apps/" rel="tag">Power Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate/" rel="tag">Power Automate</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate-for-desktop/" rel="tag">Power Automate for desktop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform/" rel="tag">Power Platform</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" rel="tag">Power Platform 管理センター</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Virtual-Agents/" rel="tag">Power Virtual Agents</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerPlatform/" rel="tag">PowerPlatform</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/" rel="tag">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SR/" rel="tag">SR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Settings/" rel="tag">Settings</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SharePoint-Online/" rel="tag">SharePoint Online</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Tenant-level-Analytics/" rel="tag">Tenant-level Analytics</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VNetGateway/" rel="tag">VNetGateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/dataverse/" rel="tag">dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/governance/" rel="tag">governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/licensing/" rel="tag">licensing</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/powerapps/" rel="tag">powerapps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/powerpages/" rel="tag">powerpages</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" rel="tag">オンプレミス データ ゲートウェイ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9%E3%82%A2%E3%83%97%E3%83%AA/" rel="tag">キャンバスアプリ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" rel="tag">サポート</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88/" rel="tag">サポート リクエスト</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" rel="tag">セキュリティ ロール</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" rel="tag">テナント移行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9/" rel="tag">ネットワークトレース</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" rel="tag">モニター</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A7%94%E4%BB%BB/" rel="tag">委任</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%BD%B9%E5%89%B2/" rel="tag">役割</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A9%9F%E5%AF%86%E6%83%85%E5%A0%B1/" rel="tag">機密情報</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/" rel="tag">重要な変更点 (廃止)</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Apps/">Power Apps</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/">お問い合わせ全般</a><span class="tag-list-count">12</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/">PowerShell</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform/">Power Platform</a><span class="tag-list-count">27</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Governance/">Governance</a><span class="tag-list-count">17</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/How-to/">How to</a><span class="tag-list-count">20</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Information/">Information</a><span class="tag-list-count">7</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/License/">License</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate/">Power Automate</a><span class="tag-list-count">40</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Connector-and-Connection/">Connector and Connection</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Network/">Network</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate-for-desktop/">Power Automate for desktop</a><span class="tag-list-count">8</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse/">Dataverse</a><span class="tag-list-count">9</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Model-driven-app/">Model-driven app</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics/">Dynamics</a><span class="tag-list-count">10</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/">重要な変更点 (廃止)</a><span class="tag-list-count">1</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics-365/">Dynamics 365</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/">Microsoft Teams 連携</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">2025 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">2025 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/09/">2025 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/08/">2025 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/05/">2025 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">2025 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">2025 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2025 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">2025 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/12/">2024 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/11/">2024 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">2024 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/07/">2024 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">2024 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">2024 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">2023 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">2023 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">2023 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">2023 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">2023 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">2023 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2023 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/01/">2023 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/12/">2022 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/11/">2022 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">2022 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">2022 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">2022 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">2022 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">2022 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/07/">2021 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/06/">2021 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/AI-Builder/" style="font-size: 10px;">AI Builder</a> <a href="../../tags/AI-builder/" style="font-size: 10px;">AI builder</a> <a href="../../tags/App-Access-Checker/" style="font-size: 10px;">App Access Checker</a> <a href="../../tags/Audit-Log/" style="font-size: 10px;">Audit Log</a> <a href="../../tags/Canvas-app/" style="font-size: 13.13px;">Canvas app</a> <a href="../../tags/Cloud-flow/" style="font-size: 18.75px;">Cloud flow</a> <a href="../../tags/Connector-and-Connection/" style="font-size: 12.5px;">Connector and Connection</a> <a href="../../tags/Copilot/" style="font-size: 10px;">Copilot</a> <a href="../../tags/Copilot-Studio/" style="font-size: 10px;">Copilot Studio</a> <a href="../../tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" style="font-size: 10px;">DLP ポリシー</a> <a href="../../tags/Dataflow/" style="font-size: 10px;">Dataflow</a> <a href="../../tags/Dataverse/" style="font-size: 15px;">Dataverse</a> <a href="../../tags/Dataverse-for-Teams/" style="font-size: 10.63px;">Dataverse for Teams</a> <a href="../../tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" style="font-size: 10.63px;">Dataverse ストレージ</a> <a href="../../tags/Desktop-flow/" style="font-size: 11.88px;">Desktop flow</a> <a href="../../tags/Developer-Environment/" style="font-size: 10px;">Developer Environment</a> <a href="../../tags/Dynamics/" style="font-size: 15.63px;">Dynamics</a> <a href="../../tags/Dynamics-365/" style="font-size: 10.63px;">Dynamics 365</a> <a href="../../tags/Environment/" style="font-size: 12.5px;">Environment</a> <a href="../../tags/Exchange/" style="font-size: 10px;">Exchange</a> <a href="../../tags/Governance/" style="font-size: 16.88px;">Governance</a> <a href="../../tags/Graph-API/" style="font-size: 10.63px;">Graph API</a> <a href="../../tags/HAR/" style="font-size: 10px;">HAR</a> <a href="../../tags/How-to/" style="font-size: 18.13px;">How to</a> <a href="../../tags/Ideas/" style="font-size: 10px;">Ideas</a> <a href="../../tags/Information/" style="font-size: 13.75px;">Information</a> <a href="../../tags/Inventory-Report/" style="font-size: 10px;">Inventory Report</a> <a href="../../tags/License/" style="font-size: 12.5px;">License</a> <a href="../../tags/Microsoft-Copilot-Studio/" style="font-size: 11.88px;">Microsoft Copilot Studio</a> <a href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" style="font-size: 10.63px;">Microsoft Teams 連携</a> <a href="../../tags/Model-driven-app/" style="font-size: 13.13px;">Model-driven app</a> <a href="../../tags/Network/" style="font-size: 11.88px;">Network</a> <a href="../../tags/Office-365-Management-API/" style="font-size: 10px;">Office 365 Management API</a> <a href="../../tags/Power-Apps/" style="font-size: 17.5px;">Power Apps</a> <a href="../../tags/Power-Automate/" style="font-size: 20px;">Power Automate</a> <a href="../../tags/Power-Automate-for-desktop/" style="font-size: 14.38px;">Power Automate for desktop</a> <a href="../../tags/Power-Platform/" style="font-size: 19.38px;">Power Platform</a> <a href="../../tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" style="font-size: 10px;">Power Platform 管理センター</a> <a href="../../tags/Power-Virtual-Agents/" style="font-size: 11.88px;">Power Virtual Agents</a> <a href="../../tags/PowerPlatform/" style="font-size: 11.25px;">PowerPlatform</a> <a href="../../tags/PowerShell/" style="font-size: 11.25px;">PowerShell</a> <a href="../../tags/SR/" style="font-size: 10px;">SR</a> <a href="../../tags/Settings/" style="font-size: 10px;">Settings</a> <a href="../../tags/SharePoint-Online/" style="font-size: 10px;">SharePoint Online</a> <a href="../../tags/Tenant-level-Analytics/" style="font-size: 10px;">Tenant-level Analytics</a> <a href="../../tags/VNetGateway/" style="font-size: 10px;">VNetGateway</a> <a href="../../tags/dataverse/" style="font-size: 10px;">dataverse</a> <a href="../../tags/governance/" style="font-size: 10.63px;">governance</a> <a href="../../tags/licensing/" style="font-size: 10px;">licensing</a> <a href="../../tags/powerapps/" style="font-size: 10px;">powerapps</a> <a href="../../tags/powerpages/" style="font-size: 10px;">powerpages</a> <a href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" style="font-size: 16.25px;">お問い合わせ全般</a> <a href="../../tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" style="font-size: 10px;">オンプレミス データ ゲートウェイ</a> <a href="../../tags/%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9%E3%82%A2%E3%83%97%E3%83%AA/" style="font-size: 10px;">キャンバスアプリ</a> <a href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" style="font-size: 10.63px;">サポート</a> <a href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88/" style="font-size: 10px;">サポート リクエスト</a> <a href="../../tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" style="font-size: 10px;">セキュリティ ロール</a> <a href="../../tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" style="font-size: 10px;">テナント移行</a> <a href="../../tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9/" style="font-size: 10px;">ネットワークトレース</a> <a href="../../tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" style="font-size: 10px;">モニター</a> <a href="../../tags/%E5%A7%94%E4%BB%BB/" style="font-size: 10px;">委任</a> <a href="../../tags/%E5%BD%B9%E5%89%B2/" style="font-size: 10px;">役割</a> <a href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" style="font-size: 13.13px;">情報採取</a> <a href="../../tags/%E6%A9%9F%E5%AF%86%E6%83%85%E5%A0%B1/" style="font-size: 10px;">機密情報</a> <a href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/" style="font-size: 10px;">重要な変更点 (廃止)</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Dataflow/">Dataflow</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Dataverse/">Dataverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Dynamics-365/">Dynamics 365</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/">Power Apps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Canvas-App/">Canvas App</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Canvas-app/">Canvas app</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Model-driven-app/">Model-driven app</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/">Power Automate</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/Cloud-flow/">Cloud flow</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/Desktop-flow/">Desktop flow</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform/">Power Platform</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/">サポート</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform-Admin-Center/">Power Platform Admin Center</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/information/">information</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/powerapps/">powerapps</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/powerplatform/">powerplatform</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">サポートサービスのご利用について</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="https://privacy.microsoft.com/ja-jp/privacystatement" target="_blank" rel=”noopener”>Privacy & Cookies</a> |  
+      <a href="https://www.microsoft.com/ja-jp/legal/intellectualproperty/copyright" target="_blank" rel=”noopener”>Terms of use</a> |
+      <a href="https://www.microsoft.com/ja-jp/legal/intellectualproperty/trademarks" target="_blank" rel=”noopener”>Trademarks</a> |
+      &copy; 2025 Japan Dynamics CRM &amp; Power Platform Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Dataverse グループ チームの活用方法＆注意点 | Japan Dynamics CRM &amp; Power Platform Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは、Power Platform サポートチームの島です。 ※ Azure Active Directory (Azure AD) は2023年7月に Azure Entra Identity に名称が変更となりましたので、ご承知おきくださいますようお願い申し上げます。 Dataverse では、Azure Entra Identity グループ チームを作成することで、セキュリティ グル">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dataverse グループ チームの活用方法＆注意点">
+<meta property="og:url" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/index.html">
+<meta property="og:site_name" content="Japan Dynamics CRM &amp; Power Platform Support Blog">
+<meta property="og:description" content="こんにちは、Power Platform サポートチームの島です。 ※ Azure Active Directory (Azure AD) は2023年7月に Azure Entra Identity に名称が変更となりましたので、ご承知おきくださいますようお願い申し上げます。 Dataverse では、Azure Entra Identity グループ チームを作成することで、セキュリティ グル">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/compareTable.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/image02-PPAC01.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/testTeamCapture.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/image04-PPACeditRole.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/image06-teamMember.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/image05-accessCheck.png">
+<meta property="article:published_time" content="2022-01-07T04:45:00.000Z">
+<meta property="article:modified_time" content="2025-12-16T10:35:41.136Z">
+<meta property="article:author" content="Japan Dynamics CRM &amp; Power Platform Support Team">
+<meta property="article:tag" content="Model-driven app">
+<meta property="article:tag" content="Dynamics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/compareTable.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Dynamics CRM &amp; Power Platform Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="../../favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpdynamicscrm.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Dynamics CRM &amp; Power Platform Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Dynamics CRM &amp; Power Platform テクニカル サポート チームより、情報をお届けします！</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-powerplatform/About-group-team-in-Dataverse" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dataverse グループ チームの活用方法＆注意点
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-01-07T04:45:00.000Z" itemprop="datePublished">2022-01-07</time>
+</a>
+        
+          / Last update: <a id="update-time" class="article-date-single"></a>
+/ Contributors: <ul style="display: inline-block; list-style:none" id="contributors" class="github-contributors"> </ul>
+
+<script type="text/javascript">
+  const sourceUrl = "https://github.com/jpdynamicscrm/blog/blob/master/articles/powerplatform/About-group-team-in-Dataverse.md";
+  const urlParts = sourceUrl.split("/");
+  const user = urlParts[3];
+  const repo = urlParts[4];
+  const filePath = urlParts.slice(7).join("/");
+  const apiUrl = `https://api.github.com/repos/${user}/${repo}/commits?path=${filePath}`;
+  function formatDate(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + day;
+    }
+
+    return year + '-' + month + '-' + day;
+  }
+
+  $.getJSON(apiUrl, function (data) {
+    const commit = data[0];
+    const updateDate = new Date(commit.commit.author.date);
+    const localDate = formatDate(updateDate);
+    const contributors = new Map();
+
+    data.reverse().forEach(function (commit) {
+      if (commit.author == null) {
+        return;
+      } else {
+        const name = commit.author.login;
+        const url = commit.author.html_url;
+        const avatar = commit.author.avatar_url;
+        contributors.set(name, { name, url, avatar });
+      }
+    });
+
+    $("#update-time").text(localDate);
+    $("#update-time").href = commit.html_url;
+    Array.from(contributors, ([_, value]) => value).reverse().forEach(function (contributor) {
+      $("#contributors").append(`<li class="contributor-avatar"><a target="_blank" rel="noopener" href="https://github.com/${contributor.name}" title="${contributor.name}"><img src="${contributor.avatar}" alt="${contributor.name}"/></a></li>`);
+    });
+  });
+</script>
+        
+        
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Dataverse/">Dataverse</a>►<a class="article-category-link" href="../../categories/Power-Apps/">Power Apps</a>►<a class="article-category-link" href="../../categories/Power-Apps/Model-driven-app/">Model-driven app</a>
+  </div>
+
+        
+        <a href="https://github.com/jpdynamicscrm/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+ea72032b-bfab-5621-9019-a4b3c961f183%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BDataverse+%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97+%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E6%B4%BB%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%86%E6%B3%A8%E6%84%8F%E7%82%B9%5D%28https%3A%2F%2Fjpdynamicscrm.github.io%2Fblog%2Fpowerplatform%2FAbout-group-team-in-Dataverse%2F%29%0A*+Content+Source%3A+%5Barticles%2Fpowerplatform%2FAbout-group-team-in-Dataverse.md%5D%28https%3A%2F%2Fgithub.com%2Fjpdynamicscrm%2Fblog%2Fblob%2Fmaster%2Farticles%2Fpowerplatform%2FAbout-group-team-in-Dataverse.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/About-group-team-in-Dataverse/" data-id="cmj8g5rth00lz0nms9ja28hfk" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Power Platform サポートチームの島です。</p>
+<p>※ Azure Active Directory (Azure AD) は2023年7月に Azure Entra Identity に名称が変更となりましたので、ご承知おきくださいますようお願い申し上げます。</p>
+<p>Dataverse では、Azure Entra Identity グループ チームを作成することで、セキュリティ グループへのユーザー所属状態によって、ロールを自動的に付け外しすることができます。<br>「特定の管理者用セキュリティ グループに所属するユーザーに、自動的にシステム管理者ロールを付与する」というような運用も可能です。</p>
+<span id="more"></span>
+<p>つまり、Azure Entra Identity グループ チームを利用いただくことで、<strong>グループ チーム配下の Dataverse ユーザーを、Azure Entra Identity グループから一元管理</strong>することが可能となります。</p>
+<p>そこでこの記事では、使い方、またサポートでよくいただくグループ チーム関連のご質問についてご案内します。</p>
+<h2 id="そもそも、チームとは？"><a href="#そもそも、チームとは？" class="headerlink" title="そもそも、チームとは？"></a>そもそも、チームとは？</h2><hr>
+<p>Dataverse では、グループ チームを含め、4 種類のチームという概念を持ち、この中にユーザーを所属させることができます。<br>それぞれについて簡単にご紹介します。</p>
+<p><strong>1. 所有者チーム</strong><br>セキュリティ ロールを割り当てることができ、レコードを所有できるチームです。<br>グループ チームと似ていますが、Azure Entra Identity グループとは連動しないため、ユーザーを明示的に指定して追加する必要があります。<br>また、Dataverse 上の「部署」というオブジェクトに紐づいて自動作成されます。(なのでグループ チームの操作を何もしていなくても、環境に最低ひとつはこの所有者チームが存在します。)<br><strong>2. アクセス チーム</strong><br>セキュリティ ロールを割り当てることができず、レコードも所有しないチームです。<br>ただ、アクセス チーム自体がレコードへのアクセス権を持つため、セキュリティ ロールに依存しないアクセス権制御を行うことができます。<br>将来削除される予定があり、レコードを所有させたくないような一時的なチーム (プロジェクトなど) に適したチームと言えます。<br><strong>3. Azure Entra Identity グループ チーム (Office グループ / セキュリティ グループ)</strong><br>セキュリティ ロールを割り当てることができ、レコードを所有できるチームです。また、Azure Entra Identity グループと連動します。<br>種類として Office グループ チームと セキュリティ グループ チームの 2 つに分かれますが、記事執筆時点ではグループの種類による機能差はありません。</p>
+<p>上記の内容をまとめると、以下のように各チームを比較できます。<br><img src="/blog/powerplatform/About-group-team-in-Dataverse/compareTable.png"></p>
+<p>Azure Entra Identity グループチームの特色は、文字通り Azure Entra Identity グループと連携でき、<strong>グループ チーム配下の Dataverse ユーザーを、Azure Entra Identity グループから一元管理</strong>できることです。</p>
+<h2 id="Azure-Entra-Identity-グループチームで具体的にできること"><a href="#Azure-Entra-Identity-グループチームで具体的にできること" class="headerlink" title="Azure Entra Identity グループチームで具体的にできること"></a>Azure Entra Identity グループチームで具体的にできること</h2><hr>
+<p>Azure Entra Identity グループチームでできること、メリットについて具体的にご紹介します。</p>
+<h3 id="1-Azure-Entra-Identity-グループとの連携"><a href="#1-Azure-Entra-Identity-グループとの連携" class="headerlink" title="1. Azure Entra Identity グループとの連携"></a>1. Azure Entra Identity グループとの連携</h3><p>Azure Entra Identity グループチームでは、セキュリティ グループや Office グループとの同期が可能です。<br>Azure Entra Identity グループチームは Power Platform 管理センターから作成することができますが、このときに対応するAzure Entra Identity グループを選択することで、チームとグループを紐づけることができます。</p>
+<p><strong>【手順】</strong></p>
+<ol>
+<li>Power Platform 管理センターで 設定 &gt; ユーザーとアクセス許可 &gt; チーム を選択ください。<br><img src="/blog/powerplatform/About-group-team-in-Dataverse/image02-PPAC01.png"></li>
+<li>「チームの作成」を選択ください。</li>
+<li>作成時の入力項目を以下の通り入力ください。この後チームを作成することで、入力したグループとチーム同士が紐づきます。<br>・チームの種類 : Azure Entra Identity セキュリティ グループ または Azure Entra Identity Office グループを選択ください。<br>・グループ名 : 対応するAzure Entra Identity グループ名を選択ください。<br><img src="/blog/powerplatform/About-group-team-in-Dataverse/testTeamCapture.png"><br>ちなみに、以下の項目はグループ チームとは関係がありませんが、ご参考までに入力内容を紹介いたします。<br>・チーム名、説明 : 任意のものを入力ください。<br>・部署 : Dataverse の部署を作成いただいている場合は適宜ご要件に合わせて選択ください。作成していない場合はデフォルトの部署が 1 つだけ表示されますので、その部署を選択ください。<br>・管理者 : ご要件に合わせて管理者となるユーザーをご選択ください。<br>・メンバーシップの種類 : Azure Entra Identity グループ メンバーシップを入力する欄です。<strong>後のセクションでもご説明します！</strong></li>
+</ol>
+<p>チームを作成すると、紐づけた Azure Entra Identity グループのメンバーのうち環境に対してアクセス権があるユーザーが、自動的に Dataverse のグループ チームに追加されます。<br>また、異動などでチームのメンバーでなくなったユーザーは、自動的にグループ チームのメンバーからも削除されます。</p>
+<h4 id="2-セキュリティ-ロールの紐づけ"><a href="#2-セキュリティ-ロールの紐づけ" class="headerlink" title="2. セキュリティ ロールの紐づけ"></a>2. セキュリティ ロールの紐づけ</h4><p>Azure Entra Identity グループ チームに対してセキュリティ ロールを紐づけることで、配下の Dataverse のユーザーに対してそのロールを継承させることができます。</p>
+<p><strong>[手順]</strong></p>
+<ol>
+<li>Power Platform 管理センターで 設定 &gt; ユーザーとアクセス許可 &gt; チーム を選択後、任意のチームを選択ください。</li>
+<li>セキュリティ ロールの管理 を選択ください。</li>
+<li>下図のように割り当てるセキュリティ ロールの一覧が表示されるので、任意のロールを選択ください。<br><img src="/blog/powerplatform/About-group-team-in-Dataverse/image04-PPACeditRole.png"></li>
+</ol>
+<p>このセキュリティ ロールの割り当て機能により、「管理者用のグループ チームにはシステム管理者ロールを付与する」「開発者用のグループ チームには Environment Makerを付与する」というように、チームごとに一括でロールを割り当てることが可能になります。<br>加えて 1 でご説明したように、チームのメンバーは Azure Entra Identity と同期して自動で決定されるので、この 2 つの機能を組み合わせることで、要件に即したロールの一括付与を自動で実行できるようになります。</p>
+<h2 id="よくいただくお問合せ"><a href="#よくいただくお問合せ" class="headerlink" title="よくいただくお問合せ"></a>よくいただくお問合せ</h2><hr>
+<p>上記の通り、Azure Entra Identity グループ チームは、ユーザーおよびロールの一元管理が可能な強力な機能です。<br>こちらの機能をよりご活用いただきたいため、サポート チームでよくいただく質問をおまとめいたしました。ぜひご確認ください。</p>
+<h3 id="グループ-チーム作成時、メンバーシップに何を指定すればよいのかわからない"><a href="#グループ-チーム作成時、メンバーシップに何を指定すればよいのかわからない" class="headerlink" title="グループ チーム作成時、メンバーシップに何を指定すればよいのかわからない"></a>グループ チーム作成時、メンバーシップに何を指定すればよいのかわからない</h3><p>グループ チームのメンバーシップは、Azure Entra Identity 側のグループのメンバーシップに対応するものです。<br>選択肢ごとにの具体的な設定内容は以下の通りです。<br>(1) メンバー ： Azure Entra Identity グループに所属するメンバー (ゲストユーザーを除く) です。<br>(2) ゲスト : Azure Entra Identity グループに所属するゲストユーザーです。<br>(3) メンバーとゲスト : (1) と (2) の両方をメンバーとする選択肢です。<br>(4) 所有者 : Azure Entra Identity グループの所有者です。通常、管理者など要件に合わせたユーザーを明示的に指定することで割り当てられます。</p>
+<p>グループ チームをご活用いただく場合、通常はメンバーのロールを一元管理することが目的の場合が多いので、(1) または (3) を選んでいただくケースが最も多いかと存じます。</p>
+<h3 id="Azure-Entra-Identity-グループに所属するメンバーのうち、一部のメンバーしかグループ-チームに所属していない"><a href="#Azure-Entra-Identity-グループに所属するメンバーのうち、一部のメンバーしかグループ-チームに所属していない" class="headerlink" title="Azure Entra Identity グループに所属するメンバーのうち、一部のメンバーしかグループ チームに所属していない"></a>Azure Entra Identity グループに所属するメンバーのうち、一部のメンバーしかグループ チームに所属していない</h3><p>グループ チームを作成したタイミングと、実際に Dataverse 上のユーザーオブジェクトがグループに割り当てられるタイミングが異なることで、メンバーが一部しか所属していないように見えている可能性があります。<br>実際に、Dataverse 上のユーザーオブジェクトがグループに所属するのは、グループ チーム作成後、当該ユーザーが最初に環境のキャンバス アプリまたはモデル駆動アプリにアクセスしたタイミングです。<br>そのため、グループ チームを作成したあと、チームのメンバーを以下のように確認された際には、グループ チーム作成後にアプリにアクセスしたことのあるメンバーしか表示されません。<br><img src="/blog/powerplatform/About-group-team-in-Dataverse/image06-teamMember.png"></p>
+<p>チームのメンバーがアプリにアクセスしていくことで、いずれは全員がメンバーに追加されますので、ご安心ください。</p>
+<h3 id="ユーザーに対してロールが継承されていないように見える"><a href="#ユーザーに対してロールが継承されていないように見える" class="headerlink" title="ユーザーに対してロールが継承されていないように見える"></a>ユーザーに対してロールが継承されていないように見える</h3><p>Power Platform 管理センターまたはユーザーの設定画面で、ユーザーのセキュリティ ロールをご確認いただけますが、こちらの画面ではあくまでユーザー本人に対して直接割り当てられたセキュリティ ロールのみが表示されます。<br>そのためチームから継承されたロールをご確認いただくことができませんが、正しい手順を実施いただき、かつユーザーがアプリに既にアクセスしていれば、ユーザーに対してロールが継承されますので、ご安心ください。</p>
+<p>ユーザーに対して直接付与されたロールと継承されたロールの両方を確認されたい場合には、特定データのフォームを開いた上で上部リボンの「アクセス権の確認」を選択いただくことで、当該データに関連するユーザーのすべての権限をご確認いただくことが可能です。<br><img src="/blog/powerplatform/About-group-team-in-Dataverse/image05-accessCheck.png"></p>
+<h3 id="入れ子のAzure-Entra-Identity-グループにグループ-チームを作成する際の留意点について"><a href="#入れ子のAzure-Entra-Identity-グループにグループ-チームを作成する際の留意点について" class="headerlink" title="入れ子のAzure Entra Identity グループにグループ チームを作成する際の留意点について"></a>入れ子のAzure Entra Identity グループにグループ チームを作成する際の留意点について</h3><p>Azure Entra Identity グループが入れ子になっており、かつ親グループと紐づくグループ チームが作成された場合、子グループのメンバーもグループ チーム内に追加されます。<br>なお、<strong>「入れ子のうち子セキュリティグループのメンバーを環境に自動で追加したい・セキュリティ ロールを割り振りたい」</strong> というお問合せをよくいただきますが、現時点では子セキュリティ グループのメンバーは環境に自動追加されません。<br>環境にセキュリティグループを追加し、かつセキュリティ グループに子となるセキュリティ グループが存在する場合でも、子グループのメンバーは環境に事前に追加されません。<br>グループチームを作成した場合でも自動プロビジョニングされるわけではなく、ユーザーによるアクセスや管理者による追加が必要です。<br>なおグループチームを作成すると、チームに対してセキュリティロールを設定しておけるため、グループチームに紐づく子セキュリティグループのユーザーが環境にアクセスしたタイミングでチームに設定したセキュリティロール継承できる仕組みとなっております。</p>
+<p>(ご参考 : <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-platform/admin/control-user-access">環境へのユーザー アクセスのコントロール: セキュリティ グループおよびライセンス</a>)</p>
+<div class="alert is-info"><p class="alert-title">Note</p><p>抜粋</p><p></p><p><em>入れ子のセキュリティ グループについて</em></p>
+<p><em>環境セキュリティ グループ内の入れ子のセキュリティ グループのメンバーは、事前にプロビジョニングされたり、 環境&gt;に自動的に追加されたりすることはありません。 ただし、入れ子のセキュリティ グループに Dataverse グループ チーム を作成すると、環境に追加できます。</em> </p>
+<p><em>このシナリオの例: 環境が作成されたときに、環境にセキュリティ グループを割り当てました。 環境のライフサイクルの間に、セキュリティ グループで管理されるメンバーを環境に追加します。 たとえばセキュリティ グループを Microsoft Entra ID マネージャーに作成し、すべてのマネージャー全員をそのグループに割り当てます。 次に、このセキュリティ グループを環境セキュリティ グループの子として追加し、Dataverse グループ チーム を作成して、セキュリティ ロールをグループ チームに割り当てます。 これで、マネージャーは Dataverse にすぐにアクセスできます。</em></p>
+<p><em>入れ子のセキュリティ グループのメンバーは、メンバーが初めて環境にアクセスしたときに、実行時に環境にも追加されます。 ただし、メンバーはセキュリティ ロール が割り当てられるまで、アプリケーションを実行したり、データにアクセスしたりすることはできません。</em></p></div>
+<h3 id="チーム経由のセキュリティロール付与に対応していない機能はありますか。"><a href="#チーム経由のセキュリティロール付与に対応していない機能はありますか。" class="headerlink" title="チーム経由のセキュリティロール付与に対応していない機能はありますか。"></a>チーム経由のセキュリティロール付与に対応していない機能はありますか。</h3><p>ほとんどの機能でチーム経由のセキュリティロール付与をサポートしていますが、一部の機能はサポートしておりません。  </p>
+<p>現時点でサポートしていないことを確認できているのは以下の２つの機能です。  </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-platform/admin/manage-teams#types-of-teams">環境ピッカー</a> - 所有者チームのセキュリティロールは継承されません。</li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-apps/maker/canvas-apps/ai-conversations-create-app">Copilot in Power Apps</a> - セキュリティロールをユーザーに直接付与する必要がございます。</li>
+</ul>
+<h2 id="関連する公開情報"><a href="#関連する公開情報" class="headerlink" title="関連する公開情報"></a>関連する公開情報</h2><hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-platform/admin/manage-teams">Microsoft Dataverse チームの管理</a> : グループ チームを含め、Dataverse の各チームについてご案内しています。</li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-platform/admin/manage-group-teams">グループ チームの管理</a> : グループ チームの概要、また作成・編集手順をご案内しています。</li>
+</ul>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><hr>
+<p>以上、Azure Entra Identity グループ チームの概要、およびよくいただくお問合せについてご案内しました。<br>グループ チームを利用しない場合、ユーザーひとりひとりにアクセス権を付与する必要があるため、ユーザー数やセキュリティ ロール数が多い組織だと運用が煩雑になりがちです。<br>ぜひグループ チームを運用に導入いただき、効率的なユーザー管理にご活用ください！</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Dynamics/" rel="tag">Dynamics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Model-driven-app/" rel="tag">Model-driven app</a></li></ul>
+
+        
+        <a href="https://github.com/jpdynamicscrm/blog/edit/master/articles/powerplatform/About-group-team-in-Dataverse.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../powerautomate/logic-app-flow-template-was-invalid-error/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          「電源フローのロジック アプリ フロー テンプレートが無効です。」 エラーについて
+        
+      </div>
+    </a>
+  
+  
+    <a href="../2021-wave2-added-search/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">2021 年 Wave2 で追加されたモデル駆動アプリの検索方法まとめ</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../active-layer/">アクティブレイヤーの確認・削除方法</a>
+          </li>
+        
+          <li>
+            <a href="../../powerautomate/power-automate-desktop-helpful-information-for-sr/">Power Automate for desktop お問い合わせの際の情報取得手順</a>
+          </li>
+        
+          <li>
+            <a href="../network-trace-har-collection-and-pii-submission-guide/">ネットワークトレースの取り方と機密情報を含む場合の対処</a>
+          </li>
+        
+          <li>
+            <a href="../../powerpages/power-pages-licensing-guide/">Power Pages ライセンスについて</a>
+          </li>
+        
+          <li>
+            <a href="../../powerapps/model-driven-app-delete-guide/">モデル駆動型アプリ削除ガイド</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AI-Builder/" rel="tag">AI Builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AI-builder/" rel="tag">AI builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/App-Access-Checker/" rel="tag">App Access Checker</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audit-Log/" rel="tag">Audit Log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Canvas-app/" rel="tag">Canvas app</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Cloud-flow/" rel="tag">Cloud flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Connector-and-Connection/" rel="tag">Connector and Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Copilot/" rel="tag">Copilot</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Copilot-Studio/" rel="tag">Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" rel="tag">DLP ポリシー</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataflow/" rel="tag">Dataflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse/" rel="tag">Dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse-for-Teams/" rel="tag">Dataverse for Teams</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" rel="tag">Dataverse ストレージ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Desktop-flow/" rel="tag">Desktop flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Developer-Environment/" rel="tag">Developer Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics/" rel="tag">Dynamics</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics-365/" rel="tag">Dynamics 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Environment/" rel="tag">Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Governance/" rel="tag">Governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Graph-API/" rel="tag">Graph API</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HAR/" rel="tag">HAR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/How-to/" rel="tag">How to</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Ideas/" rel="tag">Ideas</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Information/" rel="tag">Information</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Inventory-Report/" rel="tag">Inventory Report</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/License/" rel="tag">License</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Copilot-Studio/" rel="tag">Microsoft Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" rel="tag">Microsoft Teams 連携</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Model-driven-app/" rel="tag">Model-driven app</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Office-365-Management-API/" rel="tag">Office 365 Management API</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Apps/" rel="tag">Power Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate/" rel="tag">Power Automate</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate-for-desktop/" rel="tag">Power Automate for desktop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform/" rel="tag">Power Platform</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" rel="tag">Power Platform 管理センター</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Virtual-Agents/" rel="tag">Power Virtual Agents</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerPlatform/" rel="tag">PowerPlatform</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/" rel="tag">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SR/" rel="tag">SR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Settings/" rel="tag">Settings</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SharePoint-Online/" rel="tag">SharePoint Online</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Tenant-level-Analytics/" rel="tag">Tenant-level Analytics</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VNetGateway/" rel="tag">VNetGateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/dataverse/" rel="tag">dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/governance/" rel="tag">governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/licensing/" rel="tag">licensing</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/powerapps/" rel="tag">powerapps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/powerpages/" rel="tag">powerpages</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" rel="tag">オンプレミス データ ゲートウェイ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9%E3%82%A2%E3%83%97%E3%83%AA/" rel="tag">キャンバスアプリ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" rel="tag">サポート</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88/" rel="tag">サポート リクエスト</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" rel="tag">セキュリティ ロール</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" rel="tag">テナント移行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9/" rel="tag">ネットワークトレース</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" rel="tag">モニター</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A7%94%E4%BB%BB/" rel="tag">委任</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%BD%B9%E5%89%B2/" rel="tag">役割</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A9%9F%E5%AF%86%E6%83%85%E5%A0%B1/" rel="tag">機密情報</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/" rel="tag">重要な変更点 (廃止)</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Apps/">Power Apps</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/">お問い合わせ全般</a><span class="tag-list-count">12</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/">PowerShell</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform/">Power Platform</a><span class="tag-list-count">27</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Governance/">Governance</a><span class="tag-list-count">17</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/How-to/">How to</a><span class="tag-list-count">20</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Information/">Information</a><span class="tag-list-count">7</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/License/">License</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate/">Power Automate</a><span class="tag-list-count">40</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Connector-and-Connection/">Connector and Connection</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Network/">Network</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate-for-desktop/">Power Automate for desktop</a><span class="tag-list-count">8</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse/">Dataverse</a><span class="tag-list-count">9</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Model-driven-app/">Model-driven app</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics/">Dynamics</a><span class="tag-list-count">10</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/">重要な変更点 (廃止)</a><span class="tag-list-count">1</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics-365/">Dynamics 365</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/">Microsoft Teams 連携</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">2025 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">2025 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/09/">2025 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/08/">2025 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/05/">2025 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">2025 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">2025 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2025 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">2025 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/12/">2024 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/11/">2024 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">2024 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/07/">2024 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">2024 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">2024 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">2023 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">2023 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">2023 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">2023 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">2023 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">2023 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2023 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/01/">2023 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/12/">2022 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/11/">2022 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">2022 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">2022 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">2022 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">2022 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">2022 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/07/">2021 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/06/">2021 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/AI-Builder/" style="font-size: 10px;">AI Builder</a> <a href="../../tags/AI-builder/" style="font-size: 10px;">AI builder</a> <a href="../../tags/App-Access-Checker/" style="font-size: 10px;">App Access Checker</a> <a href="../../tags/Audit-Log/" style="font-size: 10px;">Audit Log</a> <a href="../../tags/Canvas-app/" style="font-size: 13.13px;">Canvas app</a> <a href="../../tags/Cloud-flow/" style="font-size: 18.75px;">Cloud flow</a> <a href="../../tags/Connector-and-Connection/" style="font-size: 12.5px;">Connector and Connection</a> <a href="../../tags/Copilot/" style="font-size: 10px;">Copilot</a> <a href="../../tags/Copilot-Studio/" style="font-size: 10px;">Copilot Studio</a> <a href="../../tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" style="font-size: 10px;">DLP ポリシー</a> <a href="../../tags/Dataflow/" style="font-size: 10px;">Dataflow</a> <a href="../../tags/Dataverse/" style="font-size: 15px;">Dataverse</a> <a href="../../tags/Dataverse-for-Teams/" style="font-size: 10.63px;">Dataverse for Teams</a> <a href="../../tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" style="font-size: 10.63px;">Dataverse ストレージ</a> <a href="../../tags/Desktop-flow/" style="font-size: 11.88px;">Desktop flow</a> <a href="../../tags/Developer-Environment/" style="font-size: 10px;">Developer Environment</a> <a href="../../tags/Dynamics/" style="font-size: 15.63px;">Dynamics</a> <a href="../../tags/Dynamics-365/" style="font-size: 10.63px;">Dynamics 365</a> <a href="../../tags/Environment/" style="font-size: 12.5px;">Environment</a> <a href="../../tags/Exchange/" style="font-size: 10px;">Exchange</a> <a href="../../tags/Governance/" style="font-size: 16.88px;">Governance</a> <a href="../../tags/Graph-API/" style="font-size: 10.63px;">Graph API</a> <a href="../../tags/HAR/" style="font-size: 10px;">HAR</a> <a href="../../tags/How-to/" style="font-size: 18.13px;">How to</a> <a href="../../tags/Ideas/" style="font-size: 10px;">Ideas</a> <a href="../../tags/Information/" style="font-size: 13.75px;">Information</a> <a href="../../tags/Inventory-Report/" style="font-size: 10px;">Inventory Report</a> <a href="../../tags/License/" style="font-size: 12.5px;">License</a> <a href="../../tags/Microsoft-Copilot-Studio/" style="font-size: 11.88px;">Microsoft Copilot Studio</a> <a href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" style="font-size: 10.63px;">Microsoft Teams 連携</a> <a href="../../tags/Model-driven-app/" style="font-size: 13.13px;">Model-driven app</a> <a href="../../tags/Network/" style="font-size: 11.88px;">Network</a> <a href="../../tags/Office-365-Management-API/" style="font-size: 10px;">Office 365 Management API</a> <a href="../../tags/Power-Apps/" style="font-size: 17.5px;">Power Apps</a> <a href="../../tags/Power-Automate/" style="font-size: 20px;">Power Automate</a> <a href="../../tags/Power-Automate-for-desktop/" style="font-size: 14.38px;">Power Automate for desktop</a> <a href="../../tags/Power-Platform/" style="font-size: 19.38px;">Power Platform</a> <a href="../../tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" style="font-size: 10px;">Power Platform 管理センター</a> <a href="../../tags/Power-Virtual-Agents/" style="font-size: 11.88px;">Power Virtual Agents</a> <a href="../../tags/PowerPlatform/" style="font-size: 11.25px;">PowerPlatform</a> <a href="../../tags/PowerShell/" style="font-size: 11.25px;">PowerShell</a> <a href="../../tags/SR/" style="font-size: 10px;">SR</a> <a href="../../tags/Settings/" style="font-size: 10px;">Settings</a> <a href="../../tags/SharePoint-Online/" style="font-size: 10px;">SharePoint Online</a> <a href="../../tags/Tenant-level-Analytics/" style="font-size: 10px;">Tenant-level Analytics</a> <a href="../../tags/VNetGateway/" style="font-size: 10px;">VNetGateway</a> <a href="../../tags/dataverse/" style="font-size: 10px;">dataverse</a> <a href="../../tags/governance/" style="font-size: 10.63px;">governance</a> <a href="../../tags/licensing/" style="font-size: 10px;">licensing</a> <a href="../../tags/powerapps/" style="font-size: 10px;">powerapps</a> <a href="../../tags/powerpages/" style="font-size: 10px;">powerpages</a> <a href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" style="font-size: 16.25px;">お問い合わせ全般</a> <a href="../../tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" style="font-size: 10px;">オンプレミス データ ゲートウェイ</a> <a href="../../tags/%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9%E3%82%A2%E3%83%97%E3%83%AA/" style="font-size: 10px;">キャンバスアプリ</a> <a href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" style="font-size: 10.63px;">サポート</a> <a href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88/" style="font-size: 10px;">サポート リクエスト</a> <a href="../../tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" style="font-size: 10px;">セキュリティ ロール</a> <a href="../../tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" style="font-size: 10px;">テナント移行</a> <a href="../../tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9/" style="font-size: 10px;">ネットワークトレース</a> <a href="../../tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" style="font-size: 10px;">モニター</a> <a href="../../tags/%E5%A7%94%E4%BB%BB/" style="font-size: 10px;">委任</a> <a href="../../tags/%E5%BD%B9%E5%89%B2/" style="font-size: 10px;">役割</a> <a href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" style="font-size: 13.13px;">情報採取</a> <a href="../../tags/%E6%A9%9F%E5%AF%86%E6%83%85%E5%A0%B1/" style="font-size: 10px;">機密情報</a> <a href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/" style="font-size: 10px;">重要な変更点 (廃止)</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Dataflow/">Dataflow</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Dataverse/">Dataverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Dynamics-365/">Dynamics 365</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/">Power Apps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Canvas-App/">Canvas App</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Canvas-app/">Canvas app</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Model-driven-app/">Model-driven app</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/">Power Automate</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/Cloud-flow/">Cloud flow</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/Desktop-flow/">Desktop flow</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform/">Power Platform</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/">サポート</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform-Admin-Center/">Power Platform Admin Center</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/information/">information</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/powerapps/">powerapps</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/powerplatform/">powerplatform</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">サポートサービスのご利用について</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="https://privacy.microsoft.com/ja-jp/privacystatement" target="_blank" rel=”noopener”>Privacy & Cookies</a> |  
+      <a href="https://www.microsoft.com/ja-jp/legal/intellectualproperty/copyright" target="_blank" rel=”noopener”>Terms of use</a> |
+      <a href="https://www.microsoft.com/ja-jp/legal/intellectualproperty/trademarks" target="_blank" rel=”noopener”>Trademarks</a> |
+      &copy; 2025 Japan Dynamics CRM &amp; Power Platform Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

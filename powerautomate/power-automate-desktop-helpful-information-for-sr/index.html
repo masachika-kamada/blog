@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Power Automate for desktop お問い合わせの際の情報取得手順 | Japan Dynamics CRM &amp; Power Platform Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。Power Platform サポートの大友、竹内です。本記事では Power Automate for desktop 関連のお問い合わせの際の、情報取得手順についてご案内いたします。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Power Automate for desktop お問い合わせの際の情報取得手順">
+<meta property="og:url" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/index.html">
+<meta property="og:site_name" content="Japan Dynamics CRM &amp; Power Platform Support Blog">
+<meta property="og:description" content="こんにちは。Power Platform サポートの大友、竹内です。本記事では Power Automate for desktop 関連のお問い合わせの際の、情報取得手順についてご案内いたします。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/pad-version.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/pad-version2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/os-version1.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/computer-log.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/computer-log2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/computer-log3.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result1.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result3.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result1.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/verbose-log1.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/verbose-log2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/event-log1.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/event-log2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/fiddler-nonbrowser.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/machine-information.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/remote-desktop-setting2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/remote-desktop-setting3.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/registry-setting4.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/registry-setting3.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow-url.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow-runhistory-screenshot.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow-runhistory-error-input-output.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/cloudflow-run-history-csv.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/cloudflow-run-history-csv2.png">
+<meta property="og:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/cloudflow-raw-input-output.png">
+<meta property="article:published_time" content="2025-10-29T03:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-16T10:35:41.082Z">
+<meta property="article:author" content="Japan Dynamics CRM &amp; Power Platform Support Team">
+<meta property="article:tag" content="情報採取">
+<meta property="article:tag" content="お問い合わせ全般">
+<meta property="article:tag" content="Power Automate">
+<meta property="article:tag" content="Power Automate for desktop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/pad-version.png">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Dynamics CRM &amp; Power Platform Support Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="../../favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+        <a class="main-nav-link" target="_blank" rel="noopener" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpdynamicscrm.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Dynamics CRM &amp; Power Platform Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Dynamics CRM &amp; Power Platform テクニカル サポート チームより、情報をお届けします！</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-powerautomate/power-automate-desktop-helpful-information-for-sr" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Power Automate for desktop お問い合わせの際の情報取得手順
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Published: 
+        <a href="" class="article-date-single">
+  <time datetime="2025-10-29T03:00:00.000Z" itemprop="datePublished">2025-10-29</time>
+</a>
+        
+          / Last update: <a id="update-time" class="article-date-single"></a>
+/ Contributors: <ul style="display: inline-block; list-style:none" id="contributors" class="github-contributors"> </ul>
+
+<script type="text/javascript">
+  const sourceUrl = "https://github.com/jpdynamicscrm/blog/blob/master/articles/powerautomate/power-automate-desktop-helpful-information-for-sr.md";
+  const urlParts = sourceUrl.split("/");
+  const user = urlParts[3];
+  const repo = urlParts[4];
+  const filePath = urlParts.slice(7).join("/");
+  const apiUrl = `https://api.github.com/repos/${user}/${repo}/commits?path=${filePath}`;
+  function formatDate(date) {
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + day;
+    }
+
+    return year + '-' + month + '-' + day;
+  }
+
+  $.getJSON(apiUrl, function (data) {
+    const commit = data[0];
+    const updateDate = new Date(commit.commit.author.date);
+    const localDate = formatDate(updateDate);
+    const contributors = new Map();
+
+    data.reverse().forEach(function (commit) {
+      if (commit.author == null) {
+        return;
+      } else {
+        const name = commit.author.login;
+        const url = commit.author.html_url;
+        const avatar = commit.author.avatar_url;
+        contributors.set(name, { name, url, avatar });
+      }
+    });
+
+    $("#update-time").text(localDate);
+    $("#update-time").href = commit.html_url;
+    Array.from(contributors, ([_, value]) => value).reverse().forEach(function (contributor) {
+      $("#contributors").append(`<li class="contributor-avatar"><a target="_blank" rel="noopener" href="https://github.com/${contributor.name}" title="${contributor.name}"><img src="${contributor.avatar}" alt="${contributor.name}"/></a></li>`);
+    });
+  });
+</script>
+        
+        
+  <div class="article-category">
+    <a class="article-category-link" href="../../categories/Power-Automate/">Power Automate</a>►<a class="article-category-link" href="../../categories/Power-Automate/Desktop-flow/">Desktop flow</a>
+  </div>
+
+        
+        <a href="https://github.com/jpdynamicscrm/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+5c35e7c6-9161-5604-9646-6907c69b398b%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BPower+Automate+for+desktop+%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%81%AE%E9%9A%9B%E3%81%AE%E6%83%85%E5%A0%B1%E5%8F%96%E5%BE%97%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpdynamicscrm.github.io%2Fblog%2Fpowerautomate%2Fpower-automate-desktop-helpful-information-for-sr%2F%29%0A*+Content+Source%3A+%5Barticles%2Fpowerautomate%2Fpower-automate-desktop-helpful-information-for-sr.md%5D%28https%3A%2F%2Fgithub.com%2Fjpdynamicscrm%2Fblog%2Fblob%2Fmaster%2Farticles%2Fpowerautomate%2Fpower-automate-desktop-helpful-information-for-sr.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpdynamicscrm.github.io/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/" data-id="cmj8g5rtd00lm0nms1z5vaxog" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。Power Platform サポートの大友、竹内です。<br>本記事では Power Automate for desktop 関連のお問い合わせの際の、情報取得手順についてご案内いたします。</p>
+<span id="more"></span>
+<h1 id="目次"><a href="#目次" class="headerlink" title="目次"></a>目次</h1><ol>
+<li><a href="#anchor-intro">概要</a></li>
+<li><a href="#anchor-how-to-collect">情報取得手順詳細</a><ol>
+<li><a href="#anchor-pad-version">Power Automate for desktop のバージョン</a></li>
+<li><a href="#anchor-os-version">OS のバージョン</a></li>
+<li><a href="#anchor-computer-log">コンピューター ログ</a></li>
+<li><a href="#anchor-analysis-result">トラブルシューティングの診断実行結果</a></li>
+<li><a href="#anchor-verbose-log">詳細ログ</a></li>
+<li><a href="#anchor-event-log">イベントログ</a></li>
+<li><a href="#anchor-fiddler-log">Fiddler ログ</a></li>
+<li><a href="#anchor-machine-information">マシン登録の情報</a></li>
+<li><a href="#anchor-remote-desktop-setting">リモートデスクトップ設定</a></li>
+<li><a href="#anchor-registry-setting">レジストリの設定</a></li>
+<li><a href="#anchor-desktopflow">Power Automate for desktop のフロー</a></li>
+<li><a href="#anchor-desktopflow-url">デスクトップ フローの実行履歴 URL</a></li>
+<li><a href="#anchor-desktopflow-runhistory-screenshot">デスクトップ フローの実行履歴の画面キャプチャ</a></li>
+<li><a href="#anchor-desktopflow-runhistory-error-input-output">デスクトップ フローの実行履歴のエラー・入力・出力の詳細</a></li>
+<li><a href="#anchor-cloudflow-run-history-csv">クラウド フローの実行履歴 CSV (クラウドフローから呼び出している場合)</a></li>
+<li><a href="#anchor-cloudflow-raw-input-output">クラウド フローのアクションの未加工入力・出力 (クラウドフローから呼び出している場合)</a></li>
+<li><a href="#anchor-installer-log">インストーラー ログ</a></li>
+</ol>
+</li>
+</ol>
+<p><a id='anchor-intro'></a></p>
+<h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>Power Automate for desktop に関するサポートサービスのお問い合わせの際の、情報取得手順についてご案内致します。</p>
+<p><a id='anchor-how-to-collect'></a></p>
+<h1 id="情報取得手順詳細"><a href="#情報取得手順詳細" class="headerlink" title="情報取得手順詳細"></a>情報取得手順詳細</h1><p><a id='anchor-pad-version'></a></p>
+<h2 id="1-Power-Automate-for-desktop-のバージョン"><a href="#1-Power-Automate-for-desktop-のバージョン" class="headerlink" title="1. Power Automate for desktop のバージョン"></a>1. Power Automate for desktop のバージョン</h2><p>Power Automate for desktop のバージョンが確認できる画面キャプチャをご提供ください。</p>
+<ol>
+<li>Power Automate for desktop &gt; ヘルプ &gt; バージョン情報 を選択します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/pad-version.png"></li>
+<li>コピーの詳細を選択し、テキストエディターに貼り付け<code>Ctrl+V</code>したファイルをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/pad-version2.png"></li>
+</ol>
+<p><a id='anchor-os-version'></a></p>
+<h2 id="2-OS-のバージョン"><a href="#2-OS-のバージョン" class="headerlink" title="2. OS のバージョン"></a>2. OS のバージョン</h2><p>OS のバージョンが確認できる以下の画面キャプチャを取得しご提供ください。</p>
+<ul>
+<li>システム &gt; バージョン情報<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/os-version1.png">  </li>
+</ul>
+<p><a id='anchor-computer-log'></a></p>
+<h2 id="3-コンピューター-ログ"><a href="#3-コンピューター-ログ" class="headerlink" title="3. コンピューター ログ"></a>3. コンピューター ログ</h2><p>Power Automate コンピューター ランタイムをご利用いただいている場合は <strong>a‐1</strong> の方法から、ご利用いただけない場合は <strong>a‐2</strong> の方法からログを取得してご提供ください。  </p>
+<p>デスクトップフロー実行時にエラーが発生する場合は、RunDefinition.json ファイルと Actions.log ファイルを保持するレジストリを登録いただき、<strong>b</strong> のログも併せてご提供ください。  </p>
+<h3 id="a-Power-Automate-for-desktop-動作ログ"><a href="#a-Power-Automate-for-desktop-動作ログ" class="headerlink" title="a) Power Automate for desktop 動作ログ"></a>a) Power Automate for desktop 動作ログ</h3><ol>
+<li>Power Automate コンピュータ ランタイムからログを収集<br>フロー実行後のログの出力に関して、過去 3 日間のログが Power Automate コンピューター ランタイムから出力いただけます。<br>Power Automate コンピュータ ランタイムからエクスポートした zip ファイルをご提供ください。<br>Power Automate コンピュータ ランタイム &gt; トラブルシューティング &gt; ログのエクスポート を選択します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/computer-log.png">  <div class="alert is-info"><p class="alert-title">Note</p><p>公開情報にも手順の記載がございますので、ご参照いただけますと幸いです。</p><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-automate/desktop-flows/troubleshoot#collect-machine-logs">デスクトップ フローのトラブルシューティング - Power Automate | Microsoft Learn</a></p></div>
+</li>
+<li>管理者権限のあるアカウントでフォルダからログを収集<br>管理者権限のあるアカウントで以下のフォルダ内にあるファイルを zip ファイルにまとめてご提供ください。<br>フォルダ：<code>%ProgramData%\Microsoft\Power Automate\Logs</code></li>
+</ol>
+<h3 id="b-デスクトップフロー実行詳細ログおよびアクション詳細ログ"><a href="#b-デスクトップフロー実行詳細ログおよびアクション詳細ログ" class="headerlink" title="b) デスクトップフロー実行詳細ログおよびアクション詳細ログ"></a>b) デスクトップフロー実行詳細ログおよびアクション詳細ログ</h3><p>以下のレジストリを登録いただきマシンを再起動した上で、以下でご案内するフォルダに格納されているファイルを取得してご提供ください。</p>
+<ol>
+<li>以下の公開情報を参考に、必要となるレジストリを登録いただきマシンを再起動致します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/computer-log2.png"><div class="alert is-info"><p class="alert-title">Note</p><p>公開情報にも手順の記載がございますので、ご参照いただけますと幸いです。</p><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-automate/desktop-flows/governance#configure-power-automate-for-desktop-to-keep-the-flow-run-details">Power Automate でのガバナンス - Power Automate | Microsoft Learn</a></p></div>
+</li>
+</ol>
+<div class="alert is-warning"><p class="alert-title">警告</p><p>こちらのレジストリを有効にした状態のままご運用頂くと端末のストレージを逼迫させる場合があります。</p><p>情報ご取得後はレジストリの無効化をお勧め致します。</p></div>
+<ol start="2">
+<li>事象を再現致します。</li>
+<li>ファイルをご取得ください。<br>以下のフォルダに格納されているファイルを取得し、ご提供ください。<br><code>%localappdata%\Microsoft\Power Automate Desktop\Scripts\&#123;scriptid&#125;\Runs\&#123;runid&#125;</code><br><code>&#123;ScriptId&#125;</code> にはデスクトップ フローの ID を、<code>&#123;RunId&#125;</code> にはフローの実行 ID を挿入します。<ul>
+<li>RunDefinition.json：デスクトップ フローの実行詳細が記録されたログです。</li>
+<li>Actions.log：デスクトップ フローに設定された各アクションの実行詳細が記録されたログです。</li>
+</ul>
+</li>
+</ol>
+<div class="alert is-info"><p class="alert-title">Note</p><p>デスクトップフローの ID とフローの実行 ID はPower Automateポータルのデスクトップ フローの実行履歴のURLより確認いただけます。</p><p><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/computer-log3.png"></p></div>
+<p><a id='anchor-analysis-result'></a></p>
+<h2 id="4-トラブルシューティングの診断実行結果"><a href="#4-トラブルシューティングの診断実行結果" class="headerlink" title="4. トラブルシューティングの診断実行結果"></a>4. トラブルシューティングの診断実行結果</h2><ol>
+<li>Power Automate for desktop &gt; ヘルプ &gt; トラブルシューティング を選択します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result1.png"></li>
+<li>事象に関連する診断の”実行”を選択してください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result2.png"></li>
+<li>表示された画面のスクリーンショットおよび画面右下部から生成されるレポートCSVファイルをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result3.png"></li>
+</ol>
+<p><a id='anchor-verbose-log'></a></p>
+<h2 id="5-詳細ログ"><a href="#5-詳細ログ" class="headerlink" title="5. 詳細ログ"></a>5. 詳細ログ</h2><ol>
+<li>Power Automate for desktop &gt; ヘルプ &gt; トラブルシューティング を選択します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/analysis-result1.png"></li>
+<li>“詳細なログ” をオンにします。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/verbose-log1.png"></li>
+<li>発生している事象を再現させてください。  </li>
+<li>“詳細なログ” をオフにし、”ログのエクスポート” からエクスポートされた zip ファイルをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/verbose-log2.png"></li>
+</ol>
+<p><a id='anchor-event-log'></a></p>
+<h2 id="6-イベントログ"><a href="#6-イベントログ" class="headerlink" title="6. イベントログ"></a>6. イベントログ</h2><ol>
+<li>Windows にインストールされている “イベントビューアー” を実行してください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/event-log1.png"></li>
+<li>Windows ログ &gt; Application を選択します。<br>画面右部 “現在のログをフィルター…” から事象発生日時が含まれるようフィルター処理を設定してください。<br>画面右部 “フィルターされたログ ファイルの名前を付けて保存…” から保存された evtx ファイルをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/event-log2.png"></li>
+</ol>
+<p>なお、イベントログについては、下記の公開情報にも記載がございます。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/troubleshoot/power-platform/power-automate/desktop-flows/how-to-get-power-automate-desktop-installer-logs#event-viewer-logs">ログのイベント ビューアー</a>  </p>
+<p><a id='anchor-fiddler-log'></a></p>
+<h2 id="7-Fiddler-ログ"><a href="#7-Fiddler-ログ" class="headerlink" title="7. Fiddler ログ"></a>7. Fiddler ログ</h2><p>以下の採取手順をご確認の上でログファイルをご提供ください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/power-query/web-connection-fiddler">Fiddler ログの採取手順 (microsoft.com)</a></p>
+<p>なお、情報取得の際はキャプチャ対象を <strong>Non-Browser</strong> に変更いただくようお願いいたします。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/fiddler-nonbrowser.png"></p>
+<p><a id='anchor-machine-information'></a></p>
+<h2 id="8-マシン登録の情報"><a href="#8-マシン登録の情報" class="headerlink" title="8. マシン登録の情報"></a>8. マシン登録の情報</h2><p>Power Automate ポータルの画面 &gt; 監視 &gt; マシン<br>該当のコンピューターの詳細画面の画面キャプチャをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/machine-information.png"></p>
+<p><a id='anchor-remote-desktop-setting'></a></p>
+<h2 id="9-リモート-デスクトップ設定"><a href="#9-リモート-デスクトップ設定" class="headerlink" title="9. リモート デスクトップ設定"></a>9. リモート デスクトップ設定</h2><p>実行される端末の以下リモート デスクトップの設定の画面キャプチャをご提供ください。</p>
+<ul>
+<li>実行される端末 &gt; システムのプロパティ &gt; リモートデスクトップ<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/remote-desktop-setting2.png"></li>
+<li>実行される端末 &gt; システムのプロパティ &gt; リモートデスクトップ &gt; ユーザーの選択<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/remote-desktop-setting3.png"></li>
+</ul>
+<p><a id='anchor-registry-setting'></a></p>
+<h2 id="10-レジストリの設定"><a href="#10-レジストリの設定" class="headerlink" title="10. レジストリの設定"></a>10. レジストリの設定</h2><ul>
+<li><p>レジストリ内容<br>レジストリエディタを起動し、以下のキーおよびその配下のレジストリの設定が確認できる画面キャプチャ、またはキーをエクスポートしたファイルをご提供ください。<br>キーが存在しない場合は、その旨をお知らせください。<br><code>コンピューター\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Power Automate Desktop</code><br><code>コンピューター\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Power Automate Desktop</code><br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/registry-setting4.png">  </p>
+</li>
+<li><p>サービスアカウントをご利用の場合<br>上記に加えてレジストリの以下キーのセキュリティ画面キャプチャもご提供ください。<br><code>コンピューター\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Power Automate Desktop\Registration</code> &gt; Registration キーを右クリック &gt; アクセス許可 &gt; 詳細設定<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/registry-setting3.png">  </p>
+</li>
+</ul>
+<p><a id='anchor-desktopflow'></a></p>
+<h2 id="11-Power-Automate-for-desktop-のフロー"><a href="#11-Power-Automate-for-desktop-のフロー" class="headerlink" title="11. Power Automate for desktop のフロー"></a>11. Power Automate for desktop のフロー</h2><p>デスクトップフロー本体をソリューションに追加し、エクスポート頂いたファイルをご提供下さい。<br>弊社環境にインポート出来るよう、依存関係のあるコンポーネント含めご提供をお願い致します。</p>
+<div class="alert is-info"><p class="alert-title">Note</p><p>ソリューションのエクスポート手順は、以下記事に手順がございますのでご参照いただけますと幸いです。</p><p><a href="https://jpdynamicscrm.github.io/blog/powerautomate/helpful-information-for-powerautomate-sr/#anchor-flowpackage-in-solution">Power Automate お問い合わせの際の情報取得手順 | Japan Dynamics CRM &amp; Power Platform Support Blog (jpdynamicscrm.github.io)</a>  </p></div>
+<p>ソリューションでのご提供が難しい場合、テキストファイルでのご提供をお願いいたします。</p>
+<p>デスクトップ フローのデスクトップフローの編集画面から、エディタ領域をクリックしたのちアクションを全選択<code>Ctrl+A</code>し、コピー<code>Ctrl+C</code>し、テキストエディターに貼り付け<code>Ctrl+V</code>したファイルをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow.png"><br>一度にコピーできるフローは 1 つだけであるため、フロー内に複数のサブフローがある場合は、サブフローごとに上記の手順を繰り返し、アクションを個別のテキスト ファイルに保存した上でご提供ください。  </p>
+<div class="alert is-warning"><p class="alert-title">警告</p><p>テキストでのご提供手順では入出力変数の定義やフロー内のアクションで使用していない UI 要素など一部の情報が含まれません。</p><p>エラーが発生しているアクションで入出力変数を使用している場合や、デスクトップ フロー全体の容量等を確認する必要がある場合は、弊社のサポートエンジニアからソリューションでの提供のご検討をお願いする場合がございます。</p></div>
+<p><a id='anchor-desktopflow-url'></a></p>
+<h2 id="12-デスクトップ-フローの実行履歴-URL"><a href="#12-デスクトップ-フローの実行履歴-URL" class="headerlink" title="12. デスクトップ フローの実行履歴 URL"></a>12. デスクトップ フローの実行履歴 URL</h2><ol>
+<li>マイ フロー&gt;デスクトップ フローから該当のフローを選択します。実行履歴から該当の日時を選択します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow-url.png">  </li>
+<li>URLをコピーしてご提供ください。<br>エラー時にフローが実行されず実行履歴に残っていない場合は、1 の画面のURLをコピーしてご提供下さい。</li>
+</ol>
+<p><a id='anchor-desktopflow-runhistory-screenshot'></a></p>
+<h2 id="13-デスクトップ-フローの実行履歴の画面キャプチャ"><a href="#13-デスクトップ-フローの実行履歴の画面キャプチャ" class="headerlink" title="13. デスクトップ フローの実行履歴の画面キャプチャ"></a>13. デスクトップ フローの実行履歴の画面キャプチャ</h2><ol>
+<li>「9. デスクトップ フローの実行履歴 URL」と同じ手順で実行履歴の画面を表示します。<ol>
+<li>マイ フロー &gt; デスクトップ フローから該当のフローを選択します。</li>
+<li>実行履歴から該当の日時を選択します。</li>
+</ol>
+</li>
+<li>ページ全体の画面キャプチャをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow-runhistory-screenshot.png"></li>
+</ol>
+<p><a id='anchor-desktopflow-runhistory-error-input-output'></a></p>
+<h2 id="14-デスクトップ-フローの実行履歴のエラー・入力・出力の詳細"><a href="#14-デスクトップ-フローの実行履歴のエラー・入力・出力の詳細" class="headerlink" title="14. デスクトップ フローの実行履歴のエラー・入力・出力の詳細"></a>14. デスクトップ フローの実行履歴のエラー・入力・出力の詳細</h2><ol>
+<li>「9. デスクトップ フローの実行履歴 URL」と同じ手順で実行履歴の画面を表示します。<ol>
+<li>マイ フロー &gt; デスクトップ フローから該当のフローを選択します。</li>
+<li>実行履歴から該当の日時を選択します。</li>
+</ol>
+</li>
+<li>「アクションの詳細」パネルで、該当のアクションの「開始」列のリンクを押下します。</li>
+</ol>
+<p><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/desktopflow-runhistory-error-input-output.png"></p>
+<p>【エラーの詳細】</p>
+<ol>
+<li>「エラーの詳細」のテキストをコピーし、テキスト ファイルへ保存します。</li>
+<li>「エラーのコンテキスト」の画像を右クリック &gt; 名前を付けて画像を保存を押下します。</li>
+<li>保存したテキスト ファイル、画像ファイルをご提供ください。</li>
+</ol>
+<p>【入力の詳細】</p>
+<ol>
+<li>「入力の詳細を確認します」のリンクを押下します。</li>
+<li>表示された入力の内容をコピーし、テキスト ファイルへ保存します。</li>
+<li>保存したテキスト ファイルをご提供ください。</li>
+</ol>
+<p>【出力の詳細】</p>
+<ol>
+<li>「出力の詳細を確認します」のリンクを押下します。</li>
+<li>表示された出力の内容をコピーし、テキスト ファイルへ保存します。</li>
+<li>保存したテキスト ファイルをご提供ください。</li>
+</ol>
+<p><a id='anchor-cloudflow-run-history-csv'></a></p>
+<h2 id="15-クラウド-フローの実行履歴-CSV-クラウドフローから呼び出している場合"><a href="#15-クラウド-フローの実行履歴-CSV-クラウドフローから呼び出している場合" class="headerlink" title="15. クラウド フローの実行履歴 CSV (クラウドフローから呼び出している場合)"></a>15. クラウド フローの実行履歴 CSV (クラウドフローから呼び出している場合)</h2><p>デスクトップフローをクラウドフローから呼び出している場合は、クラウドフローの実行履歴もご提供ください。</p>
+<ol>
+<li>デスクトップ フローを呼び出したクラウドフローの詳細画面を開き、「28 日間の実行履歴」から「すべての実行」を選択します。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/cloudflow-run-history-csv.png"></li>
+<li>「.csv ファイルを取得」を選択し、取得した CSV ファイルをご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/cloudflow-run-history-csv2.png"></li>
+</ol>
+<div class="alert is-info"><p class="alert-title">Note</p><p>クラウド フローの実行履歴 CSV の取得方法は、以下記事にも手順が掲載されております。</p><p><a href="https://jpdynamicscrm.github.io/blog/powerautomate/helpful-information-for-powerautomate-sr/#anchor-flowrunhistory-csv">Power Automate お問い合わせの際の情報取得手順 | Japan Dynamics CRM &amp; Power Platform Support Blog (jpdynamicscrm.github.io)</a></p></div>
+<p><a id='anchor-cloudflow-raw-input-output'></a></p>
+<h2 id="16-クラウド-フローのアクションの未加工入力・出力-クラウドフローから呼び出している場合"><a href="#16-クラウド-フローのアクションの未加工入力・出力-クラウドフローから呼び出している場合" class="headerlink" title="16. クラウド フローのアクションの未加工入力・出力 (クラウドフローから呼び出している場合)"></a>16. クラウド フローのアクションの未加工入力・出力 (クラウドフローから呼び出している場合)</h2><p>デスクトップフローをクラウドフローから呼び出している場合は、クラウドフローのアクションの未加工入力・未加工出力もご提供ください。<br>実行履歴から「デスクトップ用 Power Automate で構築したフローを実行する」アクション等のデスクトップ フローを呼び出すアクションを展開します。<br>未加工入力および未加工出力として表示されるテキストをコピーし、ご提供ください。<br><img src="/blog/powerautomate/power-automate-desktop-helpful-information-for-sr/cloudflow-raw-input-output.png">  </p>
+<div class="alert is-info"><p class="alert-title">Note</p><p>クラウド フローのアクションの未加工入力・出力の取得方法は、以下記事にも手順が掲載されております。</p><p><a href="https://jpdynamicscrm.github.io/blog/powerautomate/helpful-information-for-powerautomate-sr/#anchor-raw-input-output">Power Automate お問い合わせの際の情報取得手順 | Japan Dynamics CRM &amp; Power Platform Support Blog (jpdynamicscrm.github.io)</a></p></div>
+<p><a id='anchor-installer-log'></a></p>
+<h2 id="17-インストーラー-ログ"><a href="#17-インストーラー-ログ" class="headerlink" title="17. インストーラー ログ"></a>17. インストーラー ログ</h2><p>以下の採取手順をご確認の上でログファイルをご提供ください。<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/troubleshoot/power-platform/power-automate/desktop-flows/how-to-get-power-automate-desktop-installer-logs#installer-logs">インストーラー ログ</a></p>
+<hr>
+<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>本手順は執筆時点でのユーザー インターフェイスを基に紹介しています。バージョンアップによって若干の UI の遷移など異なる場合があります。その場合は画面の指示に従って進めてください。</p>
+<hr>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Power-Automate/" rel="tag">Power Automate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Power-Automate-for-desktop/" rel="tag">Power Automate for desktop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li></ul>
+
+        
+        <a href="https://github.com/jpdynamicscrm/blog/edit/master/articles/powerautomate/power-automate-desktop-helpful-information-for-sr.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../powerplatform/active-layer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          アクティブレイヤーの確認・削除方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../powerplatform/network-trace-har-collection-and-pii-submission-guide/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">ネットワークトレースの取り方と機密情報を含む場合の対処</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../powerplatform/active-layer/">アクティブレイヤーの確認・削除方法</a>
+          </li>
+        
+          <li>
+            <a href="">Power Automate for desktop お問い合わせの際の情報取得手順</a>
+          </li>
+        
+          <li>
+            <a href="../../powerplatform/network-trace-har-collection-and-pii-submission-guide/">ネットワークトレースの取り方と機密情報を含む場合の対処</a>
+          </li>
+        
+          <li>
+            <a href="../../powerpages/power-pages-licensing-guide/">Power Pages ライセンスについて</a>
+          </li>
+        
+          <li>
+            <a href="../../powerapps/model-driven-app-delete-guide/">モデル駆動型アプリ削除ガイド</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AI-Builder/" rel="tag">AI Builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AI-builder/" rel="tag">AI builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/App-Access-Checker/" rel="tag">App Access Checker</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Audit-Log/" rel="tag">Audit Log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Canvas-app/" rel="tag">Canvas app</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Cloud-flow/" rel="tag">Cloud flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Connector-and-Connection/" rel="tag">Connector and Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Copilot/" rel="tag">Copilot</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Copilot-Studio/" rel="tag">Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" rel="tag">DLP ポリシー</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataflow/" rel="tag">Dataflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse/" rel="tag">Dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse-for-Teams/" rel="tag">Dataverse for Teams</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" rel="tag">Dataverse ストレージ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Desktop-flow/" rel="tag">Desktop flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Developer-Environment/" rel="tag">Developer Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics/" rel="tag">Dynamics</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics-365/" rel="tag">Dynamics 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Environment/" rel="tag">Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Governance/" rel="tag">Governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Graph-API/" rel="tag">Graph API</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/HAR/" rel="tag">HAR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/How-to/" rel="tag">How to</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Ideas/" rel="tag">Ideas</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Information/" rel="tag">Information</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Inventory-Report/" rel="tag">Inventory Report</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/License/" rel="tag">License</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Copilot-Studio/" rel="tag">Microsoft Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" rel="tag">Microsoft Teams 連携</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Model-driven-app/" rel="tag">Model-driven app</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Office-365-Management-API/" rel="tag">Office 365 Management API</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Apps/" rel="tag">Power Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate/" rel="tag">Power Automate</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate-for-desktop/" rel="tag">Power Automate for desktop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform/" rel="tag">Power Platform</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" rel="tag">Power Platform 管理センター</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Virtual-Agents/" rel="tag">Power Virtual Agents</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerPlatform/" rel="tag">PowerPlatform</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/" rel="tag">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SR/" rel="tag">SR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Settings/" rel="tag">Settings</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SharePoint-Online/" rel="tag">SharePoint Online</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Tenant-level-Analytics/" rel="tag">Tenant-level Analytics</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/VNetGateway/" rel="tag">VNetGateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/dataverse/" rel="tag">dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/governance/" rel="tag">governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/licensing/" rel="tag">licensing</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/powerapps/" rel="tag">powerapps</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/powerpages/" rel="tag">powerpages</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" rel="tag">オンプレミス データ ゲートウェイ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9%E3%82%A2%E3%83%97%E3%83%AA/" rel="tag">キャンバスアプリ</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" rel="tag">サポート</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88/" rel="tag">サポート リクエスト</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" rel="tag">セキュリティ ロール</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" rel="tag">テナント移行</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9/" rel="tag">ネットワークトレース</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" rel="tag">モニター</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%A7%94%E4%BB%BB/" rel="tag">委任</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E5%BD%B9%E5%89%B2/" rel="tag">役割</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E6%A9%9F%E5%AF%86%E6%83%85%E5%A0%B1/" rel="tag">機密情報</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/" rel="tag">重要な変更点 (廃止)</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Apps/">Power Apps</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/">お問い合わせ全般</a><span class="tag-list-count">12</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/">PowerShell</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Platform/">Power Platform</a><span class="tag-list-count">27</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Governance/">Governance</a><span class="tag-list-count">17</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/How-to/">How to</a><span class="tag-list-count">20</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Information/">Information</a><span class="tag-list-count">7</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/License/">License</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate/">Power Automate</a><span class="tag-list-count">40</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Connector-and-Connection/">Connector and Connection</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Network/">Network</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Power-Automate-for-desktop/">Power Automate for desktop</a><span class="tag-list-count">8</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dataverse/">Dataverse</a><span class="tag-list-count">9</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Model-driven-app/">Model-driven app</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics/">Dynamics</a><span class="tag-list-count">10</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/">重要な変更点 (廃止)</a><span class="tag-list-count">1</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Dynamics-365/">Dynamics 365</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/">Microsoft Teams 連携</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/12/">2025 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/10/">2025 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/09/">2025 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/08/">2025 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/05/">2025 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/04/">2025 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/03/">2025 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/02/">2025 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2025/01/">2025 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/12/">2024 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/11/">2024 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/10/">2024 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/07/">2024 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/06/">2024 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2024/01/">2024 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/11/">2023 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/08/">2023 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/06/">2023 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/05/">2023 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/04/">2023 / 04</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/03/">2023 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/02/">2023 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2023/01/">2023 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/12/">2022 / 12</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/11/">2022 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/10/">2022 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">2022 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/08/">2022 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/06/">2022 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/05/">2022 / 05</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/03/">2022 / 03</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/02/">2022 / 02</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/01/">2022 / 01</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/11/">2021 / 11</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/09/">2021 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/08/">2021 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/07/">2021 / 07</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/06/">2021 / 06</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">2021 / 04</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/AI-Builder/" style="font-size: 10px;">AI Builder</a> <a href="../../tags/AI-builder/" style="font-size: 10px;">AI builder</a> <a href="../../tags/App-Access-Checker/" style="font-size: 10px;">App Access Checker</a> <a href="../../tags/Audit-Log/" style="font-size: 10px;">Audit Log</a> <a href="../../tags/Canvas-app/" style="font-size: 13.13px;">Canvas app</a> <a href="../../tags/Cloud-flow/" style="font-size: 18.75px;">Cloud flow</a> <a href="../../tags/Connector-and-Connection/" style="font-size: 12.5px;">Connector and Connection</a> <a href="../../tags/Copilot/" style="font-size: 10px;">Copilot</a> <a href="../../tags/Copilot-Studio/" style="font-size: 10px;">Copilot Studio</a> <a href="../../tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" style="font-size: 10px;">DLP ポリシー</a> <a href="../../tags/Dataflow/" style="font-size: 10px;">Dataflow</a> <a href="../../tags/Dataverse/" style="font-size: 15px;">Dataverse</a> <a href="../../tags/Dataverse-for-Teams/" style="font-size: 10.63px;">Dataverse for Teams</a> <a href="../../tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" style="font-size: 10.63px;">Dataverse ストレージ</a> <a href="../../tags/Desktop-flow/" style="font-size: 11.88px;">Desktop flow</a> <a href="../../tags/Developer-Environment/" style="font-size: 10px;">Developer Environment</a> <a href="../../tags/Dynamics/" style="font-size: 15.63px;">Dynamics</a> <a href="../../tags/Dynamics-365/" style="font-size: 10.63px;">Dynamics 365</a> <a href="../../tags/Environment/" style="font-size: 12.5px;">Environment</a> <a href="../../tags/Exchange/" style="font-size: 10px;">Exchange</a> <a href="../../tags/Governance/" style="font-size: 16.88px;">Governance</a> <a href="../../tags/Graph-API/" style="font-size: 10.63px;">Graph API</a> <a href="../../tags/HAR/" style="font-size: 10px;">HAR</a> <a href="../../tags/How-to/" style="font-size: 18.13px;">How to</a> <a href="../../tags/Ideas/" style="font-size: 10px;">Ideas</a> <a href="../../tags/Information/" style="font-size: 13.75px;">Information</a> <a href="../../tags/Inventory-Report/" style="font-size: 10px;">Inventory Report</a> <a href="../../tags/License/" style="font-size: 12.5px;">License</a> <a href="../../tags/Microsoft-Copilot-Studio/" style="font-size: 11.88px;">Microsoft Copilot Studio</a> <a href="../../tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" style="font-size: 10.63px;">Microsoft Teams 連携</a> <a href="../../tags/Model-driven-app/" style="font-size: 13.13px;">Model-driven app</a> <a href="../../tags/Network/" style="font-size: 11.88px;">Network</a> <a href="../../tags/Office-365-Management-API/" style="font-size: 10px;">Office 365 Management API</a> <a href="../../tags/Power-Apps/" style="font-size: 17.5px;">Power Apps</a> <a href="../../tags/Power-Automate/" style="font-size: 20px;">Power Automate</a> <a href="../../tags/Power-Automate-for-desktop/" style="font-size: 14.38px;">Power Automate for desktop</a> <a href="../../tags/Power-Platform/" style="font-size: 19.38px;">Power Platform</a> <a href="../../tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" style="font-size: 10px;">Power Platform 管理センター</a> <a href="../../tags/Power-Virtual-Agents/" style="font-size: 11.88px;">Power Virtual Agents</a> <a href="../../tags/PowerPlatform/" style="font-size: 11.25px;">PowerPlatform</a> <a href="../../tags/PowerShell/" style="font-size: 11.25px;">PowerShell</a> <a href="../../tags/SR/" style="font-size: 10px;">SR</a> <a href="../../tags/Settings/" style="font-size: 10px;">Settings</a> <a href="../../tags/SharePoint-Online/" style="font-size: 10px;">SharePoint Online</a> <a href="../../tags/Tenant-level-Analytics/" style="font-size: 10px;">Tenant-level Analytics</a> <a href="../../tags/VNetGateway/" style="font-size: 10px;">VNetGateway</a> <a href="../../tags/dataverse/" style="font-size: 10px;">dataverse</a> <a href="../../tags/governance/" style="font-size: 10.63px;">governance</a> <a href="../../tags/licensing/" style="font-size: 10px;">licensing</a> <a href="../../tags/powerapps/" style="font-size: 10px;">powerapps</a> <a href="../../tags/powerpages/" style="font-size: 10px;">powerpages</a> <a href="../../tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" style="font-size: 16.25px;">お問い合わせ全般</a> <a href="../../tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" style="font-size: 10px;">オンプレミス データ ゲートウェイ</a> <a href="../../tags/%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%90%E3%82%B9%E3%82%A2%E3%83%97%E3%83%AA/" style="font-size: 10px;">キャンバスアプリ</a> <a href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" style="font-size: 10.63px;">サポート</a> <a href="../../tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88-%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88/" style="font-size: 10px;">サポート リクエスト</a> <a href="../../tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" style="font-size: 10px;">セキュリティ ロール</a> <a href="../../tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" style="font-size: 10px;">テナント移行</a> <a href="../../tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9/" style="font-size: 10px;">ネットワークトレース</a> <a href="../../tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" style="font-size: 10px;">モニター</a> <a href="../../tags/%E5%A7%94%E4%BB%BB/" style="font-size: 10px;">委任</a> <a href="../../tags/%E5%BD%B9%E5%89%B2/" style="font-size: 10px;">役割</a> <a href="../../tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" style="font-size: 13.13px;">情報採取</a> <a href="../../tags/%E6%A9%9F%E5%AF%86%E6%83%85%E5%A0%B1/" style="font-size: 10px;">機密情報</a> <a href="../../tags/%E9%87%8D%E8%A6%81%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9-%E5%BB%83%E6%AD%A2/" style="font-size: 10px;">重要な変更点 (廃止)</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">カテゴリ</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../categories/Dataflow/">Dataflow</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Dataverse/">Dataverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Dynamics-365/">Dynamics 365</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/">Power Apps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Canvas-App/">Canvas App</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Canvas-app/">Canvas app</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Apps/Model-driven-app/">Model-driven app</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/">Power Automate</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/Cloud-flow/">Cloud flow</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Automate/Desktop-flow/">Desktop flow</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform/">Power Platform</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/">サポート</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../categories/Power-Platform-Admin-Center/">Power Platform Admin Center</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/information/">information</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/powerapps/">powerapps</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/powerplatform/">powerplatform</a></li><li class="category-list-item"><a class="category-list-link" href="../../categories/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">サポートサービスのご利用について</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <a href="https://privacy.microsoft.com/ja-jp/privacystatement" target="_blank" rel=”noopener”>Privacy & Cookies</a> |  
+      <a href="https://www.microsoft.com/ja-jp/legal/intellectualproperty/copyright" target="_blank" rel=”noopener”>Terms of use</a> |
+      <a href="https://www.microsoft.com/ja-jp/legal/intellectualproperty/trademarks" target="_blank" rel=”noopener”>Trademarks</a> |
+      &copy; 2025 Japan Dynamics CRM &amp; Power Platform Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
