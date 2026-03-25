@@ -143,7 +143,7 @@ jobs:
             has_tags=false
             in_tags=false
             while IFS= read -r fm_line; do
-              trimmed="${fm_line#"${fm_line%%[![:space:]]*}"}"  # ltrim
+              trimmed=$(echo "$fm_line" | sed 's/^[[:space:]]*//')
               if [[ "$trimmed" == tags:* ]]; then
                 in_tags=true
                 continue
@@ -167,7 +167,7 @@ jobs:
             has_cats=false
             in_cats=false
             while IFS= read -r fm_line; do
-              trimmed="${fm_line#"${fm_line%%[![:space:]]*}"}"
+              trimmed=$(echo "$fm_line" | sed 's/^[[:space:]]*//')
               if [[ "$trimmed" == categories:* ]]; then
                 in_cats=true
                 continue
