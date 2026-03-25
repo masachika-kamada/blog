@@ -123,14 +123,14 @@ jobs:
             fi
 
             # --- 1. title ---
-            title_value=$(echo "$frontmatter" | grep -E '^title:' | head -1 | sed 's/^title:[[:space:]]*//')
+            title_value=$(echo "$frontmatter" | grep -E '^title:' | head -1 | sed 's/^title:[[:space:]]*//' || true)
             if [[ -z "$title_value" ]]; then
               echo "::error file=$path::Missing or empty 'title' in front matter."
               bad=1
             fi
 
             # --- 2. date ---
-            date_value=$(echo "$frontmatter" | grep -E '^date:' | head -1 | sed 's/^date:[[:space:]]*//')
+            date_value=$(echo "$frontmatter" | grep -E '^date:' | head -1 | sed 's/^date:[[:space:]]*//' || true)
             if [[ -z "$date_value" ]]; then
               echo "::error file=$path::Missing 'date' in front matter."
               bad=1
