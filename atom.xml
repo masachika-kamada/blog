@@ -18,7 +18,7 @@
   <title>
     <![CDATA[Japan Dynamics CRM & Power Platform Support Blog]]>
   </title>
-  <updated>2026-03-25T21:58:05.257Z</updated>
+  <updated>2026-03-25T22:03:28.657Z</updated>
   <entry>
     <author>
       <name>
@@ -54,7 +54,7 @@
 </blockquote>]]>
     </summary>
     <title>外部アプリから Dataverse の TDS endpoint に接続できないときの確認ポイント</title>
-    <updated>2026-03-25T21:58:05.257Z</updated>
+    <updated>2026-03-25T22:03:28.657Z</updated>
   </entry>
   <entry>
     <author>
@@ -84,7 +84,7 @@
 </ul>]]>
     </summary>
     <title>Dataverse 容量不足を解消！一括削除機能の使い方と注意点まとめ</title>
-    <updated>2026-03-25T21:58:05.208Z</updated>
+    <updated>2026-03-25T22:03:28.608Z</updated>
   </entry>
   <entry>
     <author>
@@ -116,7 +116,7 @@
 </ul>]]>
     </summary>
     <title>Power Pages 認証キーの更新ガイド</title>
-    <updated>2026-03-25T21:58:05.143Z</updated>
+    <updated>2026-03-25T22:03:28.543Z</updated>
   </entry>
   <entry>
     <author>
@@ -137,7 +137,7 @@
 <p>ソリューションは、アプリやフロー、テーブルなどのコンポーネントをまとめて管理・移行するための仕組みです。<br>適切に設計・運用することで、変更管理や環境間の展開がスムーズになります。</p>]]>
     </summary>
     <title>Power Platform ソリューション運用のベストプラクティス</title>
-    <updated>2026-03-25T21:58:05.273Z</updated>
+    <updated>2026-03-25T22:03:28.673Z</updated>
   </entry>
   <entry>
     <author>
@@ -146,8 +146,8 @@
       </name>
     </author>
     <category term="Power Platform Admin Center" scheme="https://jpdynamicscrm.github.io/blog/categories/Power-Platform-Admin-Center/"/>
-    <category term="Power Platform" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Platform/"/>
     <category term="PowerShell" scheme="https://jpdynamicscrm.github.io/blog/tags/PowerShell/"/>
+    <category term="Power Platform" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Platform/"/>
     <category term="セキュリティ ロール" scheme="https://jpdynamicscrm.github.io/blog/tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/"/>
     <category term="環境管理" scheme="https://jpdynamicscrm.github.io/blog/tags/%E7%92%B0%E5%A2%83%E7%AE%A1%E7%90%86/"/>
     <category term="ユーザー管理" scheme="https://jpdynamicscrm.github.io/blog/tags/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%AE%A1%E7%90%86/"/>
@@ -170,7 +170,7 @@
 </ul>]]>
     </summary>
     <title>Power Platform 管理者向け PowerShell でできること代表例まとめ</title>
-    <updated>2026-03-25T21:58:05.257Z</updated>
+    <updated>2026-03-25T22:03:28.657Z</updated>
   </entry>
   <entry>
     <author>
@@ -203,7 +203,7 @@
     <title>
       <![CDATA[Dataverse Search のストレージ内訳と削減の考え方（Q&Aガイド）]]>
     </title>
-    <updated>2026-03-25T21:58:05.211Z</updated>
+    <updated>2026-03-25T22:03:28.611Z</updated>
   </entry>
   <entry>
     <author>
@@ -212,8 +212,8 @@
       </name>
     </author>
     <category term="Power Apps" scheme="https://jpdynamicscrm.github.io/blog/categories/Power-Apps/"/>
-    <category term="Power Apps" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Apps/"/>
     <category term="Canvas app" scheme="https://jpdynamicscrm.github.io/blog/tags/Canvas-app/"/>
+    <category term="Power Apps" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Apps/"/>
     <category term="SharePoint" scheme="https://jpdynamicscrm.github.io/blog/tags/SharePoint/"/>
     <category term="Mobile" scheme="https://jpdynamicscrm.github.io/blog/tags/Mobile/"/>
     <content>
@@ -233,7 +233,7 @@
 </ol>]]>
     </summary>
     <title>モバイル端末で SharePoint をソースにしたキャンバスアプリの画像やメディアが表示されない場合の対処方法</title>
-    <updated>2026-03-25T21:58:04.932Z</updated>
+    <updated>2026-03-25T22:03:28.331Z</updated>
   </entry>
   <entry>
     <author>
@@ -257,7 +257,7 @@
 <p>本記事では、Dynamics 365 に関するお問い合わせの際に必要となる情報の取得手順をご説明します。<br>適切な情報をご提供いただくことで、問題の早期解決につながります。</p>]]>
     </summary>
     <title>Dynamics 365 トラブルシューティングのための情報収集ガイド</title>
-    <updated>2026-03-25T21:58:05.211Z</updated>
+    <updated>2026-03-25T22:03:28.611Z</updated>
   </entry>
   <entry>
     <author>
@@ -286,7 +286,7 @@
 <p>今回は、日付列（フィールド）の「動作 (Behavior)」と「書式 (Format)」の組み合わせによるデータの格納され方の違いと、設定変更時の注意点について、実際の検証結果を交えて解説します。</p>]]>
     </summary>
     <title>Dataverse (Dynamics 365) における日付フィールドの動作とタイムゾーンの考慮点について</title>
-    <updated>2026-03-25T21:58:05.211Z</updated>
+    <updated>2026-03-25T22:03:28.611Z</updated>
   </entry>
   <entry>
     <author>
@@ -314,7 +314,7 @@
 <p>今回は、Power Platform 環境でできるアクティブレイヤーの確認・削除方法についてご紹介いたします。</p>]]>
     </summary>
     <title>アクティブレイヤーの確認・削除方法</title>
-    <updated>2026-03-25T21:58:05.199Z</updated>
+    <updated>2026-03-25T22:03:28.598Z</updated>
   </entry>
   <entry>
     <author>
@@ -338,7 +338,7 @@
       <![CDATA[<p>こんにちは。Power Platform サポートの大友、竹内です。<br>本記事では Power Automate for desktop 関連のお問い合わせの際の、情報取得手順についてご案内いたします。</p>]]>
     </summary>
     <title>Power Automate for desktop お問い合わせの際の情報取得手順</title>
-    <updated>2026-03-25T21:58:05.101Z</updated>
+    <updated>2026-03-25T22:03:28.501Z</updated>
   </entry>
   <entry>
     <author>
@@ -369,7 +369,7 @@
 </ul>]]>
     </summary>
     <title>Power Pages ライセンスについて</title>
-    <updated>2026-03-25T21:58:05.145Z</updated>
+    <updated>2026-03-25T22:03:28.546Z</updated>
   </entry>
   <entry>
     <author>
@@ -398,7 +398,7 @@
 </ul>]]>
     </summary>
     <title>モデル駆動型アプリ削除ガイド</title>
-    <updated>2026-03-25T21:58:05.024Z</updated>
+    <updated>2026-03-25T22:03:28.423Z</updated>
   </entry>
   <entry>
     <author>
@@ -421,7 +421,7 @@
     <title>
       <![CDATA[DLP ポリシーに関する様々な Q&A について]]>
     </title>
-    <updated>2026-03-25T21:58:05.256Z</updated>
+    <updated>2026-03-25T22:03:28.656Z</updated>
   </entry>
   <entry>
     <author>
@@ -442,7 +442,7 @@
       <![CDATA[<p>こんにちは。Power Platform サポートチームの 網野 です。<br>今回は Copilot Studio でエージェントを作成できるユーザーに必要な権限についてご紹介します。</p>]]>
     </summary>
     <title>Copilot Studio エージェントの作成に必要な権限について</title>
-    <updated>2026-03-25T21:58:04.995Z</updated>
+    <updated>2026-03-25T22:03:28.393Z</updated>
   </entry>
   <entry>
     <author>
@@ -464,7 +464,7 @@
       <![CDATA[<p>こんにちは、Power Platform サポート チームの三田です。<br>本記事では、Power Platform 管理センター（PPAC）からサポート リクエストを起票するために必要な権限についてご紹介いたします。</p>]]>
     </summary>
     <title>Power Platform 管理センター からサポート リクエストを起票するために必要な権限について</title>
-    <updated>2026-03-25T21:58:05.270Z</updated>
+    <updated>2026-03-25T22:03:28.670Z</updated>
   </entry>
   <entry>
     <author>
@@ -486,7 +486,7 @@
       <![CDATA[<p>こんにちは、Power Platform サポートチームの宮﨑です。<br>本記事では Power Automate で Teams コネクタを使用してメッセージを投稿する際、文字列の改行を反映する方法についてご案内いたします。</p>]]>
     </summary>
     <title>Power Automate で Teams コネクタを使う際に改行を反映する方法</title>
-    <updated>2026-03-25T21:58:05.062Z</updated>
+    <updated>2026-03-25T22:03:28.462Z</updated>
   </entry>
   <entry>
     <author>
@@ -511,7 +511,7 @@
       <![CDATA[<p>こんにちは、Power Platform サポートチームの宮﨑です。<br>本記事では、Dataflow のトラブルシューティングにあたって、必要となる情報の取得手順についてご案内いたします。</p>]]>
     </summary>
     <title>Dataflow お問い合わせの際の情報取得手順</title>
-    <updated>2026-03-25T21:58:05.019Z</updated>
+    <updated>2026-03-25T22:03:28.418Z</updated>
   </entry>
   <entry>
     <author>
@@ -535,7 +535,7 @@
 <p>本記事では Dataverse ストレージにおけるライセンスごとに付与される容量の考え方についてご紹介させて頂きます。<br><br>なお、Dataverse ストレージの基本的な考え方や Dataverse ストレージ超過時の影響などは、過去に公開させて頂いた後述の記事をご参考にしていただけますと幸いです。<br><br>参考情報 : <a href="https://jpdynamicscrm.github.io/blog/powerplatform/About-Dataverse-Storage/">Dataverse のストレージ容量について</a></p>]]>
     </summary>
     <title>Dataverse Capacity について</title>
-    <updated>2026-03-25T21:58:05.190Z</updated>
+    <updated>2026-03-25T22:03:28.590Z</updated>
   </entry>
   <entry>
     <author>
@@ -557,6 +557,6 @@
       <![CDATA[<p>こんにちは、Power Platform サポートチームの竹内です。<br>本記事では Copilot Studio (旧称 Power Virtual Agents) で作成したエージェントを Microsoft Teams (以降 Teams) に公開する方法についてご案内致します。</p>]]>
     </summary>
     <title>Copilot Studio のエージェントを Teams に公開する方法</title>
-    <updated>2026-03-25T21:58:04.957Z</updated>
+    <updated>2026-03-25T22:03:28.355Z</updated>
   </entry>
 </feed>
