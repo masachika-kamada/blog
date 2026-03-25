@@ -138,7 +138,7 @@
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/powerbi-dataverse-connection-troubleshooting/" data-id="cuidUg1EvWN24qp5ZbBaXHPve" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/powerbi-dataverse-connection-troubleshooting/" data-id="cuid5r2ZPRuyEnzCpS99uPNK5" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-BI/" rel="tag">Power BI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Platform/" rel="tag">Power Platform</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/TDS-endpoint/" rel="tag">TDS endpoint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Troubleshooting/" rel="tag">Troubleshooting</a></li></ul>
@@ -182,25 +182,29 @@
     <!-- post caption -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、Power Platformサポートチームの中下です。</p>
-<p>本記事ではDataverse の容量削減について、以下の Q1〜Q5 の質問に回答する形でご説明させていただきます。</p>
-<ul>
-<li><a href="#q1">Q1: Dataverse の「一括削除」とは、どのような機能ですか？</a></li>
-<li><a href="#q2">Q2: 一括削除の具体的な設定手順を教えてください</a></li>
-<li><a href="#q3">Q3: 監査ログもこの機能で削除できますか？</a></li>
-<li><a href="#q4">Q4: 実行前に気をつけるべき注意点はありますか？</a></li>
-<li><a href="#q5">Q5: 削除したはずなのに容量レポートが減りません</a></li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="powerplatform/dataverse-bulk-delete-guide/#more">Read More</a>
-          </p>
-        
+        こんにちは、Power Platformサポートチームの中下です。
+本記事ではDataverse の容量削減について、以下の Q1〜Q5 の質問に回答する形でご説明させていただきます。
+
+Q1: Dataverse の「一括削除」とは、どのような機能ですか？
+Q2: 一括削除の具体的な設定手順を教えてください
+Q3: 監査ログもこの機能で削除できますか？
+Q4: 実行前に気をつけるべき注意点はありますか？
+Q5: 削除したはずなのに容量レポートが減りません
+
+この記事でわかること
+Dataverse の容量（データベース、ファイル）を減らすための標準機能「一括削除」の概要
+「30日以上前の成功したシステムジョブ」など、条件を指定して削除する方法
+監査ログの削除が通常のレコード削除と異なる点
+削除実行時のリスク（関連データの削除）と事前のバックアップ推奨
+容量反映までのタイムラグについての理...
+        <p class="article-readmore">
+          <a href="powerplatform/dataverse-bulk-delete-guide/">Read more</a>
+        </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/dataverse-bulk-delete-guide/" data-id="cuidJvXlKuKbcrrrsyz04SXHb" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/dataverse-bulk-delete-guide/" data-id="cuidpFLT9SGiEXfNvPmjuNj6A" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Capacity/" rel="tag">Capacity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Platform/" rel="tag">Power Platform</a></li></ul>
@@ -244,27 +248,22 @@
     <!-- post caption -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、Power Platformサポートチームの吉永です。</p>
-<p>本記事では Power Pages 認証キーに関するご説明を行わせて頂きます。</p>
-<p>Power Pages 認証キーは作成頂いた Web サイトをユーザー様で定期的に更新作業を実施する必要のある項目となっており、この認証キーが持つ有効期限が切れてしまった場合、Web サイトにアクセスできないといった大きな影響が生じます。</p>
-<p>このため、Power Pages の Web サイトを作成する上で、Power Pages 認証キーをどのように管理いただくかは非常に重要なポイントとなります。</p>
-<p>本記事では Power Pages 認証キーの管理について、以下の Q1〜Q4 の質問に回答する形でご説明させていただきます。</p>
-<ul>
-<li><a href="#auth-key-overview">Q1: Power Pages の認証キーとは何ですか？なぜ更新が必要なのですか？</a></li>
-<li><a href="#expiration-impact">Q2: 認証キーの有効期限が切れるとどうなりますか？</a></li>
-<li><a href="#renewal-steps">Q3: どうやってキーを更新すればいいですか？</a></li>
-<li><a href="#auth-key-management">Q4: 認証キーはどのように管理すればいいですか？</a></li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="powerpages/power-pages-auth-key/#more">Read More</a>
-          </p>
-        
+        こんにちは、Power Platformサポートチームの吉永です。
+本記事では Power Pages 認証キーに関するご説明を行わせて頂きます。
+Power Pages 認証キーは作成頂いた Web サイトをユーザー様で定期的に更新作業を実施する必要のある項目となっており、この認証キーが持つ有効期限が切れてしまった場合、Web サイトにアクセスできないといった大きな影響が生じます。
+このため、Power Pages の Web サイトを作成する上で、Power Pages 認証キーをどのように管理いただくかは非常に重要なポイントとなります。
+本記事では Power Pages 認証キーの管理について、以下の Q1〜Q4 の質問に回答する形でご説明させていただきます。
+
+Q1: Power Pages の認証キーとは何ですか？なぜ更新が必要なのですか？
+Q2: 認証キーの有効期限が切れると...
+        <p class="article-readmore">
+          <a href="powerpages/power-pages-auth-key/">Read more</a>
+        </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerpages/power-pages-auth-key/" data-id="cuidEwPHtGrINn6EtsYDtqf57" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerpages/power-pages-auth-key/" data-id="cuid0q_ff3CGBC_4jeo2xuc7M" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Administration/" rel="tag">Administration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Pages/" rel="tag">Power Pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Security/" rel="tag">Security</a></li></ul>
@@ -315,7 +314,7 @@
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/solution-best-practices-power-platform/" data-id="cuidYorfCh13aGs8Wr1wDEI9W" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/solution-best-practices-power-platform/" data-id="cuido3Wl8IU0P2ksr6rbwH8z6" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Platform/" rel="tag">Power Platform</a></li></ul>
@@ -359,26 +358,26 @@
     <!-- post caption -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、PowerPlatformサポートチームの粟野です。</p>
-<p>本記事では Power Platform 管理者向け PowerShell を使ってできる代表的な操作について、以下の Q1〜Q6 の質問に回答する形でご説明させていただきます。</p>
-<ul>
-<li><a href="#q1">Q1: Power Platform の PowerShell モジュールはどうやって準備すればよいですか？</a></li>
-<li><a href="#q2">Q2: PowerShell で環境を作成するにはどうすればよいですか？</a></li>
-<li><a href="#q3">Q3: 環境の一覧取得や詳細確認はできますか？</a></li>
-<li><a href="#q4">Q4: Dataverse にユーザーを追加するにはどうすればよいですか？</a></li>
-<li><a href="#q5">Q5: ユーザーに環境ロールを付与するにはどうすればよいですか？</a></li>
-<li><a href="#q6">Q6: 環境のバックアップや復元は PowerShell でできますか？</a></li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="powerplatform/power-platform-powershell-admin-guide/#more">Read More</a>
-          </p>
-        
+        こんにちは、PowerPlatformサポートチームの粟野です。
+本記事では Power Platform 管理者向け PowerShell を使ってできる代表的な操作について、以下の Q1〜Q6 の質問に回答する形でご説明させていただきます。
+
+Q1: Power Platform の PowerShell モジュールはどうやって準備すればよいですか？
+Q2: PowerShell で環境を作成するにはどうすればよいですか？
+Q3: 環境の一覧取得や詳細確認はできますか？
+Q4: Dataverse にユーザーを追加するにはどうすればよいですか？
+Q5: ユーザーに環境ロールを付与するにはどうすればよいですか？
+Q6: 環境のバックアップや復元は PowerShell でできますか？
+
+この記事でわかること
+Power Platform 管理用 PowerShell モジュールの準備方法...
+        <p class="article-readmore">
+          <a href="powerplatform/power-platform-powershell-admin-guide/">Read more</a>
+        </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/power-platform-powershell-admin-guide/" data-id="cuid5N0zuGUnA55prZOj9ZwW0" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/power-platform-powershell-admin-guide/" data-id="cuid_8YU4FwIyM-FWP4UFue4l" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Platform/" rel="tag">Power Platform</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/PowerShell/" rel="tag">PowerShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" rel="tag">セキュリティ ロール</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%AE%A1%E7%90%86/" rel="tag">ユーザー管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E7%92%B0%E5%A2%83%E7%AE%A1%E7%90%86/" rel="tag">環境管理</a></li></ul>
@@ -396,7 +395,7 @@
     <!-- post date -->
     <div class="article-meta">
       <a href="powerplatform/dataverse-search-storage-guide/" class="article-date">
-  <time datetime="2026-01-18T15:00:00.000Z" itemprop="datePublished">2026-01-19</time>
+  <time datetime="2026-01-18T06:00:00.000Z" itemprop="datePublished">2026-01-18</time>
 </a>
       
   <div class="article-category">
@@ -422,25 +421,27 @@
     <!-- post caption -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、Power Platformサポートチームの鈴木です。</p>
-<p>本記事ではDataverse Search のストレージ内訳について、以下の Q1〜Q5 の質問に回答する形でご説明させていただきます。</p>
-<ul>
-<li><a href="#q1">Q1: PPAC の「Dataverse Search」ストレージは何の合算値ですか？</a></li>
-<li><a href="#q2">Q2: 検索インデックス（Search）の中身と削減のコツは？</a></li>
-<li><a href="#q3">Q3: 構造化インデックス（Structured）の中身と削減のコツは？</a></li>
-<li><a href="#q4">Q4: テキストデータインデックス（TextData）の中身と削減のコツは？</a></li>
-<li><a href="#q5">Q5: 画面で見えない内訳をどう管理すればよいですか？</a></li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="powerplatform/dataverse-search-storage-guide/#more">Read More</a>
-          </p>
-        
+        こんにちは、Power Platformサポートチームの鈴木です。
+本記事ではDataverse Search のストレージ内訳について、以下の Q1〜Q5 の質問に回答する形でご説明させていただきます。
+
+Q1: PPAC の「Dataverse Search」ストレージは何の合算値ですか？
+Q2: 検索インデックス（Search）の中身と削減のコツは？
+Q3: 構造化インデックス（Structured）の中身と削減のコツは？
+Q4: テキストデータインデックス（TextData）の中身と削減のコツは？
+Q5: 画面で見えない内訳をどう管理すればよいですか？
+
+この記事でわかること
+PPAC に表示される Dataverse Search ストレージの意味。
+3 種類のインデックス（Search &#x2F; Structured &#x2F; TextData）の役割。
+それぞれの容量...
+        <p class="article-readmore">
+          <a href="powerplatform/dataverse-search-storage-guide/">Read more</a>
+        </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/dataverse-search-storage-guide/" data-id="cuidgA5Djm0Un91NxYEUDfSJ-" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/dataverse-search-storage-guide/" data-id="cuidkL05NG7z_Isw7HeuQ3kun" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Copilot/" rel="tag">Copilot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" rel="tag">ストレージ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E6%A4%9C%E7%B4%A2/" rel="tag">検索</a></li></ul>
@@ -501,7 +502,7 @@
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/canvasapp/sharepoint-image-mobile-issue/" data-id="cuidaPqFKl6FLnrsb0y3n8UVD" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/canvasapp/sharepoint-image-mobile-issue/" data-id="cuidG4LmKqKiCig1ImTwT0vhu" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Canvas-app/" rel="tag">Canvas app</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Mobile/" rel="tag">Mobile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Apps/" rel="tag">Power Apps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/SharePoint/" rel="tag">SharePoint</a></li></ul>
@@ -556,7 +557,7 @@
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/dynamics365-troubleshooting-info-collection/" data-id="cuidigKIGkPJaD3SQwS36h-oA" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/dynamics365-troubleshooting-info-collection/" data-id="cuidXRwfuOwuDuisTilvzF5HZ" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dynamics-365/" rel="tag">Dynamics 365</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" rel="tag">トラブルシューティング</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li></ul>
@@ -600,19 +601,20 @@
     <!-- post caption -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは。マイクロソフト サポート エンジニアの王です。</p>
-<p>Dataverse (Dynamics 365) を利用したアプリケーション開発において、「日付」の扱いは非常に重要かつ、複雑になりがちなトピックの一つです。特に、日本時間 (JST) のような UTC (協定世界時) と時差がある環境では、<strong>「登録したはずの日付が 1 日ずれている」</strong> といったお問い合わせをいただくことがよくあります。</p>
-<p>今回は、日付列（フィールド）の「動作 (Behavior)」と「書式 (Format)」の組み合わせによるデータの格納され方の違いと、設定変更時の注意点について、実際の検証結果を交えて解説します。</p>
-        
-          <p class="article-more-link">
-            <a href="powerplatform/datetime-field-behavior/#more">Read More</a>
-          </p>
-        
+        こんにちは。マイクロソフト サポート エンジニアの王です。
+Dataverse (Dynamics 365) を利用したアプリケーション開発において、「日付」の扱いは非常に重要かつ、複雑になりがちなトピックの一つです。特に、日本時間 (JST) のような UTC (協定世界時) と時差がある環境では、「登録したはずの日付が 1 日ずれている」 といったお問い合わせをいただくことがよくあります。
+今回は、日付列（フィールド）の「動作 (Behavior)」と「書式 (Format)」の組み合わせによるデータの格納され方の違いと、設定変更時の注意点について、実際の検証結果を交えて解説します。
+日付列の基本概念検証に入る前に、Dataverse の日付列における重要な設定である「タイムゾーン調整 (Time zone adjustment)」の動作について整理します。
+
+ユーザー ローカル (U...
+        <p class="article-readmore">
+          <a href="powerplatform/datetime-field-behavior/">Read more</a>
+        </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/datetime-field-behavior/" data-id="cuidi6tJVOznt_l5AbqJHZs4V" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/datetime-field-behavior/" data-id="cuidSLCGwCdya9d_oKFvyRpql" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dynamics/" rel="tag">Dynamics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/How-to/" rel="tag">How to</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Model-driven-app/" rel="tag">Model-driven app</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Apps/" rel="tag">Power Apps</a></li></ul>
@@ -656,18 +658,18 @@
     <!-- post caption -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>こんにちは、Power Platform サポートチームの早川です。</p>
-<p>今回は、Power Platform 環境でできるアクティブレイヤーの確認・削除方法についてご紹介いたします。</p>
-        
-          <p class="article-more-link">
-            <a href="powerplatform/active-layer/#more">Read More</a>
-          </p>
-        
+        こんにちは、Power Platform サポートチームの早川です。
+今回は、Power Platform 環境でできるアクティブレイヤーの確認・削除方法についてご紹介いたします。
+Power Apps や Power Automate を利用してアプリを作成していると、「アクティブレイヤーというものができてしまった」、「アプリが誰かの編集のせいで意図しない動作になっている」、「マネージドソリューションで導入した変更が反映されない」といったトラブルに直面することがあります。この記事では、Power Platform の「アクティブレイヤー」について、仕組み → 確認方法 → 削除手順 → 注意点の流れで解説します。   
+ソリューションレイヤーとは何か？Power Platform（特にモデル駆動型アプリ、テーブル、フォーム、ビューなど）のカスタマイズは、レイヤー（層）構造で管理されていま...
+        <p class="article-readmore">
+          <a href="powerplatform/active-layer/">Read more</a>
+        </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/active-layer/" data-id="cuidSJGCFivxclP22mqTb9t0Y" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpdynamicscrm.github.io/blog/powerplatform/active-layer/" data-id="cuid9P-t67pIIG0FABz78P1v9" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Dynamics/" rel="tag">Dynamics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/How-to/" rel="tag">How to</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Model-driven-app/" rel="tag">Model-driven app</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Power-Apps/" rel="tag">Power Apps</a></li></ul>
@@ -725,7 +727,7 @@
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/AI-Builder/" rel="tag">AI Builder</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Administration/" rel="tag">Administration</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/App-Access-Checker/" rel="tag">App Access Checker</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Audit-Log/" rel="tag">Audit Log</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Canvas-app/" rel="tag">Canvas app</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Capacity/" rel="tag">Capacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Cloud-flow/" rel="tag">Cloud flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Connector-and-Connection/" rel="tag">Connector and Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Copilot/" rel="tag">Copilot</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/DLP-%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC/" rel="tag">DLP ポリシー</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dataflow/" rel="tag">Dataflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dataverse/" rel="tag">Dataverse</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dataverse-for-Teams/" rel="tag">Dataverse for Teams</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dataverse-%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" rel="tag">Dataverse ストレージ</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Desktop-flow/" rel="tag">Desktop flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Developer-Environment/" rel="tag">Developer Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dynamics/" rel="tag">Dynamics</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dynamics-365/" rel="tag">Dynamics 365</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Environment/" rel="tag">Environment</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Governance/" rel="tag">Governance</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Graph-API/" rel="tag">Graph API</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/How-to/" rel="tag">How to</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Ideas/" rel="tag">Ideas</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Information/" rel="tag">Information</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/License/" rel="tag">License</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Microsoft-Copilot-Studio/" rel="tag">Microsoft Copilot Studio</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/" rel="tag">Microsoft Teams 連携</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Mobile/" rel="tag">Mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Model-driven-app/" rel="tag">Model-driven app</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Office-365-Management-API/" rel="tag">Office 365 Management API</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Apps/" rel="tag">Power Apps</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Automate/" rel="tag">Power Automate</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Automate-for-desktop/" rel="tag">Power Automate for desktop</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-BI/" rel="tag">Power BI</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Pages/" rel="tag">Power Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Platform/" rel="tag">Power Platform</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Platform-%E7%AE%A1%E7%90%86%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/" rel="tag">Power Platform 管理センター</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/PowerShell/" rel="tag">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Settings/" rel="tag">Settings</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/SharePoint/" rel="tag">SharePoint</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/TDS-endpoint/" rel="tag">TDS endpoint</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Troubleshooting/" rel="tag">Troubleshooting</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/VNetGateway/" rel="tag">VNetGateway</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/" rel="tag">お問い合わせ全般</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9-%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B2%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A4/" rel="tag">オンプレミス データ ゲートウェイ</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88/" rel="tag">サポート</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8/" rel="tag">ストレージ</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3-%E3%83%AD%E3%83%BC%E3%83%AB/" rel="tag">セキュリティ ロール</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%83%86%E3%83%8A%E3%83%B3%E3%83%88%E7%A7%BB%E8%A1%8C/" rel="tag">テナント移行</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/" rel="tag">トラブルシューティング</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC/" rel="tag">モニター</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%AE%A1%E7%90%86/" rel="tag">ユーザー管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E5%A7%94%E4%BB%BB/" rel="tag">委任</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E5%BD%B9%E5%89%B2/" rel="tag">役割</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%83%85%E5%A0%B1%E6%8E%A1%E5%8F%96/" rel="tag">情報採取</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%A4%9C%E7%B4%A2/" rel="tag">検索</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E7%92%B0%E5%A2%83%E7%AE%A1%E7%90%86/" rel="tag">環境管理</a></li></ul>  -->
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Apps/">Power Apps</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/">お問い合わせ全般</a><span class="tag-list-count">13</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/PowerShell/">PowerShell</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Platform/">Power Platform</a><span class="tag-list-count">31</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Governance/">Governance</a><span class="tag-list-count">16</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/How-to/">How to</a><span class="tag-list-count">22</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/">Microsoft Teams 連携</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Information/">Information</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/License/">License</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Automate/">Power Automate</a><span class="tag-list-count">37</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dataverse/">Dataverse</a><span class="tag-list-count">16</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Automate-for-desktop/">Power Automate for desktop</a><span class="tag-list-count">8</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Connector-and-Connection/">Connector and Connection</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Pages/">Power Pages</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Model-driven-app/">Model-driven app</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dynamics/">Dynamics</a><span class="tag-list-count">9</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dynamics-365/">Dynamics 365</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Network/">Network</a><span class="tag-list-count">4</span><ul></ul></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Apps/">Power Apps</a><span class="tag-list-count">18</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/PowerShell/">PowerShell</a><span class="tag-list-count">4</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E5%85%A8%E8%88%AC/">お問い合わせ全般</a><span class="tag-list-count">13</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Platform/">Power Platform</a><span class="tag-list-count">31</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Governance/">Governance</a><span class="tag-list-count">16</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/How-to/">How to</a><span class="tag-list-count">22</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Microsoft-Teams-%E9%80%A3%E6%90%BA/">Microsoft Teams 連携</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Information/">Information</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/License/">License</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Automate/">Power Automate</a><span class="tag-list-count">37</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dataverse/">Dataverse</a><span class="tag-list-count">16</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Connector-and-Connection/">Connector and Connection</a><span class="tag-list-count">5</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Automate-for-desktop/">Power Automate for desktop</a><span class="tag-list-count">8</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Power-Pages/">Power Pages</a><span class="tag-list-count">2</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Model-driven-app/">Model-driven app</a><span class="tag-list-count">6</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dynamics/">Dynamics</a><span class="tag-list-count">9</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Dynamics-365/">Dynamics 365</a><span class="tag-list-count">3</span><ul></ul></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Network/">Network</a><span class="tag-list-count">4</span><ul></ul></li></ul>
     </div>
   </div>
 
@@ -754,7 +756,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">カテゴリ</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/Dataflow/">Dataflow</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Dataverse/">Dataverse</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Dynamics-365/">Dynamics 365</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Apps/">Power Apps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="categories/Power-Apps/Canvas-app/">Canvas app</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Apps/Model-driven-app/">Model-driven app</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Automate/">Power Automate</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="categories/Power-Automate/Cloud-flow/">Cloud flow</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Automate/Desktop-flow/">Desktop flow</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-BI/">Power BI</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Pages/">Power Pages</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Platform-Admin-Center/">Power Platform Admin Center</a></li><li class="category-list-item"><a class="category-list-link" href="categories/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">サポートサービスのご利用について</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="categories/Dataflow/">Dataflow</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Dataverse/">Dataverse</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Dynamics-365/">Dynamics 365</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Microsoft-Copilot-Studio/">Microsoft Copilot Studio</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Apps/">Power Apps</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="categories/Power-Apps/Canvas-app/">Canvas app</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Apps/Model-driven-app/">Model-driven app</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Automate/">Power Automate</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="categories/Power-Automate/Cloud-flow/">Cloud flow</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Automate/Desktop-flow/">Desktop flow</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-BI/">Power BI</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Pages/">Power Pages</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Platform/">Power Platform</a></li><li class="category-list-item"><a class="category-list-link" href="categories/Power-Platform-Admin-Center/">Power Platform Admin Center</a></li><li class="category-list-item"><a class="category-list-link" href="categories/%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E3%81%94%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">サポートサービスのご利用について</a></li></ul>
     </div>
   </div>
 
