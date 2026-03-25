@@ -114,7 +114,8 @@ jobs:
             echo "Checking: $path"
 
             # Extract front matter (between the first two '---' lines)
-            frontmatter=$(awk '/^---[[:space:]]*$/ { if (c++ == 1) exit } c == 1 { print }' "$path")
+            # Strip UTF-8 BOM and convert CRLF to LF for reliable parsing
+            frontmatter=$(sed '1s/^\xEF\xBB\xBF//' "$path" | tr -d '\r' | awk '/^---[[:space:]]*$/ { if (c++ == 1) exit } c == 1 { print }')
 
             if [[ -z "$frontmatter" ]]; then
               echo "::error file=$path::Missing front matter (--- delimiters)."
@@ -123,14 +124,14 @@ jobs:
             fi
 
             # --- 1. title ---
-            title_value=$(echo "$frontmatter" | grep -E '^title:' | head -1 | sed 's/^title:[[:space:]]*//' || true)
+            title_value=$(echo "$frontmatter" | grep -E '^title:' | head -1 | sed 's/^title:[[:space:]]*//' | tr -d '\r' || true)
             if [[ -z "$title_value" ]]; then
               echo "::error file=$path::Missing or empty 'title' in front matter."
               bad=1
             fi
 
             # --- 2. date ---
-            date_value=$(echo "$frontmatter" | grep -E '^date:' | head -1 | sed 's/^date:[[:space:]]*//' || true)
+            date_value=$(echo "$frontmatter" | grep -E '^date:' | head -1 | sed 's/^date:[[:space:]]*//' | tr -d '\r' || true)
             if [[ -z "$date_value" ]]; then
               echo "::error file=$path::Missing 'date' in front matter."
               bad=1
