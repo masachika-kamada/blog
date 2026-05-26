@@ -18,7 +18,53 @@
   <title>
     <![CDATA[Japan Dynamics CRM & Power Platform Support Blog]]>
   </title>
-  <updated>2026-04-28T12:33:21.962Z</updated>
+  <updated>2026-05-26T09:27:38.337Z</updated>
+  <entry>
+    <author>
+      <name>
+        <![CDATA[Japan Dynamics CRM & Power Platform Support Team]]>
+      </name>
+    </author>
+    <category term="Dataverse" scheme="https://jpdynamicscrm.github.io/blog/categories/Dataverse/"/>
+    <category term="Power Platform" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Platform/"/>
+    <category term="How to" scheme="https://jpdynamicscrm.github.io/blog/tags/How-to/"/>
+    <category term="Dataverse" scheme="https://jpdynamicscrm.github.io/blog/tags/Dataverse/"/>
+    <content>
+      <![CDATA[<p>こんにちは、Power Platform サポートチームの河津です。</p><p>本記事では、Dataverse の Azure Synapse Link（以下、Synapse Link）を利用してデータを Azure Data Lake Storage (ADLS) Gen2 や Fabric にエクスポートされている環境において、データの同期に遅延（数十分～数時間程度）が発生するケースについて、その仕組みと原因、対処方法を Q&amp;A 形式でご案内いたします。</p><span id="more"></span><ul><li><a href="#q1">Q1: Synapse Link のニアリアルタイム同期とはどのような仕組みですか？</a></li><li><a href="#q2">Q2: 同期遅延が発生する主な原因は何ですか？</a></li><li><a href="#q3">Q3: 長時間トランザクションがあると、なぜ全テーブルの同期が止まるのですか？</a></li><li><a href="#q4">Q4: 遅延した同期はどのように復旧しますか？</a></li><li><a href="#q5">Q5: 同期遅延を防止・軽減するにはどうすればよいですか？</a></li></ul><h3 id="この記事でわかること"><a href="#この記事でわかること" class="headerlink" title="この記事でわかること"></a>この記事でわかること</h3><ul><li>Synapse Link のニアリアルタイム同期の仕組みと、遅延が発生し得る条件がわかる</li><li>長時間トランザクションが変更追跡（Change Tracking）に与える影響がわかる</li><li>1 つのテーブルのトランザクションが全テーブルの同期に影響する理由がわかる</li><li>フォールバック同期ジョブによる自動復旧の仕組みがわかる</li><li>同期遅延の検知方法や緩和策の考え方がわかる</li></ul><hr><h2 id="q1">Synapse Link のニアリアルタイム同期とはどのような仕組みですか？ (Q1)</h2><p>【結論】Synapse Link は Dataverse のデータ変更を「ニアリアルタイム」で ADLS Gen2 や Fabric に同期する機能ですが、リアルタイム性が常に保証されるものではございません。同期のパフォーマンスは複数の要因に依存しており、特にトランザクション量の多い環境ではデータの反映に時間がかかる場合がございます。</p><p>Synapse Link の差分同期（DeltaSync）は、Dataverse のバックエンドにある SQL Server の <strong>変更追跡（Change Tracking）</strong> 機能を利用しております。前回の同期以降に追加・更新・削除されたレコードを検出し、ADLS Gen2 上のファイルとして出力する仕組みです。</p><p>Append モード（CSV 形式）をご利用の場合、インクリメンタル更新フォルダが最短 <strong>5 分間隔</strong> で作成され、その時間内に発生した変更データが格納されます。</p><p>ただし、公式ドキュメントでは以下のように記載されております。</p><blockquote><p>ニアリアルタイム同期のパフォーマンスは、初期データロードサイズ、データチャーンレート、変更量など複数の要因に依存します。（中略）このような高ボリュームのシナリオでは、ニアリアルタイムのデータ可用性は保証されません。</p></blockquote><p>＜参考資料＞</p><ul><li><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/data-platform/azure-synapse-link-synapse#access-near-real-time-data-and-read-only-snapshot-data">Azure Synapse ワークスペースを使用して Dataverse の Azure Synapse リンクを作成する - ほぼリアルタイムのデータと読み取り専用スナップショット データにアクセスする (Docs)</a></li><li><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/data-platform/azure-synapse-incremental-updates">Azure Synapse Link の増分更新 (Docs)</a></li></ul><hr><h2 id="q2">同期遅延が発生する主な原因は何ですか？ (Q2)</h2><p>【結論】同期遅延の主な原因として、Dataverse 上で <strong>長時間にわたるトランザクション</strong> が実行されていることにより、変更追跡で管理されるバージョン番号が一時的に固定され、変更レコードが更新されなくなるケースが挙げられます。</p><p>Dataverse のバックエンド SQL Server では、変更追跡のためにデータベース全体で共通の行バージョン番号が管理されています。この変更追跡の性質として、長時間実行中のトランザクションが存在すると、そのトランザクションが完了するまでバージョン番号の進行が止まり、変更レコードが更新されない動作となっております。</p><p>具体的には、以下のような流れで同期遅延が発生する場合がございます。</p><ol><li>Dataverse 上で何らかの処理（プラグイン、バッチ処理、大量データ操作など）により長時間のトランザクションが開始される</li><li>そのトランザクションが完了するまで、変更追跡のバージョン番号が固定される</li><li>バージョン番号が固定されている間、他のテーブルで正常にコミットされた変更であっても変更追跡クエリから返されなくなる</li><li>Synapse Link の差分同期処理自体は正常に動作し続けますが、取得可能な変更レコードが 0 件となるため、ファイルへの出力が行われない状態となる</li><li>長時間トランザクションが完了するとバージョン番号が進行し、それまでに溜まっていた変更が一斉にエクスポートされる</li></ol><h3 id="長時間トランザクションが発生しやすいケース"><a href="#長時間トランザクションが発生しやすいケース" class="headerlink" title="長時間トランザクションが発生しやすいケース"></a>長時間トランザクションが発生しやすいケース</h3><p>以下のような操作は、長時間にわたるトランザクションを発生させる可能性がございます。</p><table><thead><tr><th>シナリオ</th><th>例</th></tr></thead><tbody><tr><td>大量レコードの一括操作</td><td><code>CreateMultiple</code> &#x2F; <code>UpdateMultiple</code> で数万件を一括処理するプラグイン</td></tr><tr><td>複雑なプラグインチェーン</td><td>1 つのレコード操作をきっかけに、連鎖的に大量のレコードが生成されるプラグイン</td></tr><tr><td>Excel エクスポート</td><td>Dataverse から大量のデータを Excel にエクスポートする操作</td></tr><tr><td>バッチ処理</td><td>夜間バッチなどで大量のデータ移行やデータ変換を行う処理</td></tr><tr><td>ロールアップフィールドの定期再計算</td><td>Dataverse のシステムジョブ「Calculate Rollup Field」がロールアップフィールドの再計算を実行する際、対象レコード数が多い場合に長時間トランザクションとなる場合がある</td></tr></tbody></table><p>なお、ロールアップフィールドの再計算ジョブは Dataverse のシステムジョブとして自動的に実行されるため、<strong>お客様が明示的に操作を行っていない場合でも長時間トランザクションの原因となる可能性がございます</strong>。特に、マネージドソリューション（Dynamics 365 のアプリケーション等）によって導入されたロールアップフィールドが業務上使用されていない場合でも、バックログ（未処理の再計算キュー）が蓄積し、再計算ジョブの実行時間が長期化するケースが確認されております。</p><p>＜参考資料＞</p><ul><li><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/data-platform/azure-synapse-link-synapse#access-near-real-time-data-and-read-only-snapshot-data">Azure Synapse ワークスペースを使用して Dataverse の Azure Synapse リンクを作成する - ほぼリアルタイムのデータと読み取り専用スナップショット データにアクセスする (Docs)</a></li></ul><hr><h2 id="q3">長時間トランザクションがあると、なぜ全テーブルの同期が止まるのですか？ (Q3)</h2><p>【結論】変更追跡で使用されるバージョン番号はデータベース（組織）レベルで共通のシーケンスとして管理されているため、いずれか 1 つのテーブルで長時間トランザクションが存在すると、すべてのテーブルの同期に影響が及ぶ仕組みとなっております。</p><p>具体的には、以下のような仕組みです。</p><ol><li><strong>変更追跡のバージョン番号はデータベース全体で共通</strong> — テーブルごとに独立しているわけではございません</li><li><strong>バージョン番号はデータベースレベルで固定される</strong> — いずれかのテーブルで未コミットのトランザクションが存在する場合、その時点のバージョン番号で変更追跡の進行が止まります</li><li><strong>固定されたバージョンを超えるレコードは返されない</strong> — 他のテーブルで正常にコミットされたレコードであっても、変更追跡クエリの結果に含まれなくなります</li></ol><p>たとえば、テーブル A で大量レコードの一括作成処理（長時間トランザクション）が実行されている場合、テーブル B や C で発生した変更も変更追跡から返されなくなります。</p><p>この動作は変更追跡の設計上の仕様でございます。長時間トランザクションが完了しますと、すべてのテーブルで溜まっていた変更が一斉にエクスポートされるため、「すべてのテーブルのファイル出力が同じ時刻に集中する」という現象として観測される場合がございます。</p><p>＜参考資料＞</p><ul><li><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/data-platform/azure-synapse-link-synapse#access-near-real-time-data-and-read-only-snapshot-data">Azure Synapse ワークスペースを使用して Dataverse の Azure Synapse リンクを作成する - ほぼリアルタイムのデータと読み取り専用スナップショット データにアクセスする (Docs)</a></li></ul><hr><h2 id="q4">遅延した同期はどのように復旧しますか？ (Q4)</h2><p>【結論】Synapse Link には、設計上 <strong>フォールバック同期ジョブ（automated hourly fallback synchronization job）</strong> が定期的に自動実行される仕組みが組み込まれております。通常の差分同期で取得できなかった変更データがあった場合でも、このフォールバックジョブが検知し回収します。</p><p>フォールバック同期ジョブの想定動作は以下のとおりです。</p><ol><li>通常の差分同期は約 5 分間隔で実行されますが、変更追跡のバージョン番号が固定されている間は変更レコードが 0 件となります</li><li>長時間トランザクションが完了するとバージョン番号が進行し、それまでに溜まっていた変更が変更追跡から一斉に返されるようになります</li><li>仮にタイミングの問題で通常の差分同期がこれらの変更を拾えなかった場合でも、<strong>定期的にに実行されるフォールバックジョブがセーフティネットとして機能</strong>し、取りこぼしたデータを回収・出力します</li></ol><p>このため、長時間トランザクションが単発で発生した場合、同期遅延はおおむね <strong>約 1 時間〜2 時間程度</strong> で自然に復旧いたします。遅延中のデータが失われることはございませんので、ご安心ください。</p><p>ただし、<strong>長時間トランザクションが連続的・断続的に発生する場合</strong>（例: ロールアップフィールドの再計算ジョブが大量のバックログを処理し続ける場合など）は、変更追跡のバージョン番号の固定が繰り返され、<strong>遅延が数時間に及ぶ可能性がございます</strong>。このようなケースでは、長時間トランザクションの発生源を特定し、根本的な対処を行うことが重要です。対処方法については <a href="#q5">Q5</a> をご参照ください。</p><hr><h2 id="q5">同期遅延を防止・軽減するにはどうすればよいですか？ (Q5)</h2><p>【結論】同期遅延の根本的な原因は Dataverse 上の長時間トランザクションにございますため、対策としてはソースシステム側での長時間トランザクションの発生を抑制する方向が基本となります。</p><h3 id="対策-1-長時間トランザクションの特定と抑制"><a href="#対策-1-長時間トランザクションの特定と抑制" class="headerlink" title="対策 1: 長時間トランザクションの特定と抑制"></a>対策 1: 長時間トランザクションの特定と抑制</h3><table><thead><tr><th>確認ポイント</th><th>対策の方向性</th></tr></thead><tbody><tr><td>大量レコードを一括処理するプラグイン</td><td>バッチサイズを小さくし、トランザクションを分割する</td></tr><tr><td>長時間のバッチ処理</td><td>同期遅延が許容されない時間帯を避けて実行する</td></tr><tr><td>大量データの Excel エクスポート</td><td>エクスポート対象を絞り込む、またはビューを最適化する</td></tr></tbody></table><h3 id="対策-2-Synapse-Link-プロファイルの分割"><a href="#対策-2-Synapse-Link-プロファイルの分割" class="headerlink" title="対策 2: Synapse Link プロファイルの分割"></a>対策 2: Synapse Link プロファイルの分割</h3><p>同期対象テーブル数が多い場合、複数の Synapse Link プロファイルに分割することで、処理の競合を低減できる可能性がございます。ただし、変更追跡のバージョン番号はデータベースレベルで管理されておりますため、長時間トランザクションによる遅延そのものはプロファイルの分割では防止できない点にご留意ください。</p><h3 id="対策-3-ロールアップフィールドの管理"><a href="#対策-3-ロールアップフィールドの管理" class="headerlink" title="対策 3: ロールアップフィールドの管理"></a>対策 3: ロールアップフィールドの管理</h3><p>Dataverse のロールアップフィールドは、システムジョブ「Calculate Rollup Field」により定期的に再計算されます。対象レコード数が多い場合、この再計算処理が長時間トランザクションとなり、同期遅延の原因となることがあります。</p><p>以下の対応をご検討ください。</p><table><thead><tr><th>対応</th><th>内容</th></tr></thead><tbody><tr><td>再計算ジョブの一時停止・間隔変更</td><td>[設定] → [システムジョブ] → [定期的なシステムジョブ] から「Calculate Rollup Field」ジョブの一時停止（Pause）や再計算間隔の変更が可能です</td></tr><tr><td>未使用ロールアップフィールドの確認</td><td>マネージドソリューション（Dynamics 365 アプリケーション等）により導入されたロールアップフィールドが業務上使用されていない場合、不要なフィールドの削除をご検討ください。ただし、マネージドソリューションの標準フィールドは削除できない場合があります</td></tr></tbody></table><p>＜参考資料＞</p><ul><li><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/data-platform/define-rollup-fields#modify-rollup-job-recurrence">ロールアップ列の定義 - ロールアップ ジョブの繰り返しを変更する (Docs)</a></li></ul><h3 id="同期遅延が許容されない要件について"><a href="#同期遅延が許容されない要件について" class="headerlink" title="同期遅延が許容されない要件について"></a>同期遅延が許容されない要件について</h3><p>Synapse Link のニアリアルタイム同期は、前述のとおり遅延時間に関する具体的な SLA や保証が提供されておらず、Dataverse 上のトランザクション状況によっては数十分～1 時間程度の遅延が発生する可能性がございます。そのため、リアルタイム性が厳密に求められるデータ連携の要件においては、別途、Dataverse Web API を直接利用した連携など、ご要件に応じた別のデータ連携手段をご検討ください。</p><p>＜参考資料＞</p><ul><li><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/data-platform/export-data-lake-faq">Azure Synapse Link for Dataverse に関してよく寄せられる質問 (Docs)</a></li></ul><hr><h2 id="faq">よくあるお問い合わせ</h2><p>サポートへ実際にお寄せいただくお問い合わせの中から、関連性の高いものを Q&amp;A 形式でご紹介いたします。</p><h3 id="Q-Append-モード（CSV）でインクリメンタルフォルダは作成されているのに、中にデータが入っていないことがあります。なぜですか？"><a href="#Q-Append-モード（CSV）でインクリメンタルフォルダは作成されているのに、中にデータが入っていないことがあります。なぜですか？" class="headerlink" title="Q. Append モード（CSV）でインクリメンタルフォルダは作成されているのに、中にデータが入っていないことがあります。なぜですか？"></a>Q. Append モード（CSV）でインクリメンタルフォルダは作成されているのに、中にデータが入っていないことがあります。なぜですか？</h3><p><strong>A.</strong> インクリメンタルフォルダは約 5 分ごとに作成されますが、フォルダの作成と実際のデータ出力は非同期で行われます。長時間トランザクションにより変更追跡のバージョン番号が固定されている場合、フォルダは作成されるもののデータが 0 件のため CSV ファイルが出力されないケースがございます。長時間トランザクションが完了しバージョン番号が進行しますと、以降のフォルダにまとめてデータが出力されます。</p><h3 id="Q-同期遅延はどの程度の頻度で発生しますか？-SLA-はありますか？"><a href="#Q-同期遅延はどの程度の頻度で発生しますか？-SLA-はありますか？" class="headerlink" title="Q. 同期遅延はどの程度の頻度で発生しますか？ SLA はありますか？"></a>Q. 同期遅延はどの程度の頻度で発生しますか？ SLA はありますか？</h3><p><strong>A.</strong> Synapse Link のニアリアルタイム同期について、遅延時間に関する具体的な SLA は公式に提供されておりません。遅延の発生頻度は、環境ごとのデータ変更量やトランザクションのパターンによって異なります。同期遅延が業務に影響を与える場合は、<a href="#q5">Q5</a> でご紹介した対策をご検討いただければと存じます。</p><hr><h2 id="summary">まとめ</h2><ul><li>Synapse Link のニアリアルタイム同期は Dataverse の変更追跡（Change Tracking）を基盤としており、高トランザクション環境ではデータの反映に遅延が生じる場合がございます</li><li>同期遅延の主な原因は、Dataverse 上の長時間トランザクションが変更追跡のバージョン番号の進行を止めることによるものです</li><li>変更追跡のバージョン番号はデータベースレベルで管理されるため、1 つのテーブルの長時間トランザクションが全テーブルの同期に影響を及ぼします</li><li>遅延した同期はフォールバック同期ジョブにより自動的に復旧し、データの欠落は発生いたしません</li><li>根本的な対策としては、長時間トランザクションの特定と抑制をご検討ください</li></ul><h2 id="notice">注意事項（情報の更新可能性）</h2><p>本記事の内容は執筆日時点の公開情報に基づいております。<br>仕様や UI、制限事項は将来変更される可能性がございます。<br>最新情報は公式ドキュメントをご確認くださいますようお願い申し上げます。</p>]]>
+    </content>
+    <id>https://jpdynamicscrm.github.io/blog/powerplatform/dataverse-synapse-link-sync-delay/</id>
+    <link href="https://jpdynamicscrm.github.io/blog/powerplatform/dataverse-synapse-link-sync-delay/"/>
+    <published>2026-05-19T08:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>こんにちは、Power Platform サポートチームの河津です。</p>
+<p>本記事では、Dataverse の Azure Synapse Link（以下、Synapse Link）を利用してデータを Azure Data Lake Storage (ADLS) Gen2 や Fabric にエクスポートされている環境において、データの同期に遅延（数十分～数時間程度）が発生するケースについて、その仕組みと原因、対処方法を Q&amp;A 形式でご案内いたします。</p>]]>
+    </summary>
+    <title>Dataverse の Azure Synapse Link で同期遅延が発生する場合の原因と対処方法</title>
+    <updated>2026-05-26T09:27:38.337Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>
+        <![CDATA[Japan Dynamics CRM & Power Platform Support Team]]>
+      </name>
+    </author>
+    <category term="Dataverse" scheme="https://jpdynamicscrm.github.io/blog/categories/Dataverse/"/>
+    <category term="Power Platform" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Platform/"/>
+    <category term="Information" scheme="https://jpdynamicscrm.github.io/blog/tags/Information/"/>
+    <category term="Dataverse" scheme="https://jpdynamicscrm.github.io/blog/tags/Dataverse/"/>
+    <category term="Model-driven Apps" scheme="https://jpdynamicscrm.github.io/blog/tags/Model-driven-Apps/"/>
+    <content>
+      <![CDATA[<h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>こんにちは、Power Platform サポートチームの 早川 です。<br>本記事では、Dataverse のカスタム セキュリティ ロールの作成に関して、弊社サポートでご案内可能な範囲と、ご案内が難しい範囲について整理してお伝えいたします。</p><span id="more"></span><p>セキュリティ ロールに関するお問い合わせとして、「特定の操作を行うために必要な最小限の権限を持つカスタム セキュリティ ロールの構成を教えてほしい」というご要望をいただくことがございます。<br>本記事では、このようなお問い合わせに対する弊社サポートの対応方針と、お客様側でカスタム セキュリティ ロールを作成する際の推奨アプローチをご案内いたします。</p><div class="alert is-info"><p class="alert-title">Note</p><p>本記事は執筆時点の情報に基づいています。製品の仕様は予告なく変更される場合がありますので、最新の情報は公式ドキュメントをご確認ください。</p></div><h2 id="セキュリティ-ロールの概要"><a href="#セキュリティ-ロールの概要" class="headerlink" title="セキュリティ ロールの概要"></a>セキュリティ ロールの概要</h2><p>Dataverse では、ロールベースのセキュリティ モデルを採用しており、ユーザーが環境内で実行できる操作は、割り当てられたセキュリティ ロールによって決定されます。</p><p>セキュリティ ロールは大きく以下の 2 種類に分けられます。</p><h3 id="既定のセキュリティ-ロール-OOB"><a href="#既定のセキュリティ-ロール-OOB" class="headerlink" title="既定のセキュリティ ロール (OOB)"></a>既定のセキュリティ ロール (OOB)</h3><p>Dataverse 環境に標準で用意されているセキュリティ ロールです。代表的なものとして、以下のロールがあります。</p><ul><li><strong>システム管理者</strong>: 環境におけるすべての操作を実行できるロール</li><li><strong>Basic User</strong>: 環境における一般的なアプリの利用ができるロール</li><li><strong>システム カスタマイザー</strong>: 環境のカスタマイズが可能なロール</li><li><strong>Environment Maker</strong>: アプリやフローなどの新しいリソースを作成できるロール</li></ul><p>これらの既定のセキュリティ ロールは、一般的なユーザー タスクに対応するよう設計されており、「必要最小限のアクセス権」のベスト プラクティスに基づいて構成されています。</p><h3 id="カスタム-セキュリティ-ロール"><a href="#カスタム-セキュリティ-ロール" class="headerlink" title="カスタム セキュリティ ロール"></a>カスタム セキュリティ ロール</h3><p>お客様が独自に作成するセキュリティ ロールです。既定のセキュリティ ロールでは要件を満たせない場合に、テーブルごとの特権やアクセス レベルを個別に設定して作成します。</p><h2 id="サポートでご案内可能な範囲"><a href="#サポートでご案内可能な範囲" class="headerlink" title="サポートでご案内可能な範囲"></a>サポートでご案内可能な範囲</h2><p>弊社サポートでは、セキュリティ ロールに関して以下の内容をご案内することが可能です。</p><ul><li><strong>既定のセキュリティ ロールの仕様</strong>: 各既定ロールに含まれる特権やアクセス レベルについての説明</li><li><strong>セキュリティ ロールの概念や仕組み</strong>: 特権、アクセス レベル（ユーザー &#x2F; 部署 &#x2F; 親子部署 &#x2F; 組織）、テーブル権限などの概念の説明</li><li><strong>セキュリティ ロールの作成・編集手順</strong>: Power Platform 管理センターからセキュリティ ロールを作成・編集・コピーする操作手順のご案内</li><li><strong>公式ドキュメントのご案内</strong>: セキュリティ ロールに関連する公式ドキュメントへの誘導</li><li><strong>特定のエラーの調査</strong>: セキュリティ ロールの不足に起因するエラーが発生した場合、そのエラーに必要な特権の特定を支援</li></ul><h2 id="サポートでご案内が難しい範囲"><a href="#サポートでご案内が難しい範囲" class="headerlink" title="サポートでご案内が難しい範囲"></a>サポートでご案内が難しい範囲</h2><p>一方で、以下のようなご要望については、弊社サポートではご案内が難しい場合がございます。</p><p><strong>「操作 X を行うために必要な最小限の権限を持つカスタム セキュリティ ロールを作成してほしい &#x2F; 構成を教えてほしい」</strong></p><p>このようなご案内が難しい主な理由は以下のとおりです。</p><h3 id="1-環境ごとにカスタマイズが異なるため"><a href="#1-環境ごとにカスタマイズが異なるため" class="headerlink" title="1. 環境ごとにカスタマイズが異なるため"></a>1. 環境ごとにカスタマイズが異なるため</h3><p>Dataverse 環境は、お客様ごとにカスタム テーブル、カスタム列、プラグイン、ビジネス ルール、Power Automate フローなどの構成が異なります。ある操作に必要な権限は、これらのカスタマイズの内容によって大きく変わる可能性があり、すべての環境に共通する最小権限の構成を一律にご案内することはできません。</p><h3 id="2-依存関係の網羅的な特定が困難なため"><a href="#2-依存関係の網羅的な特定が困難なため" class="headerlink" title="2. 依存関係の網羅的な特定が困難なため"></a>2. 依存関係の網羅的な特定が困難なため</h3><p>一つの操作を完了するためには、直接的に操作するテーブルだけでなく、関連するテーブルやシステム テーブルへのアクセス権が必要になることがあります。これらの依存関係はカスタマイズの内容や運用方法によって異なるため、必要な権限を網羅的に特定し、検証することは非常に困難です。</p><h3 id="3-製品の更新により必要な権限が変化する可能性があるため"><a href="#3-製品の更新により必要な権限が変化する可能性があるため" class="headerlink" title="3. 製品の更新により必要な権限が変化する可能性があるため"></a>3. 製品の更新により必要な権限が変化する可能性があるため</h3><p>Dataverse の更新に伴い、セキュリティ ロールの特権が変更される場合があります。ある時点で動作していたカスタム セキュリティ ロールの構成が、製品の更新後には不十分になる可能性があります。</p><h2 id="カスタム-セキュリティ-ロール作成時の推奨アプローチ"><a href="#カスタム-セキュリティ-ロール作成時の推奨アプローチ" class="headerlink" title="カスタム セキュリティ ロール作成時の推奨アプローチ"></a>カスタム セキュリティ ロール作成時の推奨アプローチ</h2><p>カスタム セキュリティ ロールを作成する必要がある場合は、以下のアプローチを推奨いたします。</p><h3 id="1-既定のセキュリティ-ロールをコピーして作成する"><a href="#1-既定のセキュリティ-ロールをコピーして作成する" class="headerlink" title="1. 既定のセキュリティ ロールをコピーして作成する"></a>1. 既定のセキュリティ ロールをコピーして作成する</h3><p>ゼロからカスタム セキュリティ ロールを作成するのではなく、要件に最も近い既定のセキュリティ ロール（例: Basic User）をコピーし、それをベースに必要な権限を追加・調整することを推奨いたします。</p><div class="alert is-important"><p class="alert-title">重要</p><p>システム管理者ロールのコピーはお勧めしません。コピーしたロールをユーザーに割り当てると、そのユーザーが他のユーザーをシステム管理者に昇格させることが可能になるリスクがあります。また、製品の更新によって追加される新しい特権はコピーしたロールには自動的に反映されません。</p></div><h3 id="2-テスト環境で検証する"><a href="#2-テスト環境で検証する" class="headerlink" title="2. テスト環境で検証する"></a>2. テスト環境で検証する</h3><p>カスタム セキュリティ ロールの変更は、まずテスト環境や開発環境で十分に検証してから、本番環境に適用してください。</p><h3 id="3-段階的に権限を調整する"><a href="#3-段階的に権限を調整する" class="headerlink" title="3. 段階的に権限を調整する"></a>3. 段階的に権限を調整する</h3><p>必要な操作をテスト環境で実行し、権限不足のエラーが発生した場合は、エラー メッセージを手がかりに不足している特権を特定し、段階的に権限を追加していく方法が実用的です。</p><h3 id="4-定期的に見直す"><a href="#4-定期的に見直す" class="headerlink" title="4. 定期的に見直す"></a>4. 定期的に見直す</h3><p>製品の更新に伴いセキュリティ ロールの特権が変更される場合がありますので、カスタム セキュリティ ロールの権限設定は定期的に見直すことを推奨いたします。</p><h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>本記事では、カスタム セキュリティ ロールの作成に関するサポート範囲について以下の内容をご案内いたしました。</p><ul><li>弊社サポートでは、既定のセキュリティ ロールの仕様説明や、セキュリティ ロールの概念・操作手順のご案内が可能です</li><li>一方、特定の操作に必要な最小限の権限を持つカスタム セキュリティ ロールの構成については、環境固有のカスタマイズや依存関係の複雑さから、ご案内が難しい場合がございます</li><li>カスタム セキュリティ ロールを作成する際は、既定のロールをコピーし、テスト環境で段階的に検証するアプローチを推奨いたします</li></ul><h2 id="参考情報"><a href="#参考情報" class="headerlink" title="参考情報"></a>参考情報</h2><ul><li><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/security-roles-privileges">Dataverse のセキュリティ ロールと特権 - Microsoft Learn</a></li><li><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/database-security-configure">環境のユーザー セキュリティの構成 - Microsoft Learn</a></li><li><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/copy-security-role">セキュリティ ロールをコピーして時間を節約する - Microsoft Learn</a></li><li><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/wp-security-cds">Microsoft Dataverse のセキュリティの概念 - Microsoft Learn</a></li><li><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/prevent-elevation-security-role-privilege">管理ユーザーの作成とセキュリティ ロール特権の昇格の防止 - Microsoft Learn</a></li><li><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/database-security">Dataverse のロールベースのセキュリティ ロール - Microsoft Learn</a></li></ul><hr><p>※ 本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>]]>
+    </content>
+    <id>https://jpdynamicscrm.github.io/blog/powerplatform/support-scope-custom-security-role/</id>
+    <link href="https://jpdynamicscrm.github.io/blog/powerplatform/support-scope-custom-security-role/"/>
+    <published>2026-05-13T05:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>こんにちは、Power Platform サポートチームの 早川 です。<br>本記事では、Dataverse のカスタム セキュリティ ロールの作成に関して、弊社サポートでご案内可能な範囲と、ご案内が難しい範囲について整理してお伝えいたします。</p>]]>
+    </summary>
+    <title>カスタム セキュリティ ロールの作成に関するサポート範囲について</title>
+    <updated>2026-05-26T09:27:38.406Z</updated>
+  </entry>
   <entry>
     <author>
       <name>
@@ -40,7 +86,7 @@
 <p>本記事では Dataverse の環境容量割り当て（Database &#x2F; File &#x2F; Log）について、お問い合わせでよくいただくご質問を Q&amp;A 形式でご説明いたします。</p>]]>
     </summary>
     <title>Dataverse 環境の容量割り当てはソフトリミット ― 0 MB に設定しても消費は止まらない点にご注意ください</title>
-    <updated>2026-04-28T12:33:21.962Z</updated>
+    <updated>2026-05-26T09:27:38.336Z</updated>
   </entry>
   <entry>
     <author>
@@ -63,7 +109,7 @@
 <h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>こんにちは、Power Platformサポートチームの吉永です。<br>]]>
     </summary>
     <title>Power Pages トラブルシューティング ガイド</title>
-    <updated>2026-04-28T12:33:21.901Z</updated>
+    <updated>2026-05-26T09:27:38.269Z</updated>
   </entry>
   <entry>
     <author>
@@ -89,7 +135,7 @@
 <p><a href="https://learn.microsoft.com/en-us/power-platform/admin/automatic-environment-cleanup">Automatic deletion of Power Platform environments (英語)</a><br><a href="https://learn.microsoft.com/ja-jp/power-platform/admin/automatic-environment-cleanup">Power Platform 環境の自動削除 (日本語)</a></p>]]>
     </summary>
     <title>サブスクリプション期限切れ時の Power Platform 環境の無効化・削除フロー</title>
-    <updated>2026-04-28T12:33:22.000Z</updated>
+    <updated>2026-05-26T09:27:38.377Z</updated>
   </entry>
   <entry>
     <author>
@@ -116,7 +162,7 @@
 <li><a href="#q1">]]>
     </summary>
     <title>Power Platform パイプライン機能の概要・権限・運用ガイド</title>
-    <updated>2026-04-28T12:33:22.011Z</updated>
+    <updated>2026-05-26T09:27:38.389Z</updated>
   </entry>
   <entry>
     <author>
@@ -142,7 +188,7 @@
 <li>]]>
     </summary>
     <title>Dataverse for Teams 環境の自動作成と削除の仕組みまとめ</title>
-    <updated>2026-04-28T12:33:21.962Z</updated>
+    <updated>2026-05-26T09:27:38.336Z</updated>
   </entry>
   <entry>
     <author>
@@ -179,7 +225,7 @@
 </blockquote>]]>
     </summary>
     <title>外部アプリから Dataverse の TDS endpoint に接続できないときの確認ポイント</title>
-    <updated>2026-04-28T12:33:22.011Z</updated>
+    <updated>2026-05-26T09:27:38.389Z</updated>
   </entry>
   <entry>
     <author>
@@ -209,7 +255,7 @@
 </ul>]]>
     </summary>
     <title>Dataverse 容量不足を解消！一括削除機能の使い方と注意点まとめ</title>
-    <updated>2026-04-28T12:33:21.961Z</updated>
+    <updated>2026-05-26T09:27:38.335Z</updated>
   </entry>
   <entry>
     <author>
@@ -241,7 +287,7 @@
 </ul>]]>
     </summary>
     <title>Power Pages 認証キーの更新ガイド</title>
-    <updated>2026-04-28T12:33:21.900Z</updated>
+    <updated>2026-05-26T09:27:38.267Z</updated>
   </entry>
   <entry>
     <author>
@@ -264,7 +310,7 @@
 <p>ソリューションは、アプリやフロー、テーブルなどのコンポーネントをまとめて管理・移行するための仕組みです。<br>適切に設計・運用することで、変更管理や環境間の展開がスムーズになります。</p>]]>
     </summary>
     <title>Power Platform ソリューション運用のベストプラクティス</title>
-    <updated>2026-04-28T12:33:22.026Z</updated>
+    <updated>2026-05-26T09:27:38.406Z</updated>
   </entry>
   <entry>
     <author>
@@ -297,7 +343,7 @@
 </ul>]]>
     </summary>
     <title>Power Platform 管理者向け PowerShell でできること代表例まとめ</title>
-    <updated>2026-04-28T12:33:22.011Z</updated>
+    <updated>2026-05-26T09:27:38.389Z</updated>
   </entry>
   <entry>
     <author>
@@ -330,7 +376,7 @@
     <title>
       <![CDATA[Dataverse Search のストレージ内訳と削減の考え方（Q&Aガイド）]]>
     </title>
-    <updated>2026-04-28T12:33:21.964Z</updated>
+    <updated>2026-05-26T09:27:38.337Z</updated>
   </entry>
   <entry>
     <author>
@@ -339,8 +385,8 @@
       </name>
     </author>
     <category term="Power Apps" scheme="https://jpdynamicscrm.github.io/blog/categories/Power-Apps/"/>
-    <category term="Canvas app" scheme="https://jpdynamicscrm.github.io/blog/tags/Canvas-app/"/>
     <category term="Power Apps" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Apps/"/>
+    <category term="Canvas app" scheme="https://jpdynamicscrm.github.io/blog/tags/Canvas-app/"/>
     <category term="SharePoint" scheme="https://jpdynamicscrm.github.io/blog/tags/SharePoint/"/>
     <category term="Mobile" scheme="https://jpdynamicscrm.github.io/blog/tags/Mobile/"/>
     <content>
@@ -360,7 +406,7 @@
 </ol>]]>
     </summary>
     <title>モバイル端末で SharePoint をソースにしたキャンバスアプリの画像やメディアが表示されない場合の対処方法</title>
-    <updated>2026-04-28T12:33:21.695Z</updated>
+    <updated>2026-05-26T09:27:38.049Z</updated>
   </entry>
   <entry>
     <author>
@@ -384,7 +430,7 @@
 <p>本記事では、Dynamics 365 に関するお問い合わせの際に必要となる情報の取得手順をご説明します。<br>適切な情報をご提供いただくことで、問題の早期解決につながります。</p>]]>
     </summary>
     <title>Dynamics 365 トラブルシューティングのための情報収集ガイド</title>
-    <updated>2026-04-28T12:33:21.964Z</updated>
+    <updated>2026-05-26T09:27:38.338Z</updated>
   </entry>
   <entry>
     <author>
@@ -413,7 +459,7 @@
 <p>今回は、日付列（フィールド）の「動作 (Behavior)」と「書式 (Format)」の組み合わせによるデータの格納され方の違いと、設定変更時の注意点について、実際の検証結果を交えて解説します。</p>]]>
     </summary>
     <title>Dataverse (Dynamics 365) における日付フィールドの動作とタイムゾーンの考慮点について</title>
-    <updated>2026-04-28T12:33:21.964Z</updated>
+    <updated>2026-05-26T09:27:38.338Z</updated>
   </entry>
   <entry>
     <author>
@@ -441,7 +487,7 @@
 <p>今回は、Power Platform 環境でできるアクティブレイヤーの確認・削除方法についてご紹介いたします。</p>]]>
     </summary>
     <title>アクティブレイヤーの確認・削除方法</title>
-    <updated>2026-04-28T12:33:21.952Z</updated>
+    <updated>2026-05-26T09:27:38.325Z</updated>
   </entry>
   <entry>
     <author>
@@ -465,7 +511,7 @@
       <![CDATA[<p>こんにちは。Power Platform サポートの大友、竹内です。<br>本記事では Power Automate for desktop 関連のお問い合わせの際の、情報取得手順についてご案内いたします。</p>]]>
     </summary>
     <title>Power Automate for desktop お問い合わせの際の情報取得手順</title>
-    <updated>2026-04-28T12:33:21.859Z</updated>
+    <updated>2026-05-26T09:27:38.223Z</updated>
   </entry>
   <entry>
     <author>
@@ -496,7 +542,7 @@
 </ul>]]>
     </summary>
     <title>Power Pages ライセンスについて</title>
-    <updated>2026-04-28T12:33:21.901Z</updated>
+    <updated>2026-05-26T09:27:38.269Z</updated>
   </entry>
   <entry>
     <author>
@@ -525,50 +571,6 @@
 </ul>]]>
     </summary>
     <title>モデル駆動型アプリ削除ガイド</title>
-    <updated>2026-04-28T12:33:21.786Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>
-        <![CDATA[Japan Dynamics CRM & Power Platform Support Team]]>
-      </name>
-    </author>
-    <category term="Power Platform Admin Center" scheme="https://jpdynamicscrm.github.io/blog/categories/Power-Platform-Admin-Center/"/>
-    <category term="Power Platform" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Platform/"/>
-    <category term="Connector and Connection" scheme="https://jpdynamicscrm.github.io/blog/tags/Connector-and-Connection/"/>
-    <content>
-      <![CDATA[<p>こんにちは、Power Platform サポートチームの宮﨑です。<br>本記事では、DLP ポリシーに関する様々な Q&amp;A についてご案内いたします。</p><span id="more"></span><ul><li><a href="#%E7%9B%AE%E6%AC%A1">目次</a></li><li><a href="#%E6%A6%82%E8%A6%81">概要</a><ul><li><a href="#anchor-about-dlp">Q1. DLP ポリシーとは</a></li><li><a href="#anchor-multi-dlp-applied">Q2. 個別環境に複数の DLP ポリシーが適用された場合</a></li><li><a href="#anchor-dlp-edit-history">Q3. DLP ポリシーの変更履歴を確認する方法</a></li><li><a href="#anchor-default-new-connector-classification">Q4. 新しいコネクタが追加されたときの分類</a></li><li><a href="#anchor-export-all-connectors">Q5. DLP ポリシーに設定されているコネクタの一覧を出力する</a></li><li><a href="#anchor-time-to-be-applied">Q6. DLP ポリシーを作成してから適用されるまでの時間</a></li><li><a href="#anchor-affect-to-app-flow">Q7. アプリとフローへの DLP ポリシーの影響</a><ul><li><a href="#anchor-affect-to-app-flow-create">1. アプリやフローを設計する段階での影響</a></li><li><a href="#anchor-affect-to-app-flow-run">2. アプリやフローを実行する段階での影響</a></li></ul></li></ul></li><li><a href="#%E8%A3%9C%E8%B6%B3">補足</a></li></ul><p><a id='概要'></a></p><h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>今回はよくあるお問い合わせとして、DLP ポリシーに関する様々な Q&amp;A についてご案内いたします。</p><p><a id='anchor-about-dlp'></a></p><h1 id="Q1-DLP-ポリシーとは"><a href="#Q1-DLP-ポリシーとは" class="headerlink" title="Q1. DLP ポリシーとは"></a>Q1. DLP ポリシーとは</h1><p>DLP ポリシーとは、「Data Loss Prevention (データ損失防止) ポリシー」の略で、企業や組織の重要なデータを守るための仕組みです。</p><p>Power Platform では、様々な「コネクタ」を使用して Microsoft 365 や 外部サービスとデータをやり取りすることが可能です。<br>便利な反面、誤って社内機密を外部に送ってしまうというリスクも存在しています。</p><p>DLP ポリシーはこのようなリスクを防ぐために、コネクタの利用範囲を制限することができます。<br>具体的には、「社内データは SharePoint や Outlook などのビジネスコネクタだけと連携可能」や、「SNS系コネクタは使用禁止」というルールを設定できます。</p><p>(参考：<a href="https://learn.microsoft.com/ja-jp/power-platform/admin/wp-data-loss-prevention">データの消失防止 (DLP) ポリシー</a>)</p><p><a id='anchor-multi-dlp-applied'></a></p><h1 id="Q2-個別環境に複数の-DLP-ポリシーが適用された場合"><a href="#Q2-個別環境に複数の-DLP-ポリシーが適用された場合" class="headerlink" title="Q2. 個別環境に複数の DLP ポリシーが適用された場合"></a>Q2. 個別環境に複数の DLP ポリシーが適用された場合</h1><p>ある環境に対して、テナント全体に適用される DLP ポリシーとその環境のみに適用される DLP ポリシーが存在した場合の挙動について、詳細をご説明します。</p><h2 id="評価の基本ルール"><a href="#評価の基本ルール" class="headerlink" title="評価の基本ルール"></a>評価の基本ルール</h2><ol><li><p>すべての DLP ポリシーが同時に評価され、<strong>最も制限の厳しい設定が優先</strong>されます。<br>特に「ブロック済み」に分類されているコネクタは、他の DLP ポリシーで許可されている場合でも使用はできません。<br>例えば、全体に適用されている DLP ポリシーにおいて HTTP コネクタが「ブロック済み」に分類されている場合、<br>個別環境の DLP ポリシーで許可されていたとしても、使用することはできません。</p></li><li><p>同じコネクタが、ある DLP ポリシーでは「業務」、別の DLP ポリシーでは「非ビジネス」と分類されていた場合：<br> そのコネクタは <strong>単体では使用可能ですが、他のコネクタと一緒に使うことができなくなります</strong>。<br> これは、Power Platform ではアプリやフロー内で使用されるすべてのコネクタが、同じ「分類グループ」に属している必要があるためです。</p><p> 具体的には：</p><ul><li>「業務」に分類されているコネクタ同士は 併用可能</li><li>「非ビジネス」に分類されているコネクタ同士は 併用可能</li><li>「業務」と「非ビジネス」にまたがるコネクタは <strong>併用不可</strong></li></ul><p> となっています。</p></li></ol><p>(参考：<a href="https://learn.microsoft.com/ja-jp/power-platform/admin/dlp-combined-effect-multiple-policies">Microsoft Learn - DLP ポリシーの組み合わせ効果</a>)</p><h2 id="実際の例"><a href="#実際の例" class="headerlink" title="実際の例"></a>実際の例</h2><p>以降では、簡単な例を用いてより具体的な挙動について解説します。</p><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>テナント全体に適用されている DLP ポリシーをグループ A 、個別環境に適用されている DLP ポリシーをグループ B という前提のもと、進めていきます。</p><h3 id="実際の挙動"><a href="#実際の挙動" class="headerlink" title="実際の挙動"></a>実際の挙動</h3><p>こちらが、グループＡとグループＢでのコネクタ分類と、それに基づく実際の挙動をまとめた表になります。</p><table><thead><tr><th>コネクタ名</th><th>グループＡ (全体 DLP)</th><th>グループＢ (個別 DLP)</th><th>個別環境での実際の挙動</th></tr></thead><tbody><tr><td>Salesforce</td><td>業務</td><td>ブロック済み</td><td>使用不可(「ブロック済み」が優先)</td></tr><tr><td>Dropbox</td><td>ブロック済み</td><td>非ビジネス</td><td>使用不可(「ブロック済み」が優先)</td></tr><tr><td>Excel Online (Business)</td><td>業務</td><td>業務</td><td>他の「業務」コネクタとの併用可能</td></tr><tr><td>Office 365 Outlook</td><td>非ビジネス</td><td>非ビジネス</td><td>他の「非ビジネス」コネクタとの併用可能</td></tr><tr><td>SharePoint</td><td>業務</td><td>非ビジネス</td><td>単体使用は可能。他のコネクタとの併用不可。</td></tr></tbody></table><p>このように、<strong>同じコネクタでもポリシーごとに分類が異なる場合、アプリやフロー内でのコネクタ使用に制限が生じてしまいます</strong>。<br>そのため、環境に適用する DLP ポリシーの数は最小限に抑えることが推奨されております。<br>また、同じコネクタに対して異なる分類 (業務／非ビジネス／ブロック済み) を設定しないようご留意ください。</p><p><a id='anchor-dlp-edit-history'></a></p><h1 id="Q3-設定した-DLP-ポリシーの変更履歴を確認する方法"><a href="#Q3-設定した-DLP-ポリシーの変更履歴を確認する方法" class="headerlink" title="Q3. 設定した DLP ポリシーの変更履歴を確認する方法"></a>Q3. 設定した DLP ポリシーの変更履歴を確認する方法</h1><p>DLP ポリシーの変更内容については、<strong>Microsoft Purview</strong> の「<strong>監査ログ</strong>」から確認いただけます。</p><p>以下の手順で変更履歴を取得することが可能です。</p><ol><li>アクセス権をもつアカウントで、Microsoft Purview 管理センターにアクセスしてください。</li><li>「監査＞検索」を選択し、「アクティビティ – 操作名」に「GovernanceApiPolicyOperation」を入力してください。</li><li>検索対象となる時間範囲を指定して「検索」を選択いただくことで、指定の時間範囲内の DLP ポリシーの変更履歴を確認することが可能です。</li></ol><p><img src="/blog/powerplatform/overlapped-dlppolicy/purview-log.png"></p><p>表示されますデータの例等の詳細につきましては、下記の公開情報をご参照ください。<br><br>(参考：<a href="https://learn.microsoft.com/ja-jp/power-platform/admin/admin-activity-logging#activity-category-data-policy-events">Microsoft Learn - Microsoft Purview のソリューションの概要を使用して Power Platform 管理ログを表示する</a>)</p><p><a id='anchor-default-new-connector-classification'></a></p><h1 id="Q4-新しいコネクタが追加されたときの分類"><a href="#Q4-新しいコネクタが追加されたときの分類" class="headerlink" title="Q4. 新しいコネクタが追加されたときの分類"></a>Q4. 新しいコネクタが追加されたときの分類</h1><p>新しいコネクタがリリースされたとき、そのコネクタは<strong>既定グループ</strong>に分類されます。<br><br>既定グループは、デフォルトで「<strong>非ビジネス</strong>」グループとなっております。</p><p><img src="/blog/powerplatform/overlapped-dlppolicy/image.png"></p><p>DLP ポリシーを作成するにあたって、任意のコネクタを他のグループに移動することはできますが、<br>最初から既定グループ以外に分類されるコネクタはございません。</p><p>既定グループを変更されたい場合は、以下の公開情報に手順がございますので、ご参照ください。<br><br>(参考：<a href="https://learn.microsoft.com/ja-jp/power-platform/admin/prevent-data-loss?tabs=new#change-the-default-data-group">Microsoft Learn - データポリシーを管理する</a>)</p><p><a id='anchor-export-all-connectors'></a></p><h1 id="Q5-DLP-ポリシーに設定されているコネクタの一覧を出力する"><a href="#Q5-DLP-ポリシーに設定されているコネクタの一覧を出力する" class="headerlink" title="Q5. DLP ポリシーに設定されているコネクタの一覧を出力する"></a>Q5. DLP ポリシーに設定されているコネクタの一覧を出力する</h1><p>以下のブログにて、DLP ポリシーに設定されたコネクタの一覧を CSV ファイルに出力する方法をご案内しておりますので、ご参照ください。</p><p><a href="https://jpdynamicscrm.github.io/blog/powerplatform/Output-dlp-policy-connector-list/">DLP ポリシーに設定されているコネクタの一覧を出力する | Japan Dynamics CRM &amp; Power Platform Support Blog</a></p><p><a id='anchor-time-to-be-applied'></a></p><h1 id="Q6-DLP-ポリシーを作成してから適用されるまでの時間"><a href="#Q6-DLP-ポリシーを作成してから適用されるまでの時間" class="headerlink" title="Q6. DLP ポリシーを作成してから適用されるまでの時間"></a>Q6. DLP ポリシーを作成してから適用されるまでの時間</h1><p>DLP ポリシーを作成してから、実際に適用されるようになるまでに<strong>最大 24 時間</strong>かかります。</p><p>ほとんどの場合、1 時間ほどで反映されますが、ポリシーの適用範囲によっても変動いたします。<br>ご使用のアプリ、フローの数が多いほど、変更が完全に有効になるまでの時間が長くなります。</p><p>公開情報については、以下をご参照ください。<br><br>(参考：<a href="https://learn.microsoft.com/ja-jp/power-platform/admin/wp-data-loss-prevention#latency-considerations">Microsoft Learn - 待機時間に関する考慮事項</a>)</p><p><a id='anchor-affect-to-app-flow'></a></p><h1 id="Q7-アプリとフローへの-DLP-ポリシーの影響"><a href="#Q7-アプリとフローへの-DLP-ポリシーの影響" class="headerlink" title="Q7. アプリとフローへの DLP ポリシーの影響"></a>Q7. アプリとフローへの DLP ポリシーの影響</h1><p>DLP ポリシーの追加・更新により、既存のアプリやフローにどのような影響がありうるかをご案内いたします。</p><p><a id='anchor-affect-to-app-flow-create'></a></p><h2 id="1-アプリやフローを設計する段階での影響"><a href="#1-アプリやフローを設計する段階での影響" class="headerlink" title="1. アプリやフローを設計する段階での影響"></a>1. アプリやフローを設計する段階での影響</h2><p>アプリやフローを構築する際、同じグループに属さないコネクタや、ポリシーでブロックされたコネクタを追加しようとすると、以下のようなエラーメッセージが表示されます。</p><p><img src="/blog/powerplatform/overlapped-dlppolicy/image2.png"></p><p><a id='anchor-affect-to-app-flow-run'></a></p><h2 id="2-アプリやフローを実行する段階への影響"><a href="#2-アプリやフローを実行する段階への影響" class="headerlink" title="2. アプリやフローを実行する段階への影響"></a>2. アプリやフローを実行する段階への影響</h2><p>アプリやフローは、作成当時の DLP ポリシーに従って設計されています。<br>DLP ポリシーが更新されると、<strong>更新後の DLP ポリシーで再評価されます</strong>。<br>その結果、それまでには問題がなかったアプリやフローの構成が違反として扱われる場合があります。</p><p>最新の DLP ポリシーに違反しているアプリやフローを実行しようとすると、以下のような状態になります。</p><ul><li><p>Power Automate の場合<br><strong>違反するフローは実行できなくなり、「中断（Suspended）」状態</strong> になります。<br>この状態では、DLP ポリシー違反を解消するまで、フローは実行できません。</p></li><li><p>Power Apps の場合<br>同じグループに属さないコネクタや、ブロックされたコネクタを含む<strong>アプリを開くことはできなくなります</strong>。</p></li></ul><p>(参考：<a href="https://learn.microsoft.com/ja-jp/power-platform/admin/dlp-impact-policies-apps-flows">Microsoft Learn - アプリとフローへのデータ ポリシーの影響</a>)</p><hr><p><a id='補足'></a></p><h1 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h1><p>本手順は執筆時点でのユーザー インターフェイスを基に紹介しています。<br>バージョンアップによって UI の遷移などが若干異なる場合があります。<br>その場合は画面の指示に従って進めてください。</p>]]>
-    </content>
-    <id>https://jpdynamicscrm.github.io/blog/powerplatform/overlapped-dlppolicy/</id>
-    <link href="https://jpdynamicscrm.github.io/blog/powerplatform/overlapped-dlppolicy/"/>
-    <published>2025-09-12T03:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは、Power Platform サポートチームの宮﨑です。<br>本記事では、DLP ポリシーに関する様々な Q&amp;A についてご案内いたします。</p>]]>
-    </summary>
-    <title>
-      <![CDATA[DLP ポリシーに関する様々な Q&A について]]>
-    </title>
-    <updated>2026-04-28T12:33:22.010Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>
-        <![CDATA[Japan Dynamics CRM & Power Platform Support Team]]>
-      </name>
-    </author>
-    <category term="Microsoft Copilot Studio" scheme="https://jpdynamicscrm.github.io/blog/categories/Microsoft-Copilot-Studio/"/>
-    <category term="Power Platform" scheme="https://jpdynamicscrm.github.io/blog/tags/Power-Platform/"/>
-    <category term="Microsoft Copilot Studio" scheme="https://jpdynamicscrm.github.io/blog/tags/Microsoft-Copilot-Studio/"/>
-    <content>
-      <![CDATA[<p>こんにちは。Power Platform サポートチームの 網野 です。<br>今回は Copilot Studio でエージェントを作成できるユーザーに必要な権限についてご紹介します。</p><span id="more"></span><h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>Copilot Studioでエージェントを作成できるユーザーに、どのような権限が必要なのかを解説します。</p><p>ご留意点として、Copilot Studio は 2025 年 9 月現在、早いスピードで日々機能開発が進んでいます。そのため、実際にご利用いただく際は必ず最新の公開情報を参照していただけますようお願い申し上げます。</p><h2 id="Copilot-Studioでエージェント作成に必要な権限とは？"><a href="#Copilot-Studioでエージェント作成に必要な権限とは？" class="headerlink" title="Copilot Studioでエージェント作成に必要な権限とは？"></a>Copilot Studioでエージェント作成に必要な権限とは？</h2><p>Copilot Studio でエージェントを作成するには、ユーザーに <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing#copilot-studio-use-rights-included-with-microsoft-365-copilot-license">Copilot Studio へのアクセス権</a>と、対象環境でリソースを作成するための<a href="https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/admin-share-bots?tabs=web#assign-environment-security-roles">セキュリティロール</a>が割り当てられている必要があります。<br>この2つの権限が揃っていないと、エージェントの作成や管理ができません。</p><h3 id="Copilot-Studio-へのアクセス権"><a href="#Copilot-Studio-へのアクセス権" class="headerlink" title="Copilot Studio へのアクセス権"></a>Copilot Studio へのアクセス権</h3><p>Copilot Studio ポータルにアクセスするためには、ユーザーに以下のいずれかのライセンスまたはロールが必要です。<br>※以下のいずれかに該当するとアクセスできるようになります。</p><ul><li>Copilot Studio ユーザーライセンス</li><li>Copilot Studio 試用版ライセンス</li><li>Microsoft 365 Copilot ライセンス</li><li>Power Platform 管理センター テナント設定の「Copilot Studio 作成者」ロール（※）<blockquote><p>※ 従量課金のみのライセンスでエージェントを作成する際に必要なロールです。<br>詳細は<a href="#%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E6%A8%A9%E3%81%AE%E8%A9%B3%E7%B4%B0">アクセス権の詳細</a>で説明します。</p></blockquote></li></ul><h3 id="対象環境でリソースを作成するためのセキュリティロール"><a href="#対象環境でリソースを作成するためのセキュリティロール" class="headerlink" title="対象環境でリソースを作成するためのセキュリティロール"></a>対象環境でリソースを作成するためのセキュリティロール</h3><p>エージェントを作成するためには、エージェントを作成する環境に対してセキュリティロールが必要となります。<br>リソースを作成するために必要なセキュリティロールは以下になります。</p><ul><li>環境作成者</li><li>システムカスタマイザー</li><li>システム管理者</li></ul><blockquote><p>※ 詳細は公開情報を参照ください。<br><a href="https://learn.microsoft.com/ja-jp/power-apps/maker/canvas-apps/sign-in-to-power-apps#filter-environments-by-role">https://learn.microsoft.com/ja-jp/power-apps/maker/canvas-apps/sign-in-to-power-apps#filter-environments-by-role</a></p></blockquote><h2 id="アクセス権の詳細"><a href="#アクセス権の詳細" class="headerlink" title="アクセス権の詳細"></a>アクセス権の詳細</h2><h3 id="Copilot-Studio-ユーザーライセンス"><a href="#Copilot-Studio-ユーザーライセンス" class="headerlink" title="Copilot Studio ユーザーライセンス"></a>Copilot Studio ユーザーライセンス</h3><p>Copilot Studio メッセージパックに含まれるライセンスで、<a href="https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/requirements-licensing?tabs=web#assign-licenses-to-users">Microsoft 365 管理センター等から付与</a>することができます。<br>Copilot Studio の使用権が含まれています。</p><h3 id="Copilot-Studio-試用版ライセンス"><a href="#Copilot-Studio-試用版ライセンス" class="headerlink" title="Copilot Studio 試用版ライセンス"></a>Copilot Studio 試用版ライセンス</h3><p><a href="https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/sign-up-individual">ユーザーがセルフサービスサインアップで取得できる</a>期間限定のライセンスです。<br>有償ライセンスを購入いただく前のお試し用として、Copilot Studio ユーザーライセンスと同じ機能が利用できます。</p><h3 id="Microsoft-365-Copilot-ライセンス"><a href="#Microsoft-365-Copilot-ライセンス" class="headerlink" title="Microsoft 365 Copilot ライセンス"></a>Microsoft 365 Copilot ライセンス</h3><p>Copilot Studio を通じて <a href="https://learn.microsoft.com/ja-jp/copilot/microsoft-365/microsoft-365-copilot-overview">Microsoft 365 Copilot</a> を拡張することができるため、Microsoft 365 Copilot ライセンスを持つユーザーは Copilot Studio を利用することができます。  </p><p><a href="https://learn.microsoft.com/ja-jp/copilot/microsoft-365/microsoft-365-copilot-setup#step-2---provision-microsoft-365-copilot-licenses">Microsoft 365 管理センター等から付与</a>することができます。　<br>Copilot Studio だけなく、Microsoft 365 Copilot の使用権が含まれています。</p><div class="alert is-important"><p class="alert-title">重要</p><p>Copilot Studio にアクセスさせるためには、「Copilot Studio in Copilot for M365」サービスを有効にする必要があります。</p><p><img src="/blog/copilotstudio/how-to-block-access-mcsportal/m365copilot.png"></p></div><h3 id="Power-Platform-管理センター-テナント設定の「Copilot-Studio-作成者」ロール"><a href="#Power-Platform-管理センター-テナント設定の「Copilot-Studio-作成者」ロール" class="headerlink" title="Power Platform 管理センター テナント設定の「Copilot Studio 作成者」ロール"></a>Power Platform 管理センター テナント設定の「Copilot Studio 作成者」ロール</h3><p>従量課金環境のみを利用して Copilot Studio を利用するユーザー向けに用意された機能が「Copilot Studio 作成者」機能です。<br>他のユーザーに付与するライセンスと異なり、ユーザーごとにライセンスを付与する必要はありません。<br>Copilot Studio でエージェントを作成したいユーザーをセキュリティグループに追加し、Copilot Studio へのアクセスを許可します。</p><p>作成手順</p><ol><li>Azure ポータルでセキュリティグループを作成します。</li><li>Copilot Studio へのアクセスを許可したいユーザーをセキュリティグループに追加します。<br><img src="/blog/copilotstudio/how-to-block-access-mcsportal/securitygroup.png"></li><li><a href="https://admin.powerplatform.microsoft.com/manage/tenantsettings">Power Platform 管理センターのテナント設定</a>を開きます。</li><li>「Copilot Studio 作成者」を選択し、作成したセキュリティグループを設定します。<br><img src="/blog/copilotstudio/how-to-block-access-mcsportal/tenant_setting.png"></li></ol><h2 id="よくある質問"><a href="#よくある質問" class="headerlink" title="よくある質問"></a>よくある質問</h2><h3 id="テナント設定の「Copilot-Studio-作成者」に設定したセキュリティグループに属さないユーザーは、Copilot-Studio-にアクセスできないようになりますか。"><a href="#テナント設定の「Copilot-Studio-作成者」に設定したセキュリティグループに属さないユーザーは、Copilot-Studio-にアクセスできないようになりますか。" class="headerlink" title="テナント設定の「Copilot Studio 作成者」に設定したセキュリティグループに属さないユーザーは、Copilot Studio にアクセスできないようになりますか。"></a>テナント設定の「Copilot Studio 作成者」に設定したセキュリティグループに属さないユーザーは、Copilot Studio にアクセスできないようになりますか。</h3><p>いいえ、「Copilot Studio 作成者」に設定したセキュリティグループに属さないユーザーも、ユーザーライセンスを持っていれば Copilot Studio にアクセスできます。</p><h3 id="Copilot-Studio-にアクセスできないユーザーは-Copilot-Studio-で作成したエージェントを利用することができますか"><a href="#Copilot-Studio-にアクセスできないユーザーは-Copilot-Studio-で作成したエージェントを利用することができますか" class="headerlink" title="Copilot Studio にアクセスできないユーザーは Copilot Studio で作成したエージェントを利用することができますか"></a>Copilot Studio にアクセスできないユーザーは Copilot Studio で作成したエージェントを利用することができますか</h3><p>はい、利用できます。エージェントの利用者は、Copilot Studio にアクセスできる必要はありません。<br>ただし、Teams やカスタム Web サイトなど、エージェントを公開した場所にアクセスできる必要がございます。<br><a href="https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/requirements-licensing?tabs=web">https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/requirements-licensing?tabs=web</a><br><img src="/blog/copilotstudio/how-to-block-access-mcsportal/c2licensing.png"></p><h3 id="環境ごとにエージェントの作成を制限することはできますか"><a href="#環境ごとにエージェントの作成を制限することはできますか" class="headerlink" title="環境ごとにエージェントの作成を制限することはできますか"></a>環境ごとにエージェントの作成を制限することはできますか</h3><p>現時点では、エージェントの作成を制御するための機能はありません。<br><a href="https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/security-faq#can-i-disable-microsoft-copilot-studio-agent-creation-in-my-organization">https://learn.microsoft.com/ja-jp/microsoft-copilot-studio/security-faq#can-i-disable-microsoft-copilot-studio-agent-creation-in-my-organization</a><br><img src="/blog/copilotstudio/how-to-block-access-mcsportal/control.png"></p><p>ただし、既定環境以外の環境では、 [対象環境でリソースを作成するためのセキュリティロール]を付与しないことで、環境へのアクセスを制御することが可能です。</p><div class="alert is-info"><p class="alert-title">Note</p><p>※ 既定環境では、「環境作成者」ロールが自動付与されるため、アクセスを制御することはできません。</p></div>]]>
-    </content>
-    <id>https://jpdynamicscrm.github.io/blog/copilotstudio/how-to-block-access-mcsportal/</id>
-    <link href="https://jpdynamicscrm.github.io/blog/copilotstudio/how-to-block-access-mcsportal/"/>
-    <published>2025-09-10T04:30:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは。Power Platform サポートチームの 網野 です。<br>今回は Copilot Studio でエージェントを作成できるユーザーに必要な権限についてご紹介します。</p>]]>
-    </summary>
-    <title>Copilot Studio エージェントの作成に必要な権限について</title>
-    <updated>2026-04-28T12:33:21.758Z</updated>
+    <updated>2026-05-26T09:27:38.144Z</updated>
   </entry>
 </feed>
