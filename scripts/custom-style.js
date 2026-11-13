@@ -245,4 +245,8 @@ hexo.extend.filter.register('before_generate', () => {
   }).catch(function () {});
 })();
 </script>`);
+  // 11. 日付をリンクにしない (テーマは日付を記事へのリンクにしており、日付に関する一覧が開くように見えるため)
+  hexo.theme.setView('_partial/post/date.ejs', `<span class="<%= class_name %>">
+  <time datetime="<%= date_xml(post.date) %>" itemprop="datePublished"><%= date(post.date, date_format) %></time>
+</span>`);
 });
