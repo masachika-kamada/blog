@@ -13,8 +13,8 @@
   --accent: #0f6e7a;
   --accent-soft: #e6f4f3;
   --radius: 12px;
-  /* Windows は Segoe UI と Yu Gothic UI、Mac はヒラギノで表示する */
-  --font: "Segoe UI Variable Text", "Segoe UI", "Yu Gothic UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", Meiryo, sans-serif;
+  /* 英数字は Segoe UI、日本語は Windows ではメイリオ、Mac ではヒラギノで表示する */
+  --font: "Segoe UI Variable Text", "Segoe UI", Meiryo, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
 }
 
 body, #wrap { background: var(--bg); font-family: var(--font); color: var(--text); }
