@@ -16,6 +16,8 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         submodules: true
+        # 記事の更新日を Git の履歴から求めるため、履歴をすべて取得する
+        fetch-depth: 0
 
     - name: build-blog
       uses: cssjpn/blog-gh-actions/build-blog@f65dba3f8bd7ce4cfb992226a7bde86508d2e769 # v1.0.4
