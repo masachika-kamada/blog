@@ -192,7 +192,12 @@ hexo.extend.filter.register('before_generate', () => {
   patchView('_partial/all-articles-post.ejs', [["'YYYY/ M / D'", "'YYYY-MM-DD'"]]);
 
   // 8. 表示の日本語化
-  patchView('_partial/article.ejs', [['Published: ', '公開日: '], ['>feedback</a>', '>フィードバック</a>']]);
+  patchView('_partial/article.ejs', [
+    // 「公開日:」と日付を 1 つにまとめ、更新日・執筆者と同じ高さにそろえる
+    ['Published: ', '<span class="article-published">公開日: '],
+    ["{class_name: 'article-date-single', date_format: null}) %>", "{class_name: 'article-date-single', date_format: null}) %></span>"],
+    ['>feedback</a>', '>フィードバック</a>'],
+  ]);
   patchView('_partial/post/githubinfo.ejs', [['/ Last update:', '/ 更新日:'], ['/ Contributors:', '/ 執筆者:']]);
   hexo.theme.config.excerpt_link = '続きを読む';
   hexo.theme.config.menu = { 'ホーム': '/', '記事一覧': 'archives' };
