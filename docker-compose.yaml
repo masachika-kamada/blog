@@ -8,6 +8,7 @@ services:
     volumes:
       - "./articles:/blog/articles"
       - "./source:/blog/source"
+      - "./scripts:/blog/scripts"
       - "./themes:/blog/themes"
       - "./_config.yml:/blog/_config.yml"
       - "./github-issue-template.md:/blog/github-issue-template.md"
