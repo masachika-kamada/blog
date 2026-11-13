@@ -1,0 +1,56 @@
+name: check-image-size
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-image-size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Warn about large images
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.event.pull_request.head.sha }}"
+          common_ancestor=$(git merge-base "${base_sha}" "${head_sha}")
+
+          # ---------------------------------------------------------
+          # Goal: Warn (never fail) when an added or modified image
+          # under articles/ is larger than LIMIT_KB, so authors notice
+          # before heavy images slow down the page.
+          # Large images are still allowed when they are really needed.
+          # ---------------------------------------------------------
+          LIMIT_KB=1024
+
+          mapfile -t files < <(git diff --name-only --diff-filter=AMR "${common_ancestor}" "${head_sha}" -- 'articles/**')
+
+          warned=0
+          for path in "${files[@]}"; do
+            case "${path,,}" in
+              *.png|*.jpg|*.jpeg|*.gif) ;;
+              *) continue ;;
+            esac
+            [[ -f "$path" ]] || continue
+
+            size_kb=$(( $(stat -c %s "$path") / 1024 ))
+            if (( size_kb > LIMIT_KB )); then
+              echo "::warning file=$path::画像が ${size_kb} KB あります (目安: ${LIMIT_KB} KB 以下)。表示が遅くなるため、可能であれば圧縮してください。大きな画像が必要な場合は、このままマージしてかまいません。"
+              warned=1
+            fi
+          done
+
+          if [[ $warned -eq 0 ]]; then
+            echo "OK: no image exceeds ${LIMIT_KB} KB."
+          fi
